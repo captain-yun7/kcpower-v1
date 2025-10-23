@@ -4,64 +4,109 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-[#0a0e1a]">
       <Header />
 
       {/* Hero Section */}
-      <section className="relative pt-20 pb-32 px-4 bg-gradient-to-br from-blue-50 to-white overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div className="pt-12">
-              <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                Innovation in<br />
-                every motion,<br />
-                <span className="text-blue-600">revolutionizing</span><br />
-                the way we work
-              </h1>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                협동로봇의 새로운 기준, 두산로보틱스<br />
-                안전하고 편리한 협업 로봇으로 작업 환경을 혁신합니다
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="/products"
-                  className="px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold shadow-lg shadow-blue-600/30"
-                >
-                  제품 둘러보기
-                </Link>
-                <Link
-                  href="/contact"
-                  className="px-8 py-4 bg-white text-gray-900 border-2 border-gray-300 rounded-lg hover:border-blue-600 hover:text-blue-600 transition-colors font-semibold"
-                >
-                  구매 문의하기
-                </Link>
+      <section className="relative min-h-screen flex items-center justify-center bg-[#0a0e1a] overflow-hidden">
+        {/* Background with robot image effect */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1a1f3a]/50 to-[#0a0e1a]">
+          <div className="absolute inset-0 opacity-30">
+            {/* Robot silhouette placeholder - 실제로는 이미지나 비디오 */}
+            <div className="absolute right-[10%] top-1/2 -translate-y-1/2 w-[500px] h-[500px]">
+              <div className="relative w-full h-full">
+                <div className="absolute inset-0 bg-gradient-radial from-blue-500/20 via-transparent to-transparent blur-3xl"></div>
+                <svg className="w-full h-full text-white/10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={0.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                </svg>
               </div>
-            </div>
-
-            {/* Right Image Placeholder */}
-            <div className="relative">
-              <div className="aspect-square bg-gradient-to-br from-blue-100 to-blue-50 rounded-3xl flex items-center justify-center">
-                <div className="text-center">
-                  <svg className="w-32 h-32 mx-auto text-blue-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                  </svg>
-                  <p className="text-blue-600 font-semibold">협동로봇 이미지</p>
-                </div>
-              </div>
-              {/* Decorative Elements */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-blue-200 rounded-full opacity-50 blur-2xl"></div>
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-blue-300 rounded-full opacity-30 blur-3xl"></div>
             </div>
           </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="relative z-10 max-w-[1400px] mx-auto px-6 py-32 text-center">
+          <h1 className="text-[56px] lg:text-[72px] font-bold text-white mb-6 leading-tight tracking-tight">
+            AI-Powered Robot Solutions<br />
+            for a Better Life
+          </h1>
+          <p className="text-[20px] text-white/80 mb-12 font-light tracking-wide">
+            Innovation in every motion, revolutionizing the way we work
+          </p>
+          <Link
+            href="/products"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/30 text-white text-[16px] rounded-lg hover:bg-white/20 transition-all duration-300"
+          >
+            두산 로봇과 함께 상상을 실현해 보세요
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
+        </div>
+
+        {/* Floating Action Buttons - Right Side */}
+        <div className="fixed right-0 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-0 bg-[#1e2847] rounded-l-lg overflow-hidden shadow-2xl">
+          <Link
+            href="/contact"
+            className="group flex items-center gap-3 px-6 py-4 text-white hover:bg-[#2a3555] transition-all duration-300 border-b border-white/10"
+          >
+            <div className="w-10 h-10 flex items-center justify-center bg-blue-600 rounded-full group-hover:scale-110 transition-transform">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
+            <span className="text-[14px] font-medium">구매 문의</span>
+          </Link>
+          <Link
+            href="/locations"
+            className="group flex items-center gap-3 px-6 py-4 text-white hover:bg-[#2a3555] transition-all duration-300 border-b border-white/10"
+          >
+            <div className="w-10 h-10 flex items-center justify-center bg-white/10 rounded-full group-hover:scale-110 transition-transform">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <span className="text-[14px] font-medium">가까운 대리점 찾기</span>
+          </Link>
+          <Link
+            href="/training"
+            className="group flex items-center gap-3 px-6 py-4 text-white hover:bg-[#2a3555] transition-all duration-300 border-b border-white/10"
+          >
+            <div className="w-10 h-10 flex items-center justify-center bg-white/10 rounded-full group-hover:scale-110 transition-transform">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            </div>
+            <span className="text-[14px] font-medium">두산 로봇 교육</span>
+          </Link>
+          <Link
+            href="/support"
+            className="group flex items-center gap-3 px-6 py-4 text-white hover:bg-[#2a3555] transition-all duration-300"
+          >
+            <div className="w-10 h-10 flex items-center justify-center bg-white/10 rounded-full group-hover:scale-110 transition-transform">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <span className="text-[14px] font-medium">A/S 신청</span>
+          </Link>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <svg className="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
         </div>
       </section>
 
       {/* Product Series Section */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">제품 라인업</h2>
+      <section className="py-32 px-4 bg-white">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl font-bold text-gray-900 mb-6">제품 라인업</h2>
             <p className="text-xl text-gray-600">다양한 산업 환경에 최적화된 협동로봇 시리즈</p>
           </div>
 
@@ -173,10 +218,10 @@ export default function Home() {
       </section>
 
       {/* Solutions Section */}
-      <section className="py-20 px-4 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">산업별 솔루션</h2>
+      <section className="py-32 px-4 bg-gray-50">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl font-bold text-gray-900 mb-6">산업별 솔루션</h2>
             <p className="text-xl text-gray-600">다양한 산업 분야에서 검증된 협동로봇 솔루션</p>
           </div>
 
@@ -237,25 +282,26 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-blue-600">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-6">
+      <section className="py-32 px-4 bg-[#0a0e1a] relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10"></div>
+        <div className="max-w-[1400px] mx-auto text-center relative z-10">
+          <h2 className="text-5xl font-bold text-white mb-6">
             지금 바로 시작하세요
           </h2>
-          <p className="text-xl text-blue-100 mb-8">
+          <p className="text-xl text-white/70 mb-12 font-light">
             두산로보틱스의 협동로봇으로 작업 환경을 혁신하고<br />
             생산성을 극대화하세요
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/contact"
-              className="px-8 py-4 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition-colors font-semibold shadow-lg"
+              className="px-10 py-4 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition-all duration-300 font-semibold shadow-xl"
             >
               구매 문의하기
             </Link>
             <Link
               href="/training"
-              className="px-8 py-4 bg-blue-700 text-white border-2 border-white rounded-lg hover:bg-blue-800 transition-colors font-semibold"
+              className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white border-2 border-white rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold"
             >
               교육 프로그램 신청
             </Link>
