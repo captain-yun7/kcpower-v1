@@ -6,137 +6,108 @@ import { useSession, signOut } from 'next-auth/react';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const { data: session, status } = useSession();
+  const [productsMenuOpen, setProductsMenuOpen] = useState(false);
+  const [companyMenuOpen, setCompanyMenuOpen] = useState(false);
+  const { data: session } = useSession();
 
   const handleSignOut = async () => {
-    await signOut({ callbackUrl: '/login' });
+    await signOut({ callbackUrl: '/' });
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white z-50 border-b border-gray-200">
-      <div className="max-w-[1400px] mx-auto px-8">
+    <header className="fixed top-0 left-0 right-0 bg-white z-50 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <nav className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-bold text-black">
-            Private LMS
+          <Link href="/" className="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors">
+            Doosan Robotics
           </Link>
 
           {/* Desktop Navigation */}
-          <ul className="hidden md:flex items-center gap-14">
+          <ul className="hidden lg:flex items-center gap-8">
+            <li className="relative group">
+              <button
+                onMouseEnter={() => setProductsMenuOpen(true)}
+                onMouseLeave={() => setProductsMenuOpen(false)}
+                className="text-base text-gray-700 hover:text-blue-600 transition-colors font-medium py-2"
+              >
+                제품 & 솔루션
+              </button>
+              {productsMenuOpen && (
+                <div
+                  onMouseEnter={() => setProductsMenuOpen(true)}
+                  onMouseLeave={() => setProductsMenuOpen(false)}
+                  className="absolute left-0 mt-0 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2"
+                >
+                  <Link href="/products" className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+                    제품 라인업
+                  </Link>
+                  <Link href="/solutions" className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+                    솔루션
+                  </Link>
+                  <Link href="/downloads" className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+                    다운로드
+                  </Link>
+                </div>
+              )}
+            </li>
             <li>
-              <Link href="/courses" className="text-base text-gray-700 hover:text-black transition-colors font-medium">
-                강의
+              <Link href="/training" className="text-base text-gray-700 hover:text-blue-600 transition-colors font-medium">
+                교육 프로그램
               </Link>
             </li>
             <li>
-              <Link href="/notices" className="text-base text-gray-700 hover:text-black transition-colors font-medium">
-                공지사항
+              <Link href="/news" className="text-base text-gray-700 hover:text-blue-600 transition-colors font-medium">
+                뉴스
               </Link>
             </li>
-            <li>
-              <Link href="/about" className="text-base text-gray-700 hover:text-black transition-colors font-medium">
-                소개
-              </Link>
-            </li>
-            <li>
-              <Link href="/inquiries/new" className="text-base text-gray-700 hover:text-black transition-colors font-medium">
-                1:1 문의
-              </Link>
+            <li className="relative group">
+              <button
+                onMouseEnter={() => setCompanyMenuOpen(true)}
+                onMouseLeave={() => setCompanyMenuOpen(false)}
+                className="text-base text-gray-700 hover:text-blue-600 transition-colors font-medium py-2"
+              >
+                회사소개
+              </button>
+              {companyMenuOpen && (
+                <div
+                  onMouseEnter={() => setCompanyMenuOpen(true)}
+                  onMouseLeave={() => setCompanyMenuOpen(false)}
+                  className="absolute left-0 mt-0 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2"
+                >
+                  <Link href="/about" className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+                    회사 개요
+                  </Link>
+                  <Link href="/contact" className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+                    문의하기
+                  </Link>
+                </div>
+              )}
             </li>
           </ul>
 
           {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-3">
-            {status === 'loading' ? (
-              <div className="w-8 h-8 animate-pulse bg-gray-200 rounded-full"></div>
-            ) : session ? (
-              <div className="relative">
-                <button
-                  onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="flex items-center gap-2 px-3 py-2 hover:bg-bg-secondary rounded-lg transition-colors"
-                >
-                  {session.user.image ? (
-                    <img
-                      src={session.user.image}
-                      alt={session.user.name || '사용자'}
-                      className="w-8 h-8 rounded-full"
-                    />
-                  ) : (
-                    <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-semibold">
-                      {session.user.name?.[0] || session.user.email?.[0] || 'U'}
-                    </div>
-                  )}
-                  <span className="font-medium text-text-primary">{session.user.name || '사용자'}</span>
-                  <svg className="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-
-                {userMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-border py-1 animate-fade-in">
-                    <Link
-                      href="/dashboard"
-                      className="block px-4 py-2 text-text-primary hover:bg-bg-secondary transition-colors"
-                      onClick={() => setUserMenuOpen(false)}
-                    >
-                      마이페이지
-                    </Link>
-                    <Link
-                      href="/mypage/payments"
-                      className="block px-4 py-2 text-text-primary hover:bg-bg-secondary transition-colors"
-                      onClick={() => setUserMenuOpen(false)}
-                    >
-                      결제 내역
-                    </Link>
-                    <Link
-                      href="/mypage/inquiries"
-                      className="block px-4 py-2 text-text-primary hover:bg-bg-secondary transition-colors"
-                      onClick={() => setUserMenuOpen(false)}
-                    >
-                      내 문의
-                    </Link>
-                    <Link
-                      href="/mypage/devices"
-                      className="block px-4 py-2 text-text-primary hover:bg-bg-secondary transition-colors"
-                      onClick={() => setUserMenuOpen(false)}
-                    >
-                      등록 기기 관리
-                    </Link>
-                    <button
-                      onClick={() => {
-                        setUserMenuOpen(false);
-                        handleSignOut();
-                      }}
-                      className="w-full text-left px-4 py-2 text-text-primary hover:bg-bg-secondary transition-colors"
-                    >
-                      로그아웃
-                    </button>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <>
-                <Link
-                  href="/login"
-                  className="px-4 py-2.5 text-gray-700 hover:text-black transition-colors font-medium"
-                >
-                  로그인
-                </Link>
-                <Link
-                  href="/signup"
-                  className="px-6 py-2.5 bg-black text-white rounded-md hover:bg-gray-900 transition-all font-medium"
-                >
-                  시작하기
-                </Link>
-              </>
+          <div className="hidden lg:flex items-center gap-4">
+            <Link
+              href="/contact"
+              className="px-6 py-2.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors font-medium"
+            >
+              구매 문의
+            </Link>
+            {session?.user.role === 'ADMIN' && (
+              <Link
+                href="/admin"
+                className="px-4 py-2.5 text-gray-700 hover:text-blue-600 transition-colors font-medium"
+              >
+                관리자
+              </Link>
             )}
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-text-primary"
+            className="lg:hidden p-2 text-gray-700"
             aria-label="메뉴"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -151,113 +122,71 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden pb-4 animate-fade-in">
-            <ul className="flex flex-col gap-3">
+          <div className="lg:hidden pb-4 border-t border-gray-200 mt-2 pt-4">
+            <ul className="flex flex-col gap-2">
               <li>
                 <Link
-                  href="/courses"
-                  className="block px-4 py-2 text-text-primary hover:bg-bg-secondary rounded-lg transition-colors"
+                  href="/products"
+                  className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  강의
+                  제품 라인업
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/notices"
-                  className="block px-4 py-2 text-text-primary hover:bg-bg-secondary rounded-lg transition-colors"
+                  href="/solutions"
+                  className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  공지사항
+                  솔루션
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/training"
+                  className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  교육 프로그램
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/downloads"
+                  className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  다운로드
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/news"
+                  className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  뉴스
                 </Link>
               </li>
               <li>
                 <Link
                   href="/about"
-                  className="block px-4 py-2 text-text-primary hover:bg-bg-secondary rounded-lg transition-colors"
+                  className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  소개
+                  회사소개
                 </Link>
               </li>
-              <li>
+              <li className="pt-3 border-t border-gray-200 mt-2">
                 <Link
-                  href="/inquiries/new"
-                  className="block px-4 py-2 text-text-primary hover:bg-bg-secondary rounded-lg transition-colors"
+                  href="/contact"
+                  className="block px-4 py-2.5 text-center bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  1:1 문의
+                  구매 문의
                 </Link>
               </li>
-
-              {session ? (
-                <>
-                  <li className="pt-3 border-t border-border">
-                    <Link
-                      href="/dashboard"
-                      className="block px-4 py-2 text-text-primary bg-bg-secondary rounded-lg"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      마이페이지
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/mypage/payments"
-                      className="block px-4 py-2 text-text-primary hover:bg-bg-secondary rounded-lg transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      결제 내역
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/mypage/inquiries"
-                      className="block px-4 py-2 text-text-primary hover:bg-bg-secondary rounded-lg transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      내 문의
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/mypage/devices"
-                      className="block px-4 py-2 text-text-primary hover:bg-bg-secondary rounded-lg transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      등록 기기 관리
-                    </Link>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                        handleSignOut();
-                      }}
-                      className="w-full text-left px-4 py-2 text-text-primary hover:bg-bg-secondary rounded-lg transition-colors"
-                    >
-                      로그아웃
-                    </button>
-                  </li>
-                </>
-              ) : (
-                <li className="pt-3 border-t border-border flex gap-3">
-                  <Link
-                    href="/login"
-                    className="flex-1 text-center px-4 py-2 text-text-primary bg-bg-secondary rounded-lg"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    로그인
-                  </Link>
-                  <Link
-                    href="/signup"
-                    className="flex-1 text-center px-4 py-2 bg-primary text-white rounded-lg"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    시작하기
-                  </Link>
-                </li>
-              )}
             </ul>
           </div>
         )}

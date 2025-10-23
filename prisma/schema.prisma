@@ -1,5 +1,5 @@
-// Private LMS - Prisma Schema
-// Database: PostgreSQL (Supabase)
+// Doosan Robotics Clone - Prisma Schema
+// Database: PostgreSQL (Neon)
 
 generator client {
   provider = "prisma-client-js"
@@ -23,24 +23,22 @@ model User {
   image         String?
   password      String?   // 일반 로그인용 (bcrypt 해시)
   phone         String?
-  role          Role      @default(STUDENT)
+  company       String?   // 회사명
+  position      String?   // 직책
+  role          Role      @default(USER)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
   accounts      Account[]
   sessions      Session[]
-  purchases     Purchase[]
-  enrollments   Enrollment[]
-  progresses    Progress[]
-  devices       Device[]
   inquiries     Inquiry[]
-  inquiryReplies InquiryReply[] @relation("AdminInquiryReplies")
+  downloads     UserDownload[]
 
   @@map("users")
 }
 
 enum Role {
-  STUDENT
+  USER
   ADMIN
 }
 
@@ -84,329 +82,307 @@ model VerificationToken {
 }
 
 // ===========================
-// 강의 관련
+// 제품 관련
 // ===========================
 
-model Course {
-  id              String   @id @default(cuid())
-  title           String
-  description     String   @db.Text
-  price           Int      // 가격 (원 단위)
-  thumbnailUrl    String?
-  instructorName  String
-  instructorIntro String?  @db.Text
-  isPublished     Boolean  @default(false)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  videos          Video[]
-  courseFiles     CourseFile[]
-  purchases       Purchase[]
-  enrollments     Enrollment[]
-
-  @@map("courses")
-}
-
-model Video {
+model ProductSeries {
   id          String   @id @default(cuid())
-  courseId    String
-  vimeoUrl    String   // Vimeo 영상 URL
-  vimeoId     String?  // Vimeo 영상 ID (API 호출용)
-  title       String
-  description String?  @db.Text
-  duration    Int?     // 재생 시간 (초 단위)
-  order       Int      // 영상 순서
-  isPreview   Boolean  @default(false) // 미리보기 여부
+  name        String   @unique // P-series, H-series, M-series, A-series, E-series
+  displayName String   // 표시용 이름
+  description String   @db.Text
+  order       Int      // 정렬 순서
+  imageUrl    String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  course      Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  progresses  Progress[]
+  products    Product[]
 
-  @@map("videos")
-  @@index([courseId])
+  @@map("product_series")
 }
 
-model CourseFile {
+model Product {
+  id           String        @id @default(cuid())
+  seriesId     String
+  name         String
+  model        String        @unique // 모델명 (예: M0617, H2017)
+  description  String        @db.Text
+  payload      String?       // 가반하중
+  reach        String?       // 작업반경
+  repeatability String?      // 반복정밀도
+  weight       String?       // 본체중량
+  specs        Json?         // 상세 스펙 (JSON)
+  features     Json?         // 주요 기능 (JSON array)
+  imageUrl     String?
+  thumbnailUrl String?
+  brochureUrl  String?       // 제품 브로셔 PDF
+  videoUrl     String?       // 제품 소개 영상
+  order        Int           @default(0)
+  isPublished  Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  series       ProductSeries @relation(fields: [seriesId], references: [id], onDelete: Cascade)
+  solutions    SolutionProduct[]
+
+  @@map("products")
+  @@index([seriesId])
+}
+
+// ===========================
+// 솔루션 관련
+// ===========================
+
+model Solution {
+  id          String   @id @default(cuid())
+  title       String
+  category    String   // 카테고리 (예: 제조, 물류, 서비스 등)
+  description String   @db.Text
+  content     String   @db.Text // 상세 내용 (HTML)
+  imageUrl    String?
+  thumbnailUrl String?
+  videoUrl    String?
+  caseStudy   String?  @db.Text // 적용 사례
+  benefits    Json?    // 기대 효과 (JSON array)
+  order       Int      @default(0)
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  products    SolutionProduct[]
+
+  @@map("solutions")
+}
+
+model SolutionProduct {
+  id         String   @id @default(cuid())
+  solutionId String
+  productId  String
+  createdAt  DateTime @default(now())
+
+  solution Solution @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([solutionId, productId])
+  @@map("solution_products")
+  @@index([solutionId])
+  @@index([productId])
+}
+
+// ===========================
+// 다운로드 자료
+// ===========================
+
+model DownloadCategory {
   id        String   @id @default(cuid())
-  courseId  String
-  fileName  String
-  fileUrl   String   // Supabase Storage URL
-  fileSize  Int      // 파일 크기 (bytes)
+  name      String   @unique
+  order     Int      @default(0)
   createdAt DateTime @default(now())
 
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  downloads Download[]
 
-  @@map("course_files")
-  @@index([courseId])
+  @@map("download_categories")
 }
 
-// ===========================
-// 결제 관련
-// ===========================
+model Download {
+  id          String           @id @default(cuid())
+  categoryId  String
+  title       String
+  description String?          @db.Text
+  fileName    String
+  fileUrl     String           // 파일 URL
+  fileSize    Int              // 파일 크기 (bytes)
+  fileType    String           // 파일 타입 (pdf, zip 등)
+  version     String?          // 버전
+  downloads   Int              @default(0) // 다운로드 수
+  requireAuth Boolean          @default(false) // 로그인 필요 여부
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
 
-model Purchase {
-  id        String         @id @default(cuid())
-  userId    String
-  courseId  String
-  amount    Int            // 결제 금액
-  status    PurchaseStatus @default(PENDING)
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
+  category    DownloadCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  userDownloads UserDownload[]
 
-  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  course      Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  payment     Payment?
-  receipt     Receipt?
-  taxInvoice  TaxInvoice?
-  refund      Refund?
-
-  @@map("purchases")
-  @@index([userId])
-  @@index([courseId])
+  @@map("downloads")
+  @@index([categoryId])
 }
 
-enum PurchaseStatus {
-  PENDING      // 입금 대기 (무통장입금)
-  COMPLETED    // 결제 완료
-  CANCELED     // 결제 취소
-  REFUNDED     // 환불 완료
-}
-
-model Payment {
-  id          String        @id @default(cuid())
-  purchaseId  String        @unique
-  paymentKey  String?       @unique // 토스페이먼츠 paymentKey
-  orderId     String        @unique // 주문 번호
-  method      PaymentMethod // 결제 수단
-  status      PaymentStatus @default(PENDING)
-  paidAt      DateTime?     // 결제 완료 시각
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-
-  purchase      Purchase       @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
-  bankTransfer  BankTransfer?
-
-  @@map("payments")
-  @@index([paymentKey])
-  @@index([orderId])
-}
-
-enum PaymentMethod {
-  CARD           // 카드 결제
-  BANK_TRANSFER  // 무통장입금
-}
-
-enum PaymentStatus {
-  PENDING    // 대기 (무통장입금)
-  COMPLETED  // 완료
-  FAILED     // 실패
-  CANCELED   // 취소
-}
-
-model BankTransfer {
-  id                  String               @id @default(cuid())
-  paymentId           String               @unique
-  depositorName       String               // 입금자명
-  expectedDepositDate DateTime             // 입금 예정일
-  status              BankTransferStatus   @default(PENDING)
-  approvedAt          DateTime?            // 승인 시각
-  approvedBy          String?              // 승인자 ID
-  rejectedAt          DateTime?            // 거절 시각
-  rejectedBy          String?              // 거절자 ID
-  rejectionReason     String?              @db.Text
-  createdAt           DateTime             @default(now())
-
-  payment Payment @relation(fields: [paymentId], references: [id], onDelete: Cascade)
-
-  @@map("bank_transfers")
-}
-
-enum BankTransferStatus {
-  PENDING   // 입금 대기
-  APPROVED  // 승인 완료
-  REJECTED  // 거절
-}
-
-model Receipt {
-  id            String   @id @default(cuid())
-  purchaseId    String   @unique
-  receiptNumber String   @unique // 영수증 번호
-  amount        Int      // 결제 금액
-  issuedAt      DateTime @default(now())
-
-  purchase Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
-
-  @@map("receipts")
-  @@index([receiptNumber])
-}
-
-model TaxInvoice {
-  id             String           @id @default(cuid())
-  purchaseId     String           @unique
-  businessNumber String           // 사업자등록번호
-  companyName    String           // 상호명
-  ceoName        String           // 대표자명
-  address        String           // 사업장 주소
-  businessType   String?          // 업태
-  businessItem   String?          // 종목
-  email          String           // 이메일 (발송용)
-  phone          String           // 연락처
-  amount         Int              // 금액
-  issuedAt       DateTime?        // 발행 시각
-  status         TaxInvoiceStatus @default(REQUESTED)
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-
-  purchase Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
-
-  @@map("tax_invoices")
-}
-
-enum TaxInvoiceStatus {
-  REQUESTED // 발행 요청
-  ISSUED    // 발행 완료
-}
-
-model Refund {
-  id           String       @id @default(cuid())
-  purchaseId   String       @unique
-  reason       String       @db.Text // 환불 사유
-  refundAmount Int          // 환불 금액
-  accountBank  String?      // 환불 계좌 은행 (무통장입금용)
-  accountNumber String?     // 환불 계좌 번호
-  accountHolder String?     // 예금주
-  status       RefundStatus @default(PENDING)
-  requestedAt  DateTime     @default(now())
-  processedAt  DateTime?    // 처리 완료 시각
-  rejectReason String?      @db.Text
-
-  purchase Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
-
-  @@map("refunds")
-}
-
-enum RefundStatus {
-  PENDING   // 환불 대기
-  APPROVED  // 승인
-  REJECTED  // 거절
-  COMPLETED // 완료
-}
-
-// ===========================
-// 수강 관련
-// ===========================
-
-model Enrollment {
-  id         String   @id @default(cuid())
-  userId     String
-  courseId   String
-  enrolledAt DateTime @default(now())
-
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, courseId])
-  @@map("enrollments")
-  @@index([userId])
-  @@index([courseId])
-}
-
-model Progress {
-  id           String    @id @default(cuid())
-  userId       String
-  videoId      String
-  lastPosition Int       @default(0) // 마지막 시청 위치 (초 단위)
-  isCompleted  Boolean   @default(false) // 완료 여부
-  completedAt  DateTime? // 완료 시각
-  updatedAt    DateTime  @updatedAt
-
-  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  video Video @relation(fields: [videoId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, videoId])
-  @@map("progresses")
-  @@index([userId])
-  @@index([videoId])
-}
-
-// ===========================
-// 기기 관리
-// ===========================
-
-model Device {
+model UserDownload {
   id          String   @id @default(cuid())
   userId      String
-  fingerprint String   // FingerprintJS 고유 식별자
-  name        String   // 사용자가 지정한 기기 이름
-  userAgent   String?  @db.Text
-  platform    String?
-  language    String?
-  lastUsedAt  DateTime @default(now())
-  createdAt   DateTime @default(now())
+  downloadId  String
+  downloadedAt DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  download Download @relation(fields: [downloadId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, fingerprint])
-  @@map("devices")
+  @@map("user_downloads")
   @@index([userId])
+  @@index([downloadId])
 }
 
 // ===========================
-// 커뮤니티
+// 뉴스 & 이벤트
 // ===========================
 
-model Notice {
-  id            String   @id @default(cuid())
-  title         String
-  content       String   @db.Text
-  isPinned      Boolean  @default(false) // 중요 공지 (상단 고정)
-  views         Int      @default(0)     // 조회수
-  attachmentUrl String?  // 첨부파일 URL (Supabase Storage)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+model News {
+  id          String   @id @default(cuid())
+  title       String
+  category    NewsCategory
+  content     String   @db.Text // HTML 콘텐츠
+  excerpt     String?  @db.Text // 요약
+  thumbnailUrl String?
+  imageUrl    String?
+  author      String?
+  isPinned    Boolean  @default(false) // 중요 뉴스 (상단 고정)
+  views       Int      @default(0)     // 조회수
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  @@map("notices")
+  @@map("news")
+  @@index([category])
+  @@index([publishedAt])
+}
+
+enum NewsCategory {
+  PRESS_RELEASE  // 보도자료
+  EVENT          // 이벤트
+  NOTICE         // 공지사항
+  BLOG           // 블로그
 }
 
 // ===========================
-// 고객센터
+// 교육 프로그램
+// ===========================
+
+model Training {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @db.Text
+  content     String   @db.Text // 상세 내용 (HTML)
+  duration    String?  // 교육 기간 (예: "2일", "5일")
+  curriculum  Json?    // 커리큘럼 (JSON array)
+  target      String?  @db.Text // 교육 대상
+  price       Int?     // 교육 비용 (원)
+  location    String?  // 교육 장소
+  imageUrl    String?
+  order       Int      @default(0)
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  schedules   TrainingSchedule[]
+
+  @@map("trainings")
+}
+
+model TrainingSchedule {
+  id          String   @id @default(cuid())
+  trainingId  String
+  startDate   DateTime
+  endDate     DateTime
+  capacity    Int      // 최대 인원
+  enrolled    Int      @default(0) // 신청 인원
+  status      TrainingStatus @default(OPEN)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  training    Training @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+
+  @@map("training_schedules")
+  @@index([trainingId])
+}
+
+enum TrainingStatus {
+  OPEN      // 모집 중
+  CLOSED    // 마감
+  COMPLETED // 종료
+}
+
+// ===========================
+// 문의하기
 // ===========================
 
 model Inquiry {
-  id        String        @id @default(cuid())
-  userId    String
-  title     String
-  content   String        @db.Text // Rich Text (HTML)
-  isPrivate Boolean       @default(true) // 비밀글 여부
-  status    InquiryStatus @default(PENDING)
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+  id          String        @id @default(cuid())
+  userId      String?       // 비회원도 가능
+  type        InquiryType
+  name        String
+  email       String
+  phone       String?
+  company     String?
+  country     String?
+  subject     String
+  message     String        @db.Text
+  status      InquiryStatus @default(PENDING)
+  adminNote   String?       @db.Text // 관리자 메모
+  respondedAt DateTime?     // 답변 시각
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 
-  user    User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  replies InquiryReply[]
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@map("inquiries")
   @@index([userId])
+  @@index([type])
+  @@index([status])
+}
+
+enum InquiryType {
+  PRODUCT       // 제품 문의
+  PURCHASE      // 구매 문의
+  PARTNERSHIP   // 파트너십
+  SUPPORT       // 기술 지원
+  OTHER         // 기타
 }
 
 enum InquiryStatus {
-  PENDING  // 답변 대기
-  ANSWERED // 답변 완료
+  PENDING   // 답변 대기
+  ANSWERED  // 답변 완료
+  CLOSED    // 종료
 }
 
-model InquiryReply {
-  id        String   @id @default(cuid())
-  inquiryId String
-  adminId   String   // 답변한 관리자 ID (User)
-  content   String   @db.Text // Rich Text (HTML)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+// ===========================
+// 회사 정보
+// ===========================
 
-  inquiry Inquiry @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
-  admin   User    @relation("AdminInquiryReplies", fields: [adminId], references: [id], onDelete: Cascade)
+model CompanyInfo {
+  id          String   @id @default(cuid())
+  key         String   @unique // 설정 키 (예: about, vision, history)
+  title       String?
+  content     String   @db.Text // HTML 콘텐츠
+  data        Json?    // 추가 데이터 (JSON)
+  updatedAt   DateTime @updatedAt
 
-  @@map("inquiry_replies")
-  @@index([inquiryId])
-  @@index([adminId])
+  @@map("company_info")
+}
+
+// ===========================
+// 배너 & 슬라이드
+// ===========================
+
+model Banner {
+  id          String      @id @default(cuid())
+  title       String
+  description String?     @db.Text
+  imageUrl    String
+  mobileImageUrl String?  // 모바일용 이미지
+  linkUrl     String?
+  linkText    String?
+  position    BannerPosition @default(HOME_MAIN)
+  order       Int         @default(0)
+  isActive    Boolean     @default(true)
+  startDate   DateTime?   // 노출 시작일
+  endDate     DateTime?   // 노출 종료일
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("banners")
+  @@index([position])
+}
+
+enum BannerPosition {
+  HOME_MAIN      // 메인 페이지 Hero
+  HOME_SECONDARY // 메인 페이지 서브
+  PRODUCTS       // 제품 페이지
+  SOLUTIONS      // 솔루션 페이지
 }

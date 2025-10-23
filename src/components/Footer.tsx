@@ -2,45 +2,45 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#2B2D36] text-gray-400 py-16 px-4">
-      <div className="container max-w-6xl mx-auto">
+    <footer className="bg-gray-900 text-gray-400 py-12 px-4">
+      <div className="container max-w-7xl mx-auto">
         {/* Top Section */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-12">
           {/* Left - Brand & Info */}
-          <div className="md:col-span-5">
+          <div className="md:col-span-6">
             <Link href="/" className="inline-block mb-6">
-              <span className="text-xl font-bold text-white">Private LMS</span>
+              <span className="text-xl font-bold text-white">Doosan Robotics</span>
             </Link>
             <div className="space-y-2 text-sm leading-relaxed">
-              <p>(주)프라이빗LMS · 대표이사 : 홍길동 · 개인정보보호책임자 : 김철수</p>
-              <p>사업자등록번호 : 123-45-67890</p>
-              <p>통신판매업 신고번호 : 제2019-서울강남-01234호</p>
-              <p>주소 : 서울특별시 강남구 테헤란로 123, 456호</p>
-              <p>서비스 및 기술 문의: support@privatelms.com</p>
-              <p>이메일: contact@privatelms.com</p>
+              <p>두산로보틱스(주)</p>
+              <p>서울특별시 강남구 테헤란로 521, 24층 (삼성동, 파르나스타워)</p>
+              <p>대표이사 : 류정훈</p>
+              <p>사업자등록번호 : 113-86-03152</p>
+              <p className="mt-4">TEL : 1899-7701</p>
+              <p>E-MAIL : sales@doosanrobotics.com</p>
             </div>
           </div>
 
           {/* Right - Links Grid */}
-          <div className="md:col-span-7">
+          <div className="md:col-span-6">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
               {/* Column 1 */}
               <div>
-                <h4 className="text-white font-semibold mb-4 text-sm">주요 기능</h4>
+                <h4 className="text-white font-semibold mb-4">제품</h4>
                 <ul className="space-y-3 text-sm">
                   <li>
-                    <Link href="/courses" className="hover:text-white transition-colors">
-                      강의
+                    <Link href="/products" className="hover:text-white transition-colors">
+                      제품 라인업
                     </Link>
                   </li>
                   <li>
-                    <Link href="/about" className="hover:text-white transition-colors">
-                      소개
+                    <Link href="/solutions" className="hover:text-white transition-colors">
+                      솔루션
                     </Link>
                   </li>
                   <li>
-                    <Link href="/contact" className="hover:text-white transition-colors">
-                      문의
+                    <Link href="/downloads" className="hover:text-white transition-colors">
+                      다운로드
                     </Link>
                   </li>
                 </ul>
@@ -48,21 +48,21 @@ export default function Footer() {
 
               {/* Column 2 */}
               <div>
-                <h4 className="text-white font-semibold mb-4 text-sm">서비스</h4>
+                <h4 className="text-white font-semibold mb-4">지원</h4>
                 <ul className="space-y-3 text-sm">
                   <li>
-                    <Link href="/faq" className="hover:text-white transition-colors">
-                      프로그램
+                    <Link href="/training" className="hover:text-white transition-colors">
+                      교육 프로그램
                     </Link>
                   </li>
                   <li>
-                    <Link href="/notice" className="hover:text-white transition-colors">
-                      인재영입
+                    <Link href="/contact" className="hover:text-white transition-colors">
+                      구매 문의
                     </Link>
                   </li>
                   <li>
-                    <Link href="/inquiry" className="hover:text-white transition-colors">
-                      운영 서비스
+                    <Link href="/news" className="hover:text-white transition-colors">
+                      뉴스
                     </Link>
                   </li>
                 </ul>
@@ -70,82 +70,16 @@ export default function Footer() {
 
               {/* Column 3 */}
               <div>
-                <h4 className="text-white font-semibold mb-4 text-sm">스토리</h4>
+                <h4 className="text-white font-semibold mb-4">회사</h4>
                 <ul className="space-y-3 text-sm">
-                  <li>
-                    <Link href="/blog" className="hover:text-white transition-colors">
-                      고객센터
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/community" className="hover:text-white transition-colors">
-                      블로그
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/careers" className="hover:text-white transition-colors">
-                      이벤트
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Additional Links Row */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mt-10">
-              <div>
-                <h4 className="text-white font-semibold mb-4 text-sm">커뮤니티</h4>
-                <ul className="space-y-3 text-sm">
-                  <li>
-                    <Link href="/support" className="hover:text-white transition-colors">
-                      영상 서비스
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/guide" className="hover:text-white transition-colors">
-                      이카운트
-                    </Link>
-                  </li>
                   <li>
                     <Link href="/about" className="hover:text-white transition-colors">
-                      세무기장
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="text-white font-semibold mb-4 text-sm">고객지원</h4>
-                <ul className="space-y-3 text-sm">
-                  <li>
-                    <Link href="/terms" className="hover:text-white transition-colors">
-                      블로그
+                      회사소개
                     </Link>
                   </li>
                   <li>
-                    <Link href="/privacy" className="hover:text-white transition-colors">
-                      운영 가이드
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/refund" className="hover:text-white transition-colors">
+                    <Link href="/contact" className="hover:text-white transition-colors">
                       문의하기
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="text-white font-semibold mb-4 text-sm">커뮤니티</h4>
-                <ul className="space-y-3 text-sm">
-                  <li>
-                    <Link href="/terms" className="hover:text-white transition-colors">
-                      블로그
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/privacy" className="hover:text-white transition-colors">
-                      고객지원
                     </Link>
                   </li>
                 </ul>
@@ -155,23 +89,17 @@ export default function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-          <div className="flex flex-wrap gap-6 text-sm">
-            <Link href="/company" className="hover:text-white transition-colors">
-              회사소개
-            </Link>
-            <Link href="/terms" className="hover:text-white transition-colors">
-              개인정보처리방침
-            </Link>
-            <Link href="/privacy" className="hover:text-white transition-colors">
-              서비스이용약관
-            </Link>
+        <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="text-sm text-gray-500">
+            © 2025 Doosan Robotics. All rights reserved.
           </div>
 
           <div className="flex gap-4">
             <a
-              href="#"
-              className="w-10 h-10 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center transition-colors"
+              href="https://www.youtube.com/@DoosanRobotics"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center transition-colors"
               aria-label="YouTube"
             >
               <svg className="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
@@ -179,8 +107,10 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="#"
-              className="w-10 h-10 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center transition-colors"
+              href="https://www.instagram.com/doosanrobotics"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center transition-colors"
               aria-label="Instagram"
             >
               <svg className="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
@@ -188,17 +118,10 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="#"
-              className="w-10 h-10 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center transition-colors"
-              aria-label="Naver Blog"
-            >
-              <svg className="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M16.273 12.845L7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845z"/>
-              </svg>
-            </a>
-            <a
-              href="#"
-              className="w-10 h-10 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center transition-colors"
+              href="https://www.facebook.com/DoosanRobotics"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center transition-colors"
               aria-label="Facebook"
             >
               <svg className="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
@@ -206,8 +129,10 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="#"
-              className="w-10 h-10 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center transition-colors"
+              href="https://www.linkedin.com/company/doosan-robotics"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center transition-colors"
               aria-label="LinkedIn"
             >
               <svg className="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
@@ -215,12 +140,6 @@ export default function Footer() {
               </svg>
             </a>
           </div>
-        </div>
-
-        {/* Copyright */}
-        <div className="mt-8 text-center text-sm text-gray-500">
-          <p>Build Your Class</p>
-          <p className="mt-1">Made by ❤ FutureSchole Inc.</p>
         </div>
       </div>
     </footer>
