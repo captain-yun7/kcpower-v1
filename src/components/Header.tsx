@@ -6,76 +6,108 @@ import { useSession } from 'next-auth/react';
 
 // 메가 메뉴 데이터 구조
 const megaMenuData = {
-  products: {
+  productsServices: {
     sections: [
       {
-        title: '헤리티지',
+        title: '제품 라인업',
         links: [
-          { title: 'Why Doosan Cobot', href: '/why-doosan' },
-        ],
-      },
-      {
-        title: '제품',
-        links: [
-          { title: '제품 라인업', href: '/products' },
-          { title: '제품 비교하기', href: '/products/compare' },
           { title: 'P-SERIES', href: '/products/p-series' },
           { title: 'H-SERIES', href: '/products/h-series' },
           { title: 'M-SERIES', href: '/products/m-series' },
           { title: 'A-SERIES', href: '/products/a-series' },
           { title: 'E-SERIES', href: '/products/e-series' },
+          { title: '제품 비교하기', href: '/products/compare' },
         ],
       },
       {
-        title: '솔루션',
+        title: '기술 서비스',
         links: [
-          { title: '단기 솔루션', href: '/solutions' },
-          { title: '로봇 렌탈 프로모션', href: '/solutions/rental' },
-          { title: '공정별', href: '/solutions/process' },
-          { title: '산업군별', href: '/solutions/industry' },
+          { title: 'A/S 신청', href: '/service/as' },
+          { title: '기술 지원', href: '/service/support' },
+          { title: '원격 서비스', href: '/service/remote' },
+          { title: '유지보수', href: '/service/maintenance' },
         ],
       },
       {
-        title: '소프트웨어',
+        title: '교육 프로그램',
         links: [
-          { title: 'Dart-Suite →', href: '/dart-suite' },
-        ],
-      },
-    ],
-  },
-  education: {
-    sections: [
-      {
-        title: '교육',
-        links: [
-          { title: '두산 로봇 교육', href: '/training' },
+          { title: '기본 교육', href: '/training/basic' },
+          { title: '고급 교육', href: '/training/advanced' },
+          { title: '온라인 교육', href: '/training/online' },
+          { title: '교육 일정', href: '/training/schedule' },
         ],
       },
       {
-        title: '다운로드 센터',
+        title: '다운로드',
         links: [
-          { title: '카탈로그', href: '/downloads/catalog' },
-          { title: '매뉴얼 →', href: '/downloads/manual' },
-          { title: '소프트웨어 →', href: '/downloads/software' },
-        ],
-      },
-      {
-        title: '서비스 센터',
-        links: [
-          { title: 'A/S 신청', href: '/contact' },
-          { title: '파트너 서비스 →', href: '/partner' },
+          { title: '제품 카탈로그', href: '/downloads/catalog' },
+          { title: '사용 매뉴얼', href: '/downloads/manual' },
+          { title: '소프트웨어', href: '/downloads/software' },
+          { title: 'CAD 도면', href: '/downloads/cad' },
         ],
       },
     ],
   },
-  investment: {
+  cases: {
     sections: [
       {
-        title: '투자정보',
+        title: '산업별 사례',
         links: [
-          { title: '재무정보', href: '/investor/financial' },
-          { title: '주가정보', href: '/investor/stock' },
-          { title: '공시정보', href: '/investor/disclosure' },
+          { title: '제조/생산', href: '/cases/manufacturing' },
+          { title: '물류/유통', href: '/cases/logistics' },
+          { title: '식음료', href: '/cases/food' },
+          { title: '전자/반도체', href: '/cases/electronics' },
+          { title: '자동차', href: '/cases/automotive' },
+        ],
+      },
+      {
+        title: '공정별 사례',
+        links: [
+          { title: '팔레타이징', href: '/cases/palletizing' },
+          { title: '머신텐딩', href: '/cases/machine-tending' },
+          { title: '용접/접합', href: '/cases/welding' },
+          { title: '조립', href: '/cases/assembly' },
+          { title: '검사', href: '/cases/inspection' },
+        ],
+      },
+      {
+        title: '성공 스토리',
+        links: [
+          { title: '국내 도입사례', href: '/cases/domestic' },
+          { title: '해외 도입사례', href: '/cases/global' },
+          { title: '고객 인터뷰', href: '/cases/interviews' },
+          { title: 'ROI 분석', href: '/cases/roi' },
+        ],
+      },
+    ],
+  },
+  community: {
+    sections: [
+      {
+        title: '소식',
+        links: [
+          { title: '공지사항', href: '/community/notice' },
+          { title: '뉴스', href: '/community/news' },
+          { title: '보도자료', href: '/community/press' },
+          { title: '이벤트', href: '/community/events' },
+        ],
+      },
+      {
+        title: '콘텐츠',
+        links: [
+          { title: '블로그', href: '/community/blog' },
+          { title: '기술 아티클', href: '/community/articles' },
+          { title: '비디오', href: '/community/videos' },
+          { title: '웨비나', href: '/community/webinar' },
+        ],
+      },
+      {
+        title: '고객 지원',
+        links: [
+          { title: '문의하기', href: '/contact' },
+          { title: 'FAQ', href: '/community/faq' },
+          { title: '자료실', href: '/community/resources' },
+          { title: '파트너 찾기', href: '/partner/find' },
         ],
       },
     ],
@@ -83,34 +115,37 @@ const megaMenuData = {
   company: {
     sections: [
       {
-        title: '기업정보',
+        title: '회사 소개',
         links: [
-          { title: '개요', href: '/about' },
-          { title: 'CI', href: '/about/ci' },
-          { title: '오시는 길', href: '/about/location' },
-          { title: '인재채용 →', href: '/about/careers' },
+          { title: '기업 개요', href: '/about' },
+          { title: '비전 & 미션', href: '/about/vision' },
+          { title: '연혁', href: '/about/history' },
+          { title: 'CI 소개', href: '/about/ci' },
         ],
       },
       {
-        title: '지속가능경영',
+        title: '사업 영역',
         links: [
+          { title: '협동로봇', href: '/business/cobot' },
+          { title: '산업 솔루션', href: '/business/solution' },
+          { title: '글로벌 네트워크', href: '/business/global' },
+        ],
+      },
+      {
+        title: '채용 & ESG',
+        links: [
+          { title: '인재 채용', href: '/careers' },
+          { title: '복리후생', href: '/careers/benefits' },
+          { title: 'ESG 경영', href: '/sustainability' },
           { title: '윤리경영', href: '/sustainability/ethics' },
-          { title: 'EHS', href: '/sustainability/ehs' },
         ],
       },
       {
-        title: '뉴스 & 이벤트',
+        title: '오시는 길',
         links: [
-          { title: '뉴스', href: '/news' },
-          { title: '이벤트 & 프로모션', href: '/events' },
-          { title: '블로그', href: '/blog' },
-        ],
-      },
-      {
-        title: 'Contact Us',
-        links: [
-          { title: '고객문의', href: '/contact' },
-          { title: '가까운 대리점 찾기', href: '/locations' },
+          { title: '본사', href: '/location/hq' },
+          { title: '지사/영업소', href: '/location/branch' },
+          { title: '해외 지사', href: '/location/global' },
         ],
       },
     ],
@@ -134,44 +169,46 @@ export default function Header() {
             <span className="text-white text-[36px] font-bold tracking-wide">DOOSAN</span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <ul className="hidden lg:flex items-center gap-12">
-            <li
-              className="relative"
-              onMouseEnter={() => setActiveMenu('products')}
-            >
-              <button className="text-white text-[17px] hover:text-red-500 transition-colors font-medium">
-                제품 & 솔루션
-              </button>
-            </li>
-            <li
-              className="relative"
-              onMouseEnter={() => setActiveMenu('education')}
-            >
-              <button className="text-white text-[17px] hover:text-red-500 transition-colors font-medium">
-                교육 & 서비스
-              </button>
-            </li>
-            <li
-              className="relative"
-              onMouseEnter={() => setActiveMenu('investment')}
-            >
-              <button className="text-white text-[17px] hover:text-red-500 transition-colors font-medium">
-                투자정보
-              </button>
-            </li>
-            <li
-              className="relative"
-              onMouseEnter={() => setActiveMenu('company')}
-            >
-              <button className="text-white text-[17px] hover:text-red-500 transition-colors font-medium">
-                회사소개
-              </button>
-            </li>
-          </ul>
+          {/* Right Side: Navigation + Actions */}
+          <div className="hidden lg:flex items-center gap-20">
+            {/* Desktop Navigation */}
+            <ul className="flex items-center gap-14">
+              <li
+                className="relative"
+                onMouseEnter={() => setActiveMenu('productsServices')}
+              >
+                <button className="text-white text-[17px] hover:text-red-500 transition-colors font-medium">
+                  제품 & 서비스
+                </button>
+              </li>
+              <li
+                className="relative"
+                onMouseEnter={() => setActiveMenu('cases')}
+              >
+                <button className="text-white text-[17px] hover:text-red-500 transition-colors font-medium">
+                  시공사례
+                </button>
+              </li>
+              <li
+                className="relative"
+                onMouseEnter={() => setActiveMenu('community')}
+              >
+                <button className="text-white text-[17px] hover:text-red-500 transition-colors font-medium">
+                  소통공간
+                </button>
+              </li>
+              <li
+                className="relative"
+                onMouseEnter={() => setActiveMenu('company')}
+              >
+                <button className="text-white text-[17px] hover:text-red-500 transition-colors font-medium">
+                  회사소개
+                </button>
+              </li>
+            </ul>
 
-          {/* Desktop Actions */}
-          <div className="hidden lg:flex items-center gap-3">
+            {/* Desktop Actions */}
+            <div className="flex items-center gap-2 pl-6 border-l border-white/20">
             <Link
               href="/contact"
               className="px-6 py-2.5 border border-white/30 text-white text-[15px] rounded hover:bg-white/10 transition-colors font-medium"
@@ -198,12 +235,13 @@ export default function Header() {
                 관리자
               </Link>
             )}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-gray-700"
+            className="lg:hidden p-2 text-white"
             aria-label="메뉴"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -258,69 +296,51 @@ export default function Header() {
       <div className="max-w-[1600px] mx-auto px-8">
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden pb-4 border-t border-gray-200 mt-2 pt-4">
+          <div className="lg:hidden pb-4 border-t border-white/20 mt-2 pt-4">
             <ul className="flex flex-col gap-2">
               <li>
                 <Link
                   href="/products"
-                  className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
+                  className="block px-4 py-2 text-white hover:bg-white/10 hover:text-red-400 rounded-lg transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  제품 라인업
+                  제품 & 서비스
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/solutions"
-                  className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
+                  href="/cases"
+                  className="block px-4 py-2 text-white hover:bg-white/10 hover:text-red-400 rounded-lg transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  솔루션
+                  시공사례
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/training"
-                  className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
+                  href="/community"
+                  className="block px-4 py-2 text-white hover:bg-white/10 hover:text-red-400 rounded-lg transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  교육 프로그램
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/downloads"
-                  className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  다운로드
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/news"
-                  className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  뉴스
+                  소통공간
                 </Link>
               </li>
               <li>
                 <Link
                   href="/about"
-                  className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
+                  className="block px-4 py-2 text-white hover:bg-white/10 hover:text-red-400 rounded-lg transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   회사소개
                 </Link>
               </li>
-              <li className="pt-3 border-t border-gray-200 mt-2">
+              <li className="pt-3 border-t border-white/20 mt-2">
                 <Link
                   href="/contact"
-                  className="block px-4 py-2.5 text-center bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  className="block px-4 py-2.5 text-center bg-red-700 text-white rounded-lg hover:bg-red-800 transition-colors font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  구매 문의
+                  A/S 신청
                 </Link>
               </li>
             </ul>
