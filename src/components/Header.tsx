@@ -11,39 +11,39 @@ const megaMenuData = {
       {
         title: '제품 라인업',
         links: [
-          { title: 'P-SERIES', href: '/products/p-series' },
-          { title: 'H-SERIES', href: '/products/h-series' },
-          { title: 'M-SERIES', href: '/products/m-series' },
-          { title: 'A-SERIES', href: '/products/a-series' },
-          { title: 'E-SERIES', href: '/products/e-series' },
-          { title: '제품 비교하기', href: '/products/compare' },
+          { title: '밀폐형 외함', href: '/products/sealed' },
+          { title: '소음저감형 외함', href: '/products/soundproof' },
+          { title: '터널용 외함', href: '/products/tunnel' },
+          { title: '침수형 외함', href: '/products/waterproof' },
+          { title: '수배전반', href: '/products/switchboard' },
+          { title: '접속함', href: '/products/junction-box' },
         ],
       },
       {
         title: '기술 서비스',
         links: [
-          { title: 'A/S 신청', href: '/service/as' },
-          { title: '기술 지원', href: '/service/support' },
-          { title: '원격 서비스', href: '/service/remote' },
-          { title: '유지보수', href: '/service/maintenance' },
+          { title: 'A/S 신청', href: '/services' },
+          { title: '출장 서비스', href: '/services#onsite' },
+          { title: '긴급 공사', href: '/services#emergency' },
+          { title: '유지보수', href: '/services#maintenance' },
         ],
       },
       {
-        title: '교육 프로그램',
+        title: '통합 솔루션',
         links: [
-          { title: '기본 교육', href: '/training/basic' },
-          { title: '고급 교육', href: '/training/advanced' },
-          { title: '온라인 교육', href: '/training/online' },
-          { title: '교육 일정', href: '/training/schedule' },
+          { title: '혁신제품 (외함+변압기)', href: '/products/solutions' },
+          { title: '한전 프로젝트', href: '/products/solutions#kepco' },
+          { title: '철도 전기설비', href: '/products/solutions#railway' },
+          { title: '맞춤 제작', href: '/products/custom' },
         ],
       },
       {
         title: '다운로드',
         links: [
-          { title: '제품 카탈로그', href: '/downloads/catalog' },
-          { title: '사용 매뉴얼', href: '/downloads/manual' },
-          { title: '소프트웨어', href: '/downloads/software' },
-          { title: 'CAD 도면', href: '/downloads/cad' },
+          { title: '제품 카탈로그', href: '/downloads' },
+          { title: '기술 사양서', href: '/downloads#specs' },
+          { title: '인증서', href: '/downloads#certificates' },
+          { title: 'CAD 도면', href: '/downloads#cad' },
         ],
       },
     ],
@@ -51,32 +51,32 @@ const megaMenuData = {
   cases: {
     sections: [
       {
-        title: '산업별 사례',
+        title: '고객사별 프로젝트',
         links: [
-          { title: '제조/생산', href: '/cases/manufacturing' },
-          { title: '물류/유통', href: '/cases/logistics' },
-          { title: '식음료', href: '/cases/food' },
-          { title: '전자/반도체', href: '/cases/electronics' },
-          { title: '자동차', href: '/cases/automotive' },
+          { title: '한국전력공사 (한전)', href: '/cases/kepco' },
+          { title: 'LS일렉트릭', href: '/cases/ls' },
+          { title: '현대일렉트릭', href: '/cases/hyundai' },
+          { title: '산일전기', href: '/cases/sanil' },
+          { title: '기타 협력사', href: '/cases/others' },
         ],
       },
       {
-        title: '공정별 사례',
+        title: '사업 분야별',
         links: [
-          { title: '팔레타이징', href: '/cases/palletizing' },
-          { title: '머신텐딩', href: '/cases/machine-tending' },
-          { title: '용접/접합', href: '/cases/welding' },
-          { title: '조립', href: '/cases/assembly' },
-          { title: '검사', href: '/cases/inspection' },
+          { title: '발전/변전소', href: '/cases/substation' },
+          { title: '철도 전기설비', href: '/cases/railway' },
+          { title: '신도시 인프라', href: '/cases/newtown' },
+          { title: '산업단지', href: '/cases/industrial' },
+          { title: '터널 전기설비', href: '/cases/tunnel' },
         ],
       },
       {
-        title: '성공 스토리',
+        title: '제품별 적용사례',
         links: [
-          { title: '국내 도입사례', href: '/cases/domestic' },
-          { title: '해외 도입사례', href: '/cases/global' },
-          { title: '고객 인터뷰', href: '/cases/interviews' },
-          { title: 'ROI 분석', href: '/cases/roi' },
+          { title: '밀폐형 외함 프로젝트', href: '/cases/sealed' },
+          { title: '소음저감형 설치 사례', href: '/cases/soundproof' },
+          { title: '터널용 특수 외함', href: '/cases/tunnel-special' },
+          { title: '침수형 외함 적용', href: '/cases/waterproof' },
         ],
       },
     ],
@@ -86,28 +86,28 @@ const megaMenuData = {
       {
         title: '소식',
         links: [
-          { title: '공지사항', href: '/community/notice' },
-          { title: '뉴스', href: '/community/news' },
-          { title: '보도자료', href: '/community/press' },
-          { title: '이벤트', href: '/community/events' },
+          { title: '공지사항', href: '/news' },
+          { title: '납품 소식', href: '/news#delivery' },
+          { title: '신제품 출시', href: '/news#new-product' },
+          { title: '전시회/행사', href: '/news#events' },
         ],
       },
       {
-        title: '콘텐츠',
+        title: '기술 정보',
         links: [
-          { title: '블로그', href: '/community/blog' },
-          { title: '기술 아티클', href: '/community/articles' },
-          { title: '비디오', href: '/community/videos' },
-          { title: '웨비나', href: '/community/webinar' },
+          { title: '기술 아티클', href: '/tech' },
+          { title: '제품 사용 가이드', href: '/tech#guide' },
+          { title: '설치 노하우', href: '/tech#installation' },
+          { title: '품질관리 기준', href: '/tech#quality' },
         ],
       },
       {
         title: '고객 지원',
         links: [
-          { title: '문의하기', href: '/contact' },
-          { title: 'FAQ', href: '/community/faq' },
-          { title: '자료실', href: '/community/resources' },
-          { title: '파트너 찾기', href: '/partner/find' },
+          { title: '온라인 문의', href: '/quote' },
+          { title: 'FAQ', href: '/faq' },
+          { title: '견적 요청', href: '/quote' },
+          { title: 'A/S 신청', href: '/services' },
         ],
       },
     ],
@@ -115,37 +115,40 @@ const megaMenuData = {
   company: {
     sections: [
       {
-        title: '회사 소개',
+        title: '기업 소개',
         links: [
-          { title: '기업 개요', href: '/about' },
+          { title: 'CEO 인사말', href: '/about' },
+          { title: '회사 개요', href: '/about#overview' },
           { title: '비전 & 미션', href: '/about/vision' },
-          { title: '연혁', href: '/about/history' },
-          { title: 'CI 소개', href: '/about/ci' },
+          { title: '핵심 가치', href: '/about/vision#values' },
+          { title: '30년 역사', href: '/about/history' },
         ],
       },
       {
-        title: '사업 영역',
+        title: '사업장 안내',
         links: [
-          { title: '협동로봇', href: '/business/cobot' },
-          { title: '산업 솔루션', href: '/business/solution' },
-          { title: '글로벌 네트워크', href: '/business/global' },
+          { title: '본사 1공장', href: '/about/locations' },
+          { title: '2공장', href: '/about/locations#factory2' },
+          { title: '3공장', href: '/about/locations#factory3' },
+          { title: '생산 시설 현황', href: '/about/locations#facilities' },
         ],
       },
       {
-        title: '채용 & ESG',
+        title: '인증 & 수상',
         links: [
-          { title: '인재 채용', href: '/careers' },
-          { title: '복리후생', href: '/careers/benefits' },
-          { title: 'ESG 경영', href: '/sustainability' },
-          { title: '윤리경영', href: '/sustainability/ethics' },
+          { title: '품질 인증', href: '/about/certifications' },
+          { title: '특허 보유 현황', href: '/about/certifications#patents' },
+          { title: '수상 내역', href: '/about/certifications#awards' },
+          { title: '협력사 인증서', href: '/about/certifications#partners' },
         ],
       },
       {
         title: '오시는 길',
         links: [
-          { title: '본사', href: '/location/hq' },
-          { title: '지사/영업소', href: '/location/branch' },
-          { title: '해외 지사', href: '/location/global' },
+          { title: '찾아오시는 길', href: '/about/contact' },
+          { title: '대중교통 안내', href: '/about/contact#transport' },
+          { title: '주차 안내', href: '/about/contact#parking' },
+          { title: '연락처', href: '/about/contact#info' },
         ],
       },
     ],
@@ -165,8 +168,11 @@ export default function Header() {
       <div className="max-w-[1600px] mx-auto px-8">
         <nav className="flex items-center justify-between h-[90px]">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <span className="text-white text-[36px] font-bold tracking-wide">DOOSAN</span>
+          <Link href="/" className="flex items-center group">
+            <div className="flex flex-col">
+              <span className="text-white text-[32px] font-bold tracking-tight leading-none">KC파워</span>
+              <span className="text-secondary text-[11px] font-medium tracking-widest">KCPOWER</span>
+            </div>
           </Link>
 
           {/* Right Side: Navigation + Actions */}
@@ -177,7 +183,7 @@ export default function Header() {
                 className="relative"
                 onMouseEnter={() => setActiveMenu('productsServices')}
               >
-                <button className="text-white text-[17px] hover:text-red-500 transition-colors font-medium">
+                <button className="text-white text-[17px] hover:text-secondary transition-colors font-medium">
                   제품 & 서비스
                 </button>
               </li>
@@ -185,7 +191,7 @@ export default function Header() {
                 className="relative"
                 onMouseEnter={() => setActiveMenu('cases')}
               >
-                <button className="text-white text-[17px] hover:text-red-500 transition-colors font-medium">
+                <button className="text-white text-[17px] hover:text-secondary transition-colors font-medium">
                   시공사례
                 </button>
               </li>
@@ -193,7 +199,7 @@ export default function Header() {
                 className="relative"
                 onMouseEnter={() => setActiveMenu('community')}
               >
-                <button className="text-white text-[17px] hover:text-red-500 transition-colors font-medium">
+                <button className="text-white text-[17px] hover:text-secondary transition-colors font-medium">
                   소통공간
                 </button>
               </li>
@@ -201,7 +207,7 @@ export default function Header() {
                 className="relative"
                 onMouseEnter={() => setActiveMenu('company')}
               >
-                <button className="text-white text-[17px] hover:text-red-500 transition-colors font-medium">
+                <button className="text-white text-[17px] hover:text-secondary transition-colors font-medium">
                   회사소개
                 </button>
               </li>
@@ -225,7 +231,7 @@ export default function Header() {
               🌐 ▼
             </button>
             <Link href="/" className="text-white text-[15px] hover:text-gray-300 transition-colors font-medium">
-              두산로보틱스
+              KC파워
             </Link>
             {session?.user.role === 'ADMIN' && (
               <Link
@@ -275,7 +281,7 @@ export default function Header() {
                           <li key={linkIndex}>
                             <Link
                               href={link.href}
-                              className="text-[17px] text-gray-700 hover:text-red-700 transition-colors block font-normal"
+                              className="text-[17px] text-gray-700 hover:text-primary transition-colors block font-normal"
                               onClick={() => setActiveMenu(null)}
                             >
                               {link.title}
@@ -301,7 +307,7 @@ export default function Header() {
               <li>
                 <Link
                   href="/products"
-                  className="block px-4 py-2 text-white hover:bg-white/10 hover:text-red-400 rounded-lg transition-colors"
+                  className="block px-4 py-2 text-white hover:bg-white/10 hover:text-secondary rounded-lg transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   제품 & 서비스
@@ -310,7 +316,7 @@ export default function Header() {
               <li>
                 <Link
                   href="/cases"
-                  className="block px-4 py-2 text-white hover:bg-white/10 hover:text-red-400 rounded-lg transition-colors"
+                  className="block px-4 py-2 text-white hover:bg-white/10 hover:text-secondary rounded-lg transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   시공사례
@@ -319,7 +325,7 @@ export default function Header() {
               <li>
                 <Link
                   href="/community"
-                  className="block px-4 py-2 text-white hover:bg-white/10 hover:text-red-400 rounded-lg transition-colors"
+                  className="block px-4 py-2 text-white hover:bg-white/10 hover:text-secondary rounded-lg transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   소통공간
@@ -328,7 +334,7 @@ export default function Header() {
               <li>
                 <Link
                   href="/about"
-                  className="block px-4 py-2 text-white hover:bg-white/10 hover:text-red-400 rounded-lg transition-colors"
+                  className="block px-4 py-2 text-white hover:bg-white/10 hover:text-secondary rounded-lg transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   회사소개
@@ -337,7 +343,7 @@ export default function Header() {
               <li className="pt-3 border-t border-white/20 mt-2">
                 <Link
                   href="/contact"
-                  className="block px-4 py-2.5 text-center bg-red-700 text-white rounded-lg hover:bg-red-800 transition-colors font-medium"
+                  className="block px-4 py-2.5 text-center bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   A/S 신청

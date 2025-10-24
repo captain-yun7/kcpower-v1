@@ -15,67 +15,67 @@ interface UseCase {
 const useCases: UseCase[] = [
   {
     id: '1',
-    title: '팔레타이징',
-    category: '제조',
-    categoryColor: 'bg-red-700',
-    imageUrl: '/images/use-cases/palletizing.jpg',
-    link: '/solutions/palletizing',
+    title: '한전 변전소 외함 납품',
+    category: '한전',
+    categoryColor: 'bg-primary',
+    imageUrl: '/images/cases/kepco.jpg',
+    link: '/cases/kepco',
   },
   {
     id: '2',
-    title: '레이저 로봇 용접',
-    category: '제조',
-    categoryColor: 'bg-red-700',
-    imageUrl: '/images/use-cases/laser-welding.jpg',
-    link: '/solutions/laser-welding',
+    title: '서울지하철 9호선',
+    category: '철도',
+    categoryColor: 'bg-secondary',
+    imageUrl: '/images/cases/metro.jpg',
+    link: '/cases/metro',
   },
   {
     id: '3',
-    title: 'Sanding (샌딩)',
-    category: '제조',
-    categoryColor: 'bg-red-700',
-    imageUrl: '/images/use-cases/sanding.jpg',
-    link: '/solutions/sanding',
+    title: '현대일렉트릭 협력',
+    category: 'LS/현대',
+    categoryColor: 'bg-primary',
+    imageUrl: '/images/cases/hyundai.jpg',
+    link: '/cases/hyundai',
   },
   {
     id: '4',
-    title: '머신텐딩',
-    category: '제조',
-    categoryColor: 'bg-red-700',
-    imageUrl: '/images/use-cases/machine-tending.jpg',
-    link: '/solutions/machine-tending',
+    title: '동탄2신도시 인프라',
+    category: '신도시',
+    categoryColor: 'bg-secondary',
+    imageUrl: '/images/cases/dongtan.jpg',
+    link: '/cases/dongtan',
   },
   {
     id: '5',
-    title: 'Dr.Presso',
-    category: '서비스',
-    categoryColor: 'bg-red-800',
-    imageUrl: '/images/use-cases/dr-presso.jpg',
-    link: '/solutions/dr-presso',
+    title: 'LS일렉트릭 공장',
+    category: 'LS/현대',
+    categoryColor: 'bg-primary',
+    imageUrl: '/images/cases/ls.jpg',
+    link: '/cases/ls',
   },
   {
     id: '6',
-    title: '튀김',
-    category: '서비스',
-    categoryColor: 'bg-red-800',
-    imageUrl: '/images/use-cases/frying.jpg',
-    link: '/solutions/frying',
+    title: '산일전기 프로젝트',
+    category: '협력사',
+    categoryColor: 'bg-secondary',
+    imageUrl: '/images/cases/sanil.jpg',
+    link: '/cases/sanil',
   },
   {
     id: '7',
-    title: '공항 수하물 핸들링',
-    category: '서비스',
-    categoryColor: 'bg-red-800',
-    imageUrl: '/images/use-cases/baggage.jpg',
-    link: '/solutions/baggage',
+    title: '터널용 특수 외함',
+    category: '철도',
+    categoryColor: 'bg-secondary',
+    imageUrl: '/images/cases/tunnel.jpg',
+    link: '/cases/tunnel',
   },
   {
     id: '8',
-    title: '전기차 충전',
-    category: '서비스',
-    categoryColor: 'bg-red-800',
-    imageUrl: '/images/use-cases/ev-charging.jpg',
-    link: '/solutions/ev-charging',
+    title: '침수형 외함 설치',
+    category: '협력사',
+    categoryColor: 'bg-secondary',
+    imageUrl: '/images/cases/waterproof.jpg',
+    link: '/cases/waterproof',
   },
 ];
 
@@ -91,12 +91,12 @@ export default function UseCasesSection() {
       <div className="max-w-[1400px] mx-auto">
         {/* Header */}
         <div className="mb-12">
-          <p className="text-[16px] text-gray-500 mb-3">Use cases</p>
+          <p className="text-[16px] text-gray-500 mb-3">Project Cases</p>
           <h2 className="text-[42px] lg:text-[48px] font-bold text-gray-900 mb-6 leading-tight">
-            로봇 도입으로 일하는 방식이 새로워집니다.
+            30년 경험, 검증된 시공사례
           </h2>
-          <p className="text-[18px] text-red-700 mb-8">
-            다양한 성공사례를 통해 앞디툴을 확신할 새로운 아이디어를 얻어보세요.
+          <p className="text-[18px] text-primary mb-8">
+            대한민국 주요 전력 인프라를 책임진 KC파워의 다양한 프로젝트를 확인하세요.
           </p>
 
           {/* Filter */}
@@ -104,11 +104,14 @@ export default function UseCasesSection() {
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              className="px-6 py-3 border-2 border-gray-300 rounded-lg text-[16px] focus:border-red-700 focus:outline-none bg-white"
+              className="px-6 py-3 border-2 border-gray-300 rounded-lg text-[16px] focus:border-primary focus:outline-none bg-white"
             >
-              <option value="전체">더 많은 도입사례</option>
-              <option value="제조">제조</option>
-              <option value="서비스">서비스</option>
+              <option value="전체">모든 시공사례</option>
+              <option value="한전">한전</option>
+              <option value="LS/현대">LS/현대</option>
+              <option value="철도">철도</option>
+              <option value="신도시">신도시</option>
+              <option value="협력사">협력사</option>
             </select>
           </div>
         </div>
@@ -124,7 +127,7 @@ export default function UseCasesSection() {
               {/* Background Image */}
               <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-700">
                 {/* Placeholder for image */}
-                <div className="w-full h-full bg-gradient-to-br from-red-700/20 to-red-900/20 flex items-center justify-center">
+                <div className={`w-full h-full bg-gradient-to-br ${useCase.categoryColor === 'bg-primary' ? 'from-primary/20 to-primary/40' : 'from-secondary/20 to-secondary/40'} flex items-center justify-center`}>
                   <div className="text-white/30 text-6xl font-bold">
                     {useCase.title.charAt(0)}
                   </div>
@@ -164,8 +167,8 @@ export default function UseCasesSection() {
         {/* View More Button */}
         <div className="text-center mt-12">
           <Link
-            href="/solutions"
-            className="inline-flex items-center gap-2 px-10 py-4 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors text-[16px] font-semibold"
+            href="/cases"
+            className="inline-flex items-center gap-2 px-10 py-4 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors text-[16px] font-semibold"
           >
             모든 시공사례 보기
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

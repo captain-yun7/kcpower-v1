@@ -183,97 +183,99 @@ export default function Home() {
       <UseCasesSection />
 
       {/* Feature Sections */}
-      {/* 1. SUPER FLEXIBLE */}
+      {/* 1. 품질과 안전 */}
       <FeatureSection
-        label="SUPER FLEXIBLE"
-        subtitle="두산 로봇만의 탁월한 유연성으로"
-        title="로봇 자동화를 더욱 유연하게"
-        description="미국, 유럽 아시아 등 세계 45개국 글로벌 선도 기업들이 신뢰하는 두산로보틱스. 제조부터 물류, 에너지, 의료 및 식음료까지 고객에게 최고의 솔루션을 제공합니다."
+        label="QUALITY & SAFETY"
+        subtitle="30년간 쌓아온 기술력으로"
+        title="최고 품질의 변압기 외함을 제공합니다"
+        description="한전, LS일렉트릭, 현대일렉트릭 등 대한민국 주요 전력 기업들이 신뢰하는 KC파워. 변전소부터 철도, 터널까지 고객에게 최고의 전기설비 솔루션을 제공합니다."
         features={[
           {
-            title: "업계 최대의 로봇 솔루션 보유",
-            description: "미국, 유럽 아시아 등 세계 45개국 글로벌 선도 기업들이 신뢰하는 두산로보틱스. 제조부터 물류, 에너지, 의료 및 식음료까지 고객에게 최고의 솔루션을 제공합니다."
+            title: "업계 최고 수준의 품질 관리",
+            description: "철저한 품질 검사와 30년 노하우로 완벽한 방수, 방진, 내구성을 자랑하는 제품을 생산합니다. 한전 우수협력업체로 선정된 신뢰할 수 있는 품질을 경험하세요."
           },
           {
-            title: "다양한 파트너사 제품과의 호환성 확보",
-            description: "그리퍼부터 전동툴, 머신, 센서, 소프트웨어까지 다양한 글로벌 파트너사 제품과의 사전 호환성이 확보되어 고객의 니즈에 맞는 최적의 로봇 솔루션 구현이 가능합니다."
+            title: "다양한 환경에 최적화된 솔루션",
+            description: "옥외 설치용 밀폐형부터 주거지역 소음저감형, 터널용 특수 외함까지 현장 환경에 맞는 맞춤형 솔루션을 제공합니다."
           }
         ]}
-        linkText="산업군별 솔루션 및 고객사 보러가기"
-        linkHref="/solutions"
-        imageUrl="/images/flexible-robot.jpg"
+        linkText="제품 라인업 및 시공사례 보러가기"
+        linkHref="/products"
+        imageUrl="/images/products.jpg"
         videoUrl="#"
         imagePosition="right"
         backgroundColor="bg-white"
       />
 
-      {/* 2. SUPER SAFE */}
+      {/* 2. 신속한 대응 */}
       <FeatureSection
-        label="SUPER SAFE"
-        subtitle="Super Safety System으로"
-        title="로봇 작업을 보다 안전하게"
-        description="두산 로봇은 TÜV SÜD 기술인증 평가에서 업계 최고 수준인 PLe, Cat4를 획득해 높은 안전성을 인정받았으며, 6개의 각축에 고성능 토크센서가 탑재되어 업계 최고 수준의 힘 감지력 및 충돌 민감도를 자랑합니다."
+        label="FAST RESPONSE"
+        subtitle="24시간 긴급 대응 시스템으로"
+        title="언제나 빠르고 정확한 서비스"
+        description="3개 공장을 통한 신속한 생산 체계와 24시간 긴급 출동 시스템으로 고객의 긴급한 요구에 즉시 대응합니다."
         features={[
           {
-            title: "업계 최고의 안전성을 자랑하는 두산 로봇",
-            description: "두산 로봇은 TÜV SÜD 기술인증 평가에서 업계 최고 수준인 PLe, Cat4를 획득해 높은 안전성을 인정받았으며, 6개의 각축에 고성능 토크센서가 탑재되어 업계 최고 수준의 힘 감지력 및 충돌 민감도를 자랑합니다."
+            title: "전국 어디서나 신속한 출장 서비스",
+            description: "인천 남동구에 위치한 3개 공장을 기반으로 수도권은 물론 전국 어디든 빠르게 출장 서비스를 제공합니다. A/S 및 긴급 공사도 신속하게 처리합니다."
           },
           {
-            title: "작업자를 빈틈없이 보호하는 구역설정",
-            description: "협동작업구역, 중출입감시구간소구역, 통합항전관공지재반 등 현장 용용에 맞춰 다양한 구역설정모드, 효율성 방식은 물론 작업자의 안전까지 보장합니다."
+            title: "체계적인 사후 관리",
+            description: "납품 후에도 지속적인 점검과 유지보수로 제품의 안정적인 작동을 보장합니다. 고객 만족을 최우선으로 생각하는 KC파워입니다."
           }
         ]}
-        linkText="안전 인증 및 고객사 보러가기"
-        linkHref="/safety"
-        imageUrl="/images/safe-robot.jpg"
+        linkText="기술 서비스 및 A/S 신청하기"
+        linkHref="/services"
+        imageUrl="/images/service.jpg"
         videoUrl="#"
         imagePosition="left"
         backgroundColor="bg-gray-50"
       />
 
-      {/* 3. SUPER EASY */}
+      {/* 3. 맞춤형 제작 */}
       <FeatureSection
-        label="SUPER EASY"
-        subtitle="직관적인 사용성으로"
-        title="로봇 티칭을 쉽고 빠르게"
-        description="스마트폰을 쓰듯, 앱으로 로봇을 쉽고 간편하게 티칭"
+        label="CUSTOMIZATION"
+        subtitle="고객 맞춤형 설계로"
+        title="현장에 딱 맞는 솔루션 제공"
+        description="표준 제품부터 특수 목적 맞춤 제작까지, 고객의 요구사항을 정확히 반영한 최적의 솔루션을 제공합니다."
         features={[
           {
-            title: "스마트폰을 쓰듯, 앱으로 로봇을 쉽고 간편하게 티칭",
-            description: "스마트폰과 유사한 사용 환경을 제공하는 다트 스위트(Dart-Suite)를 활용하여 사용자부터 개발자까지 모두가 협동로봇을 손쉽게 사용할 수 있습니다."
+            title: "현장 환경 분석 및 맞춤 설계",
+            description: "현장의 특수한 조건과 요구사항을 면밀히 분석하여 최적화된 설계를 제공합니다. 침수형, 터널용 등 특수 환경에도 완벽 대응합니다."
           },
           {
-            title: "다트 스튜디오에서 앱을 다운 받아 쉽고 빠른 로봇 운용도 물론, 드래그앤 드롭 방식으로 간편 사간을 최대 80%까지 확기적으로 단축할 수 있습니다.",
-            description: "다트 스튜디오에서 앱을 다운 받아 쉽고 빠른 로봇 운용도 물론, 드래그앤 드롭 방식으로 간편 사간을 최대 80%까지 확기적으로 단축할 수 있습니다."
+            title: "빠른 납품과 유연한 생산 체계",
+            description: "3개 공장의 효율적인 생산 시스템으로 대량 주문은 물론 긴급 납품에도 신속하게 대응합니다. 고객의 일정에 맞춰 유연하게 생산합니다."
           }
         ]}
-        linkText="다트 스위트에 대해 자세히 알아보기"
-        linkHref="/dart-suite"
-        imageUrl="/images/easy-robot.jpg"
+        linkText="견적 문의하기"
+        linkHref="/quote"
+        imageUrl="/images/custom.jpg"
         videoUrl="#"
         imagePosition="right"
         backgroundColor="bg-[#0a0e1a]"
       />
 
-      {/* Product Series Section */}
+      {/* Product Lineup Section */}
       <section className="py-32 px-4 bg-white">
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-20">
-            <h2 className="text-5xl font-bold text-gray-900 mb-6">제품 라인업</h2>
-            <p className="text-xl text-gray-600">다양한 산업 환경에 최적화된 협동로봇 시리즈</p>
+            <h2 className="text-5xl font-bold text-gray-900 mb-6">주요 제품</h2>
+            <p className="text-xl text-gray-600">다양한 환경에 최적화된 변압기 외함 솔루션</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* P-Series Card */}
+            {/* 밀폐형 외함 */}
             <div className="group bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all cursor-pointer">
-              <div className="aspect-square bg-white rounded-xl mb-6 flex items-center justify-center">
-                <span className="text-6xl font-bold text-red-700">P</span>
+              <div className="aspect-square bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl mb-6 flex items-center justify-center">
+                <svg className="w-24 h-24 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">P-SERIES</h3>
-              <p className="text-gray-600 mb-4">고성능 정밀 작업용 로봇</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">밀폐형 외함</h3>
+              <p className="text-gray-600 mb-4">완벽한 방수/방진 성능으로 옥외 설치 최적화</p>
               <Link
-                href="/products"
-                className="text-red-700 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
+                href="/products/sealed"
+                className="text-primary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
               >
                 자세히 보기
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -282,16 +284,18 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* H-Series Card */}
+            {/* 소음저감형 */}
             <div className="group bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all cursor-pointer">
-              <div className="aspect-square bg-white rounded-xl mb-6 flex items-center justify-center">
-                <span className="text-6xl font-bold text-red-700">H</span>
+              <div className="aspect-square bg-gradient-to-br from-secondary/10 to-secondary/5 rounded-xl mb-6 flex items-center justify-center">
+                <svg className="w-24 h-24 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">H-SERIES</h3>
-              <p className="text-gray-600 mb-4">중량물 핸들링 전문 로봇</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">소음저감형 외함</h3>
+              <p className="text-gray-600 mb-4">주거지역 설치 가능한 특수 설계</p>
               <Link
-                href="/products"
-                className="text-red-700 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
+                href="/products/soundproof"
+                className="text-secondary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
               >
                 자세히 보기
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -300,16 +304,18 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* M-Series Card */}
+            {/* 터널용 외함 */}
             <div className="group bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all cursor-pointer">
-              <div className="aspect-square bg-white rounded-xl mb-6 flex items-center justify-center">
-                <span className="text-6xl font-bold text-red-700">M</span>
+              <div className="aspect-square bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl mb-6 flex items-center justify-center">
+                <svg className="w-24 h-24 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">M-SERIES</h3>
-              <p className="text-gray-600 mb-4">범용 협동로봇의 표준</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">터널용 외함</h3>
+              <p className="text-gray-600 mb-4">철도/도로 터널 특수 환경 대응</p>
               <Link
-                href="/products"
-                className="text-red-700 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
+                href="/products/tunnel"
+                className="text-primary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
               >
                 자세히 보기
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -318,16 +324,18 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* A-Series Card */}
+            {/* 침수형 외함 */}
             <div className="group bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all cursor-pointer">
-              <div className="aspect-square bg-white rounded-xl mb-6 flex items-center justify-center">
-                <span className="text-6xl font-bold text-red-700">A</span>
+              <div className="aspect-square bg-gradient-to-br from-secondary/10 to-secondary/5 rounded-xl mb-6 flex items-center justify-center">
+                <svg className="w-24 h-24 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">A-SERIES</h3>
-              <p className="text-gray-600 mb-4">산업용 고속 작업 로봇</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">침수형 외함</h3>
+              <p className="text-gray-600 mb-4">완벽한 방수 성능, 열악한 환경 대응</p>
               <Link
-                href="/products"
-                className="text-red-700 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
+                href="/products/waterproof"
+                className="text-secondary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
               >
                 자세히 보기
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -336,16 +344,18 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* E-Series Card */}
+            {/* 수배전반 */}
             <div className="group bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all cursor-pointer">
-              <div className="aspect-square bg-white rounded-xl mb-6 flex items-center justify-center">
-                <span className="text-6xl font-bold text-red-700">E</span>
+              <div className="aspect-square bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl mb-6 flex items-center justify-center">
+                <svg className="w-24 h-24 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">E-SERIES</h3>
-              <p className="text-gray-600 mb-4">경제적이고 효율적인 로봇</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">수배전반</h3>
+              <p className="text-gray-600 mb-4">통합 전력 관리 솔루션</p>
               <Link
-                href="/products"
-                className="text-red-700 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
+                href="/products/switchboard"
+                className="text-primary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
               >
                 자세히 보기
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -355,7 +365,7 @@ export default function Home() {
             </div>
 
             {/* View All Card */}
-            <div className="group bg-red-700 rounded-2xl p-8 hover:bg-red-800 transition-all cursor-pointer flex items-center justify-center">
+            <div className="group bg-primary rounded-2xl p-8 hover:bg-primary-dark transition-all cursor-pointer flex items-center justify-center">
               <Link href="/products" className="text-center">
                 <div className="text-white mb-4">
                   <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -370,29 +380,81 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Major Clients Section */}
+      <section className="py-20 px-4 bg-gray-50">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">주요 고객사</h2>
+            <p className="text-xl text-gray-600">
+              대한민국 전력 인프라를 책임지는 주요 기업들이 KC파워를 선택합니다
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {/* 한전 */}
+            <div className="bg-white rounded-xl p-8 flex items-center justify-center hover:shadow-lg transition-shadow">
+              <div className="text-center">
+                <div className="text-4xl font-bold text-primary mb-2">한전</div>
+                <p className="text-sm text-gray-600">한국전력공사</p>
+              </div>
+            </div>
+
+            {/* LS일렉트릭 */}
+            <div className="bg-white rounded-xl p-8 flex items-center justify-center hover:shadow-lg transition-shadow">
+              <div className="text-center">
+                <div className="text-4xl font-bold text-secondary mb-2">LS</div>
+                <p className="text-sm text-gray-600">LS일렉트릭</p>
+              </div>
+            </div>
+
+            {/* 현대일렉트릭 */}
+            <div className="bg-white rounded-xl p-8 flex items-center justify-center hover:shadow-lg transition-shadow">
+              <div className="text-center">
+                <div className="text-4xl font-bold text-primary mb-2">현대</div>
+                <p className="text-sm text-gray-600">현대일렉트릭</p>
+              </div>
+            </div>
+
+            {/* 산일전기 */}
+            <div className="bg-white rounded-xl p-8 flex items-center justify-center hover:shadow-lg transition-shadow">
+              <div className="text-center">
+                <div className="text-4xl font-bold text-secondary mb-2">산일</div>
+                <p className="text-sm text-gray-600">산일전기</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <p className="text-gray-600">
+              그 외 다수의 전기설비 업체와 함께하고 있습니다
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-32 px-4 bg-[#0a0e1a] relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-red-700/10 to-red-900/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10"></div>
         <div className="max-w-[1400px] mx-auto text-center relative z-10">
           <h2 className="text-5xl font-bold text-white mb-6">
             지금 바로 시작하세요
           </h2>
           <p className="text-xl text-white/70 mb-12 font-light">
-            두산로보틱스의 협동로봇으로 작업 환경을 혁신하고<br />
-            생산성을 극대화하세요
+            KC파워의 전기설비 솔루션으로 안전하고 효율적인 <br />
+            전력 인프라를 구축하세요
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/contact"
-              className="px-10 py-4 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition-all duration-300 font-semibold shadow-xl"
+              href="/quote"
+              className="px-10 py-4 bg-secondary text-white rounded-lg hover:bg-secondary-dark transition-all duration-300 font-semibold shadow-xl"
             >
-              구매 문의하기
+              견적 문의하기
             </Link>
             <Link
-              href="/training"
+              href="/cases"
               className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white border-2 border-white rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold"
             >
-              교육 프로그램 신청
+              시공사례 보기
             </Link>
           </div>
         </div>
