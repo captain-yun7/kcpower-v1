@@ -222,119 +222,107 @@ export default function Home() {
             <p className="text-xl text-gray-600">다양한 환경에 최적화된 변압기 외함 솔루션</p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* 밀폐형 외함 */}
-            <div className="group bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all cursor-pointer">
-              <div className="aspect-square bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl mb-6 flex items-center justify-center">
-                <svg className="w-24 h-24 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
+            <Link href="/products/sealed" className="group bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all cursor-pointer">
+              <div className="aspect-square relative overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80"
+                  alt="밀폐형 외함"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">밀폐형 외함</h3>
-              <p className="text-gray-600 mb-4">완벽한 방수/방진 성능으로 옥외 설치 최적화</p>
-              <Link
-                href="/products/sealed"
-                className="text-primary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
-              >
-                자세히 보기
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">밀폐형 외함</h3>
+                <p className="text-gray-600 text-sm mb-4">완벽한 방수/방진 성능으로 옥외 설치 최적화</p>
+                <span className="text-primary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
+                  자세히 보기
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </div>
+            </Link>
 
             {/* 소음저감형 */}
-            <div className="group bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all cursor-pointer">
-              <div className="aspect-square bg-gradient-to-br from-secondary/10 to-secondary/5 rounded-xl mb-6 flex items-center justify-center">
-                <svg className="w-24 h-24 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                </svg>
+            <Link href="/products/soundproof" className="group bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all cursor-pointer">
+              <div className="aspect-square relative overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80"
+                  alt="소음저감형 외함"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">소음저감형 외함</h3>
-              <p className="text-gray-600 mb-4">주거지역 설치 가능한 특수 설계</p>
-              <Link
-                href="/products/soundproof"
-                className="text-secondary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
-              >
-                자세히 보기
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">소음저감형 외함</h3>
+                <p className="text-gray-600 text-sm mb-4">주거지역 설치 가능한 특수 설계</p>
+                <span className="text-secondary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
+                  자세히 보기
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </div>
+            </Link>
 
             {/* 터널용 외함 */}
-            <div className="group bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all cursor-pointer">
-              <div className="aspect-square bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl mb-6 flex items-center justify-center">
-                <svg className="w-24 h-24 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
+            <Link href="/products/tunnel" className="group bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all cursor-pointer">
+              <div className="aspect-square relative overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&q=80"
+                  alt="터널용 외함"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">터널용 외함</h3>
-              <p className="text-gray-600 mb-4">철도/도로 터널 특수 환경 대응</p>
-              <Link
-                href="/products/tunnel"
-                className="text-primary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
-              >
-                자세히 보기
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
-
-            {/* 침수형 외함 */}
-            <div className="group bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all cursor-pointer">
-              <div className="aspect-square bg-gradient-to-br from-secondary/10 to-secondary/5 rounded-xl mb-6 flex items-center justify-center">
-                <svg className="w-24 h-24 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                </svg>
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">터널용 외함</h3>
+                <p className="text-gray-600 text-sm mb-4">철도/도로 터널 특수 환경 대응</p>
+                <span className="text-primary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
+                  자세히 보기
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">침수형 외함</h3>
-              <p className="text-gray-600 mb-4">완벽한 방수 성능, 열악한 환경 대응</p>
-              <Link
-                href="/products/waterproof"
-                className="text-secondary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
-              >
-                자세히 보기
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
+            </Link>
 
             {/* 수배전반 */}
-            <div className="group bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all cursor-pointer">
-              <div className="aspect-square bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl mb-6 flex items-center justify-center">
-                <svg className="w-24 h-24 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
+            <Link href="/products/switchboard" className="group bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all cursor-pointer">
+              <div className="aspect-square relative overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80"
+                  alt="수배전반"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">수배전반</h3>
-              <p className="text-gray-600 mb-4">통합 전력 관리 솔루션</p>
-              <Link
-                href="/products/switchboard"
-                className="text-primary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
-              >
-                자세히 보기
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
-
-            {/* View All Card */}
-            <div className="group bg-primary rounded-2xl p-8 hover:bg-primary-dark transition-all cursor-pointer flex items-center justify-center">
-              <Link href="/products" className="text-center">
-                <div className="text-white mb-4">
-                  <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">수배전반</h3>
+                <p className="text-gray-600 text-sm mb-4">통합 전력 관리 솔루션</p>
+                <span className="text-secondary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
+                  자세히 보기
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-2">모든 제품 보기</h3>
-                <p className="text-red-100">전체 라인업 살펴보기</p>
-              </Link>
-            </div>
+                </span>
+              </div>
+            </Link>
+          </div>
+
+          {/* View More Link */}
+          <div className="text-center mt-12">
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all text-lg"
+            >
+              모든 제품 보기
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
           </div>
         </div>
       </section>
@@ -349,7 +337,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {/* 한전 */}
             <div className="bg-white rounded-xl p-8 flex items-center justify-center hover:shadow-lg transition-shadow">
               <div className="text-center">

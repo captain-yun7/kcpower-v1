@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
 
 interface UseCase {
   id: string;
@@ -80,12 +79,6 @@ const useCases: UseCase[] = [
 ];
 
 export default function UseCasesSection() {
-  const [filter, setFilter] = useState<string>('전체');
-
-  const filteredCases = filter === '전체'
-    ? useCases
-    : useCases.filter(uc => uc.category === filter);
-
   return (
     <section className="py-24 px-6 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-[1400px] mx-auto">
@@ -100,38 +93,11 @@ export default function UseCasesSection() {
           <p className="text-[20px] text-gray-600 mb-10 max-w-3xl mx-auto">
             대한민국 주요 전력 인프라를 책임진 케이씨파워의 다양한 프로젝트를 확인하세요.
           </p>
-
-          {/* Filter */}
-          <div className="flex justify-center items-center gap-3 flex-wrap">
-            <button
-              onClick={() => setFilter('전체')}
-              className={`px-6 py-2.5 rounded-full text-[15px] font-medium transition-all ${
-                filter === '전체'
-                  ? 'bg-primary text-white shadow-lg shadow-primary/30'
-                  : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-              }`}
-            >
-              전체
-            </button>
-            {['한전', 'LS/현대', '철도', '신도시', '협력사'].map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={`px-6 py-2.5 rounded-full text-[15px] font-medium transition-all ${
-                  filter === cat
-                    ? 'bg-primary text-white shadow-lg shadow-primary/30'
-                    : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
         </div>
 
         {/* Use Cases Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {filteredCases.map((useCase) => (
+          {useCases.slice(0, 4).map((useCase) => (
             <Link
               key={useCase.id}
               href={useCase.link}
