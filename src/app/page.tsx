@@ -39,7 +39,7 @@ export default function Home() {
             href="/products"
             className="inline-flex items-center gap-3 px-8 py-4 bg-secondary backdrop-blur-sm border border-secondary-light text-white text-[16px] rounded-lg hover:bg-secondary-dark transition-all duration-300"
           >
-            KC파워 제품 둘러보기
+            케이씨파워 제품 둘러보기
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
@@ -188,7 +188,7 @@ export default function Home() {
         label="QUALITY & SAFETY"
         subtitle="30년간 쌓아온 기술력으로"
         title="최고 품질의 변압기 외함을 제공합니다"
-        description="한전, LS일렉트릭, 현대일렉트릭 등 대한민국 주요 전력 기업들이 신뢰하는 KC파워. 변전소부터 철도, 터널까지 고객에게 최고의 전기설비 솔루션을 제공합니다."
+        description="한전, LS일렉트릭, 현대일렉트릭 등 대한민국 주요 전력 기업들이 신뢰하는 케이씨파워. 변전소부터 철도, 터널까지 고객에게 최고의 전기설비 솔루션을 제공합니다."
         features={[
           {
             title: "업계 최고 수준의 품질 관리",
@@ -220,7 +220,7 @@ export default function Home() {
           },
           {
             title: "체계적인 사후 관리",
-            description: "납품 후에도 지속적인 점검과 유지보수로 제품의 안정적인 작동을 보장합니다. 고객 만족을 최우선으로 생각하는 KC파워입니다."
+            description: "납품 후에도 지속적인 점검과 유지보수로 제품의 안정적인 작동을 보장합니다. 고객 만족을 최우선으로 생각하는 케이씨파워입니다."
           }
         ]}
         linkText="기술 서비스 및 A/S 신청하기"
@@ -386,7 +386,7 @@ export default function Home() {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">주요 고객사</h2>
             <p className="text-xl text-gray-600">
-              대한민국 전력 인프라를 책임지는 주요 기업들이 KC파워를 선택합니다
+              대한민국 전력 인프라를 책임지는 주요 기업들이 케이씨파워를 선택합니다
             </p>
           </div>
 
@@ -440,7 +440,7 @@ export default function Home() {
             지금 바로 시작하세요
           </h2>
           <p className="text-xl text-white/70 mb-12 font-light">
-            KC파워의 전기설비 솔루션으로 안전하고 효율적인 <br />
+            케이씨파워의 전기설비 솔루션으로 안전하고 효율적인 <br />
             전력 인프라를 구축하세요
           </p>
           <div className="flex flex-wrap justify-center gap-4">

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* KC파워 브랜드 컬러: 레드 + 그린 조합 */
+  /* 케이씨파워 브랜드 컬러: 레드 + 그린 조합 */
   /* Primary Red: 전기, 전력, 안전을 상징 */
   --color-primary: #B91C1C;        /* red-700 */
   --color-primary-dark: #991B1B;   /* red-800 */

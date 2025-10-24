@@ -96,7 +96,7 @@ export default function UseCasesSection() {
             30년 경험, 검증된 시공사례
           </h2>
           <p className="text-[18px] text-primary mb-8">
-            대한민국 주요 전력 인프라를 책임진 KC파워의 다양한 프로젝트를 확인하세요.
+            대한민국 주요 전력 인프라를 책임진 케이씨파워의 다양한 프로젝트를 확인하세요.
           </p>
 
           {/* Filter */}

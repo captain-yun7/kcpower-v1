@@ -168,10 +168,19 @@ export default function Header() {
       <div className="max-w-[1600px] mx-auto px-8">
         <nav className="flex items-center justify-between h-[90px]">
           {/* Logo */}
-          <Link href="/" className="flex items-center group">
-            <div className="flex flex-col">
-              <span className="text-white text-[32px] font-bold tracking-tight leading-none">KC파워</span>
-              <span className="text-secondary text-[11px] font-medium tracking-widest">KCPOWER</span>
+          <Link href="/" className="flex items-center gap-4 group">
+            <img
+              src="/logo.png"
+              alt="케이씨파워 로고"
+              className="h-[55px] w-auto object-contain transition-transform group-hover:scale-105"
+            />
+            <div className="flex flex-col justify-center -space-y-0.5">
+              <span className="text-white text-[26px] font-semibold italic tracking-wide leading-none bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
+                케이씨파워
+              </span>
+              <span className="text-secondary text-[10px] font-bold tracking-[0.3em] uppercase pl-0.5">
+                KC POWER
+              </span>
             </div>
           </Link>
 
@@ -231,7 +240,7 @@ export default function Header() {
               🌐 ▼
             </button>
             <Link href="/" className="text-white text-[15px] hover:text-gray-300 transition-colors font-medium">
-              KC파워
+              케이씨파워
             </Link>
             {session?.user.role === 'ADMIN' && (
               <Link

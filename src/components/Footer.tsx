@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block">
               <h3 className="text-white text-2xl font-bold mb-4 hover:text-secondary transition-colors">
-                KC파워
+                케이씨파워
               </h3>
             </Link>
             <p className="text-sm text-gray-400 mb-4">
@@ -139,7 +139,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-sm text-gray-400 text-center md:text-left">
-              <p>&copy; {currentYear} KC파워. All rights reserved.</p>
+              <p>&copy; {currentYear} 케이씨파워. All rights reserved.</p>
             </div>
             <div className="flex space-x-6 text-sm">
               <Link href="/privacy" className="text-gray-400 hover:text-secondary transition-colors">
