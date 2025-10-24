@@ -29,17 +29,17 @@ export default function Home() {
         {/* Main Content */}
         <div className="relative z-10 max-w-[1400px] mx-auto px-6 py-32 text-center">
           <h1 className="text-[56px] lg:text-[72px] font-bold text-white mb-6 leading-tight tracking-tight">
-            AI-Powered Robot Solutions<br />
-            for a Better Life
+            30년 신뢰,<br />
+            최고의 전기설비 솔루션
           </h1>
           <p className="text-[20px] text-white/80 mb-12 font-light tracking-wide">
-            Innovation in every motion, revolutionizing the way we work
+            1993년부터 쌓아온 기술력과 신뢰로 대한민국 전력 인프라를 책임집니다
           </p>
           <Link
             href="/products"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/30 text-white text-[16px] rounded-lg hover:bg-white/20 transition-all duration-300"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-secondary backdrop-blur-sm border border-secondary-light text-white text-[16px] rounded-lg hover:bg-secondary-dark transition-all duration-300"
           >
-            두산 로봇과 함께 상상을 실현해 보세요
+            KC파워 제품 둘러보기
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
@@ -49,18 +49,18 @@ export default function Home() {
         {/* Floating Action Buttons - Right Side */}
         <div className="fixed right-0 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-0 bg-[#1e2847] rounded-l-lg overflow-hidden shadow-2xl">
           <Link
-            href="/contact"
+            href="/quote"
             className="group flex items-center gap-3 px-6 py-4 text-white hover:bg-[#2a3555] transition-all duration-300 border-b border-white/10"
           >
-            <div className="w-10 h-10 flex items-center justify-center bg-red-700 rounded-full group-hover:scale-110 transition-transform">
+            <div className="w-10 h-10 flex items-center justify-center bg-primary rounded-full group-hover:scale-110 transition-transform">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
-            <span className="text-[14px] font-medium">구매 문의</span>
+            <span className="text-[14px] font-medium">견적 문의</span>
           </Link>
           <Link
-            href="/locations"
+            href="/about/contact"
             className="group flex items-center gap-3 px-6 py-4 text-white hover:bg-[#2a3555] transition-all duration-300 border-b border-white/10"
           >
             <div className="w-10 h-10 flex items-center justify-center bg-white/10 rounded-full group-hover:scale-110 transition-transform">
@@ -69,21 +69,21 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </div>
-            <span className="text-[14px] font-medium">가까운 대리점 찾기</span>
+            <span className="text-[14px] font-medium">오시는 길</span>
           </Link>
           <Link
-            href="/training"
+            href="/downloads"
             className="group flex items-center gap-3 px-6 py-4 text-white hover:bg-[#2a3555] transition-all duration-300 border-b border-white/10"
           >
             <div className="w-10 h-10 flex items-center justify-center bg-white/10 rounded-full group-hover:scale-110 transition-transform">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-            <span className="text-[14px] font-medium">두산 로봇 교육</span>
+            <span className="text-[14px] font-medium">자료 다운로드</span>
           </Link>
           <Link
-            href="/support"
+            href="/quote"
             className="group flex items-center gap-3 px-6 py-4 text-white hover:bg-[#2a3555] transition-all duration-300"
           >
             <div className="w-10 h-10 flex items-center justify-center bg-white/10 rounded-full group-hover:scale-110 transition-transform">
@@ -101,6 +101,81 @@ export default function Home() {
           <svg className="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
+        </div>
+      </section>
+
+      {/* Company Stats Section */}
+      <section className="py-20 px-4 bg-white">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+              대한민국 전기설비의 신뢰할 수 있는 파트너
+            </h2>
+            <p className="text-xl text-gray-600">
+              30년간 쌓아온 기술력과 노하우로 안전하고 효율적인 전기설비 솔루션을 제공합니다
+            </p>
+          </div>
+
+          {/* Stats Grid */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <div className="text-center">
+              <div className="text-5xl lg:text-6xl font-bold text-primary mb-2">30+</div>
+              <div className="text-gray-600 font-medium">년 역사</div>
+              <div className="text-sm text-gray-500 mt-1">1993년 설립</div>
+            </div>
+            <div className="text-center">
+              <div className="text-5xl lg:text-6xl font-bold text-secondary mb-2">3</div>
+              <div className="text-gray-600 font-medium">개 공장</div>
+              <div className="text-sm text-gray-500 mt-1">인천 남동구</div>
+            </div>
+            <div className="text-center">
+              <div className="text-5xl lg:text-6xl font-bold text-primary mb-2">10K+</div>
+              <div className="text-gray-600 font-medium">누적 납품</div>
+              <div className="text-sm text-gray-500 mt-1">변압기 외함</div>
+            </div>
+            <div className="text-center">
+              <div className="text-5xl lg:text-6xl font-bold text-secondary mb-2">4+</div>
+              <div className="text-gray-600 font-medium">주요 고객사</div>
+              <div className="text-sm text-gray-500 mt-1">한전, LS, 현대일렉트릭</div>
+            </div>
+          </div>
+
+          {/* Core Values */}
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-gray-50 rounded-xl p-8 text-center">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">안전</h3>
+              <p className="text-gray-600 text-sm">
+                모든 제품과 서비스에서 안전을 최우선으로 합니다
+              </p>
+            </div>
+            <div className="bg-gray-50 rounded-xl p-8 text-center">
+              <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">신뢰</h3>
+              <p className="text-gray-600 text-sm">
+                30년간 쌓아온 기술력과 실적으로 신뢰를 증명합니다
+              </p>
+            </div>
+            <div className="bg-gray-50 rounded-xl p-8 text-center">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">혁신</h3>
+              <p className="text-gray-600 text-sm">
+                끊임없는 R&D로 업계 최초의 혁신 제품을 개발합니다
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

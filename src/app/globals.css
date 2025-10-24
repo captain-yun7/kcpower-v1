@@ -1,11 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #3b82f6;
-  --color-primary-dark: #2563eb;
-  --color-primary-light: #60a5fa;
-  --color-secondary: #10b981;
-  --color-accent: #f59e0b;
+  /* KC파워 브랜드 컬러: 레드 + 그린 조합 */
+  /* Primary Red: 전기, 전력, 안전을 상징 */
+  --color-primary: #B91C1C;        /* red-700 */
+  --color-primary-dark: #991B1B;   /* red-800 */
+  --color-primary-light: #DC2626;  /* red-600 */
+
+  /* Secondary Green: 에너지, 친환경을 상징 */
+  --color-secondary: #059669;      /* emerald-600 */
+  --color-secondary-dark: #047857; /* emerald-700 */
+  --color-secondary-light: #10B981; /* emerald-500 */
+
+  /* Accent Yellow: 전기/에너지 강조 */
+  --color-accent: #FBBF24;         /* amber-400 */
+  --color-accent-dark: #F59E0B;    /* amber-500 */
 }
 
 html {
