@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import FeatureSection from '@/components/FeatureSection';
 import UseCasesSection from '@/components/UseCasesSection';
 import HeroSection from '@/components/HeroSection';
+import ClientsCarousel from '@/components/ClientsCarousel';
 
 export default function Home() {
   return (
@@ -328,56 +329,7 @@ export default function Home() {
       </section>
 
       {/* Major Clients Section */}
-      <section className="py-20 px-4 bg-gray-50">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">주요 고객사</h2>
-            <p className="text-xl text-gray-600">
-              대한민국 전력 인프라를 책임지는 주요 기업들이 케이씨파워를 선택합니다
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* 한전 */}
-            <div className="bg-white rounded-xl p-8 flex items-center justify-center hover:shadow-lg transition-shadow">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">한전</div>
-                <p className="text-sm text-gray-600">한국전력공사</p>
-              </div>
-            </div>
-
-            {/* LS일렉트릭 */}
-            <div className="bg-white rounded-xl p-8 flex items-center justify-center hover:shadow-lg transition-shadow">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-secondary mb-2">LS</div>
-                <p className="text-sm text-gray-600">LS일렉트릭</p>
-              </div>
-            </div>
-
-            {/* 현대일렉트릭 */}
-            <div className="bg-white rounded-xl p-8 flex items-center justify-center hover:shadow-lg transition-shadow">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">현대</div>
-                <p className="text-sm text-gray-600">현대일렉트릭</p>
-              </div>
-            </div>
-
-            {/* 산일전기 */}
-            <div className="bg-white rounded-xl p-8 flex items-center justify-center hover:shadow-lg transition-shadow">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-secondary mb-2">산일</div>
-                <p className="text-sm text-gray-600">산일전기</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center mt-12">
-            <p className="text-gray-600">
-              그 외 다수의 전기설비 업체와 함께하고 있습니다
-            </p>
-          </div>
-        </div>
-      </section>
+      <ClientsCarousel />
 
       {/* CTA Section */}
       <section className="py-32 px-4 bg-[#0a0e1a] relative overflow-hidden">
