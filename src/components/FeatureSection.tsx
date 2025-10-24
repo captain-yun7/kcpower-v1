@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 
 interface FeatureSectionProps {
   title: string;
@@ -34,6 +35,7 @@ export default function FeatureSection({
   backgroundColor = 'bg-white',
   backgroundImage,
 }: FeatureSectionProps) {
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const contentOrder = imagePosition === 'left' ? 'lg:order-2' : 'lg:order-1';
   const mediaOrder = imagePosition === 'left' ? 'lg:order-1' : 'lg:order-2';
 
@@ -127,26 +129,36 @@ export default function FeatureSection({
           {/* Media Section */}
           <div className={`${mediaOrder} relative`}>
             <div className="relative aspect-[4/3] bg-gray-100 rounded-2xl overflow-hidden shadow-2xl">
-              {videoUrl ? (
+              {videoUrl && videoUrl !== '#' ? (
                 <div className="relative w-full h-full group">
-                  {/* Video Placeholder with Play Button */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-red-700/20 to-red-900/20 flex items-center justify-center">
-                    <button className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-transform group-hover:bg-white">
-                      <svg
-                        className="w-8 h-8 text-red-700 ml-1"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
+                  {/* Video Element */}
+                  <video
+                    className="w-full h-full object-cover"
+                    loop
+                    muted
+                    playsInline
+                    autoPlay={isVideoPlaying}
+                    poster={imageUrl}
+                  >
+                    <source src={videoUrl} type="video/mp4" />
+                  </video>
+
+                  {/* Play Button Overlay (hidden when playing) */}
+                  {!isVideoPlaying && (
+                    <div className="absolute inset-0 bg-gradient-to-br from-black/40 to-black/20 flex items-center justify-center">
+                      <button
+                        onClick={() => setIsVideoPlaying(true)}
+                        className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-transform group-hover:bg-white"
                       >
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </button>
-                  </div>
-                  {imageUrl && (
-                    <img
-                      src={imageUrl}
-                      alt={title}
-                      className="w-full h-full object-cover"
-                    />
+                        <svg
+                          className="w-8 h-8 text-primary ml-1"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </button>
+                    </div>
                   )}
                 </div>
               ) : imageUrl ? (
