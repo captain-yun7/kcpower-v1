@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import FeatureSection from '@/components/FeatureSection';
 
 export default function Home() {
   return (
@@ -101,6 +102,79 @@ export default function Home() {
           </svg>
         </div>
       </section>
+
+      {/* Feature Sections */}
+      {/* 1. SUPER FLEXIBLE */}
+      <FeatureSection
+        label="SUPER FLEXIBLE"
+        subtitle="두산 로봇만의 탁월한 유연성으로"
+        title="로봇 자동화를 더욱 유연하게"
+        description="미국, 유럽 아시아 등 세계 45개국 글로벌 선도 기업들이 신뢰하는 두산로보틱스. 제조부터 물류, 에너지, 의료 및 식음료까지 고객에게 최고의 솔루션을 제공합니다."
+        features={[
+          {
+            title: "업계 최대의 로봇 솔루션 보유",
+            description: "미국, 유럽 아시아 등 세계 45개국 글로벌 선도 기업들이 신뢰하는 두산로보틱스. 제조부터 물류, 에너지, 의료 및 식음료까지 고객에게 최고의 솔루션을 제공합니다."
+          },
+          {
+            title: "다양한 파트너사 제품과의 호환성 확보",
+            description: "그리퍼부터 전동툴, 머신, 센서, 소프트웨어까지 다양한 글로벌 파트너사 제품과의 사전 호환성이 확보되어 고객의 니즈에 맞는 최적의 로봇 솔루션 구현이 가능합니다."
+          }
+        ]}
+        linkText="산업군별 솔루션 및 고객사 보러가기"
+        linkHref="/solutions"
+        imageUrl="/images/flexible-robot.jpg"
+        videoUrl="#"
+        imagePosition="right"
+        backgroundColor="bg-white"
+      />
+
+      {/* 2. SUPER SAFE */}
+      <FeatureSection
+        label="SUPER SAFE"
+        subtitle="Super Safety System으로"
+        title="로봇 작업을 보다 안전하게"
+        description="두산 로봇은 TÜV SÜD 기술인증 평가에서 업계 최고 수준인 PLe, Cat4를 획득해 높은 안전성을 인정받았으며, 6개의 각축에 고성능 토크센서가 탑재되어 업계 최고 수준의 힘 감지력 및 충돌 민감도를 자랑합니다."
+        features={[
+          {
+            title: "업계 최고의 안전성을 자랑하는 두산 로봇",
+            description: "두산 로봇은 TÜV SÜD 기술인증 평가에서 업계 최고 수준인 PLe, Cat4를 획득해 높은 안전성을 인정받았으며, 6개의 각축에 고성능 토크센서가 탑재되어 업계 최고 수준의 힘 감지력 및 충돌 민감도를 자랑합니다."
+          },
+          {
+            title: "작업자를 빈틈없이 보호하는 구역설정",
+            description: "협동작업구역, 중출입감시구간소구역, 통합항전관공지재반 등 현장 용용에 맞춰 다양한 구역설정모드, 효율성 방식은 물론 작업자의 안전까지 보장합니다."
+          }
+        ]}
+        linkText="안전 인증 및 고객사 보러가기"
+        linkHref="/safety"
+        imageUrl="/images/safe-robot.jpg"
+        videoUrl="#"
+        imagePosition="left"
+        backgroundColor="bg-gray-50"
+      />
+
+      {/* 3. SUPER EASY */}
+      <FeatureSection
+        label="SUPER EASY"
+        subtitle="직관적인 사용성으로"
+        title="로봇 티칭을 쉽고 빠르게"
+        description="스마트폰을 쓰듯, 앱으로 로봇을 쉽고 간편하게 티칭"
+        features={[
+          {
+            title: "스마트폰을 쓰듯, 앱으로 로봇을 쉽고 간편하게 티칭",
+            description: "스마트폰과 유사한 사용 환경을 제공하는 다트 스위트(Dart-Suite)를 활용하여 사용자부터 개발자까지 모두가 협동로봇을 손쉽게 사용할 수 있습니다."
+          },
+          {
+            title: "다트 스튜디오에서 앱을 다운 받아 쉽고 빠른 로봇 운용도 물론, 드래그앤 드롭 방식으로 간편 사간을 최대 80%까지 확기적으로 단축할 수 있습니다.",
+            description: "다트 스튜디오에서 앱을 다운 받아 쉽고 빠른 로봇 운용도 물론, 드래그앤 드롭 방식으로 간편 사간을 최대 80%까지 확기적으로 단축할 수 있습니다."
+          }
+        ]}
+        linkText="다트 스위트에 대해 자세히 알아보기"
+        linkHref="/dart-suite"
+        imageUrl="/images/easy-robot.jpg"
+        videoUrl="#"
+        imagePosition="right"
+        backgroundColor="bg-[#0a0e1a]"
+      />
 
       {/* Product Series Section */}
       <section className="py-32 px-4 bg-white">

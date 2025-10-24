@@ -4,8 +4,122 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 
+// 메가 메뉴 데이터 구조
+const megaMenuData = {
+  products: {
+    sections: [
+      {
+        title: '헤리티지',
+        links: [
+          { title: 'Why Doosan Cobot', href: '/why-doosan' },
+        ],
+      },
+      {
+        title: '제품',
+        links: [
+          { title: '제품 라인업', href: '/products' },
+          { title: '제품 비교하기', href: '/products/compare' },
+          { title: 'P-SERIES', href: '/products/p-series' },
+          { title: 'H-SERIES', href: '/products/h-series' },
+          { title: 'M-SERIES', href: '/products/m-series' },
+          { title: 'A-SERIES', href: '/products/a-series' },
+          { title: 'E-SERIES', href: '/products/e-series' },
+        ],
+      },
+      {
+        title: '솔루션',
+        links: [
+          { title: '단기 솔루션', href: '/solutions' },
+          { title: '로봇 렌탈 프로모션', href: '/solutions/rental' },
+          { title: '공정별', href: '/solutions/process' },
+          { title: '산업군별', href: '/solutions/industry' },
+        ],
+      },
+      {
+        title: '소프트웨어',
+        links: [
+          { title: 'Dart-Suite →', href: '/dart-suite' },
+        ],
+      },
+    ],
+  },
+  education: {
+    sections: [
+      {
+        title: '교육',
+        links: [
+          { title: '두산 로봇 교육', href: '/training' },
+        ],
+      },
+      {
+        title: '다운로드 센터',
+        links: [
+          { title: '카탈로그', href: '/downloads/catalog' },
+          { title: '매뉴얼 →', href: '/downloads/manual' },
+          { title: '소프트웨어 →', href: '/downloads/software' },
+        ],
+      },
+      {
+        title: '서비스 센터',
+        links: [
+          { title: 'A/S 신청', href: '/contact' },
+          { title: '파트너 서비스 →', href: '/partner' },
+        ],
+      },
+    ],
+  },
+  investment: {
+    sections: [
+      {
+        title: '투자정보',
+        links: [
+          { title: '재무정보', href: '/investor/financial' },
+          { title: '주가정보', href: '/investor/stock' },
+          { title: '공시정보', href: '/investor/disclosure' },
+        ],
+      },
+    ],
+  },
+  company: {
+    sections: [
+      {
+        title: '기업정보',
+        links: [
+          { title: '개요', href: '/about' },
+          { title: 'CI', href: '/about/ci' },
+          { title: '오시는 길', href: '/about/location' },
+          { title: '인재채용 →', href: '/about/careers' },
+        ],
+      },
+      {
+        title: '지속가능경영',
+        links: [
+          { title: '윤리경영', href: '/sustainability/ethics' },
+          { title: 'EHS', href: '/sustainability/ehs' },
+        ],
+      },
+      {
+        title: '뉴스 & 이벤트',
+        links: [
+          { title: '뉴스', href: '/news' },
+          { title: '이벤트 & 프로모션', href: '/events' },
+          { title: '블로그', href: '/blog' },
+        ],
+      },
+      {
+        title: 'Contact Us',
+        links: [
+          { title: '고객문의', href: '/contact' },
+          { title: '가까운 대리점 찾기', href: '/locations' },
+        ],
+      },
+    ],
+  },
+};
+
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const { data: session } = useSession();
 
   return (
@@ -19,25 +133,41 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <ul className="hidden lg:flex items-center gap-12">
-            <li>
-              <Link href="/products" className="text-white text-[17px] hover:text-gray-300 transition-colors font-medium">
+            <li
+              className="relative"
+              onMouseEnter={() => setActiveMenu('products')}
+              onMouseLeave={() => setActiveMenu(null)}
+            >
+              <button className="text-white text-[17px] hover:text-blue-400 transition-colors font-medium">
                 제품 & 솔루션
-              </Link>
+              </button>
             </li>
-            <li>
-              <Link href="/training" className="text-white text-[17px] hover:text-gray-300 transition-colors font-medium">
+            <li
+              className="relative"
+              onMouseEnter={() => setActiveMenu('education')}
+              onMouseLeave={() => setActiveMenu(null)}
+            >
+              <button className="text-white text-[17px] hover:text-blue-400 transition-colors font-medium">
                 교육 & 서비스
-              </Link>
+              </button>
             </li>
-            <li>
-              <Link href="/news" className="text-white text-[17px] hover:text-gray-300 transition-colors font-medium">
+            <li
+              className="relative"
+              onMouseEnter={() => setActiveMenu('investment')}
+              onMouseLeave={() => setActiveMenu(null)}
+            >
+              <button className="text-white text-[17px] hover:text-blue-400 transition-colors font-medium">
                 투자정보
-              </Link>
+              </button>
             </li>
-            <li>
-              <Link href="/about" className="text-white text-[17px] hover:text-gray-300 transition-colors font-medium">
+            <li
+              className="relative"
+              onMouseEnter={() => setActiveMenu('company')}
+              onMouseLeave={() => setActiveMenu(null)}
+            >
+              <button className="text-white text-[17px] hover:text-blue-400 transition-colors font-medium">
                 회사소개
-              </Link>
+              </button>
             </li>
           </ul>
 
@@ -86,7 +216,51 @@ export default function Header() {
             </svg>
           </button>
         </nav>
+      </div>
 
+      {/* Mega Menu Dropdown */}
+      {activeMenu && (
+        <div
+          className="absolute top-[90px] left-0 right-0 bg-white shadow-2xl border-t border-gray-200"
+          onMouseEnter={() => setActiveMenu(activeMenu)}
+          onMouseLeave={() => setActiveMenu(null)}
+        >
+          <div className="max-w-[1600px] mx-auto px-8 py-12">
+            {(() => {
+              const sections = megaMenuData[activeMenu as keyof typeof megaMenuData]?.sections || [];
+              const gridCols = sections.length === 4 ? 'grid-cols-4' : sections.length === 3 ? 'grid-cols-3' : sections.length === 2 ? 'grid-cols-2' : 'grid-cols-1';
+
+              return (
+                <div className={`grid ${gridCols} gap-12`}>
+                  {sections.map((section, index) => (
+                    <div key={index}>
+                      <h3 className="text-[14px] font-semibold text-gray-400 mb-6 tracking-wide">
+                        {section.title}
+                      </h3>
+                      <ul className="space-y-3">
+                        {section.links.map((link, linkIndex) => (
+                          <li key={linkIndex}>
+                            <Link
+                              href={link.href}
+                              className="text-[15px] text-gray-700 hover:text-blue-600 transition-colors block"
+                              onClick={() => setActiveMenu(null)}
+                            >
+                              {link.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Menu Container */}
+      <div className="max-w-[1600px] mx-auto px-8">
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden pb-4 border-t border-gray-200 mt-2 pt-4">
