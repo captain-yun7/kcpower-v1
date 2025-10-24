@@ -79,32 +79,32 @@ export default function Home() {
           {/* Stats Grid */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
             <div className="text-center">
-              <div className="text-5xl lg:text-6xl font-bold text-primary mb-2">30+</div>
-              <div className="text-gray-600 font-medium">년 역사</div>
-              <div className="text-sm text-gray-500 mt-1">1993년 설립</div>
+              <div className="text-5xl lg:text-6xl font-bold text-secondary mb-2">30+</div>
+              <div className="text-gray-700 font-semibold">년 역사</div>
+              <div className="text-sm text-gray-600 mt-1">1993년 설립</div>
             </div>
             <div className="text-center">
               <div className="text-5xl lg:text-6xl font-bold text-secondary mb-2">3</div>
-              <div className="text-gray-600 font-medium">개 공장</div>
-              <div className="text-sm text-gray-500 mt-1">인천 남동구</div>
+              <div className="text-gray-700 font-semibold">개 공장</div>
+              <div className="text-sm text-gray-600 mt-1">인천 남동구</div>
             </div>
             <div className="text-center">
-              <div className="text-5xl lg:text-6xl font-bold text-primary mb-2">10K+</div>
-              <div className="text-gray-600 font-medium">누적 납품</div>
-              <div className="text-sm text-gray-500 mt-1">변압기 외함</div>
+              <div className="text-5xl lg:text-6xl font-bold text-secondary mb-2">10K+</div>
+              <div className="text-gray-700 font-semibold">누적 납품</div>
+              <div className="text-sm text-gray-600 mt-1">변압기 외함</div>
             </div>
             <div className="text-center">
               <div className="text-5xl lg:text-6xl font-bold text-secondary mb-2">4+</div>
-              <div className="text-gray-600 font-medium">주요 고객사</div>
-              <div className="text-sm text-gray-500 mt-1">한전, LS, 현대일렉트릭</div>
+              <div className="text-gray-700 font-semibold">주요 고객사</div>
+              <div className="text-sm text-gray-600 mt-1">한전, LS, 현대일렉트릭</div>
             </div>
           </div>
 
           {/* Core Values */}
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-gray-50 rounded-xl p-8 text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>
@@ -125,8 +125,8 @@ export default function Home() {
               </p>
             </div>
             <div className="bg-gray-50 rounded-xl p-8 text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
@@ -237,7 +237,7 @@ export default function Home() {
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">밀폐형 외함</h3>
                 <p className="text-gray-600 text-sm mb-4">완벽한 방수/방진 성능으로 옥외 설치 최적화</p>
-                <span className="text-primary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
+                <span className="text-secondary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
                   자세히 보기
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -281,7 +281,7 @@ export default function Home() {
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">터널용 외함</h3>
                 <p className="text-gray-600 text-sm mb-4">철도/도로 터널 특수 환경 대응</p>
-                <span className="text-primary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
+                <span className="text-secondary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
                   자세히 보기
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -317,7 +317,7 @@ export default function Home() {
           <div className="text-center mt-12">
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all text-lg"
+              className="inline-flex items-center gap-2 text-secondary font-semibold hover:gap-3 transition-all text-lg hover:text-secondary-dark"
             >
               모든 제품 보기
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

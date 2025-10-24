@@ -96,8 +96,8 @@ export default function ClientsCarousel() {
     <section className="py-20 px-4 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
       <div className="max-w-[1400px] mx-auto">
         <div className="text-center mb-16">
-          <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-4">
-            <p className="text-[14px] text-primary font-semibold tracking-wide uppercase">Our Clients</p>
+          <div className="inline-block px-4 py-2 bg-secondary/10 rounded-full mb-4">
+            <p className="text-[14px] text-secondary font-semibold tracking-wide uppercase">Our Clients</p>
           </div>
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">주요 고객사</h2>
           <p className="text-xl text-gray-600">

@@ -7,14 +7,35 @@
   --color-primary-dark: #991B1B;   /* red-800 */
   --color-primary-light: #DC2626;  /* red-600 */
 
-  /* Secondary Green: 에너지, 친환경을 상징 */
+  /* Secondary Green: 에너지, 친환경을 상징 - 메인 컬러로 사용 */
   --color-secondary: #059669;      /* emerald-600 */
   --color-secondary-dark: #047857; /* emerald-700 */
   --color-secondary-light: #10B981; /* emerald-500 */
 
+  /* 텍스트 색상 - 검정/회색 계열 */
+  --color-text-primary: #111827;   /* gray-900 */
+  --color-text-secondary: #4B5563; /* gray-600 */
+  --color-text-light: #6B7280;     /* gray-500 */
+
   /* Accent Yellow: 전기/에너지 강조 */
   --color-accent: #FBBF24;         /* amber-400 */
   --color-accent-dark: #F59E0B;    /* amber-500 */
+
+  /* 개선된 폰트 크기 - 더 큰 기본 크기와 명확한 계층 */
+  --font-size-xs: 0.875rem;    /* 14px - 기존 12px에서 증가 */
+  --font-size-sm: 1rem;        /* 16px - 기존 14px에서 증가 */
+  --font-size-base: 1.125rem;  /* 18px - 기존 16px에서 증가 */
+  --font-size-lg: 1.25rem;     /* 20px */
+  --font-size-xl: 1.5rem;      /* 24px */
+  --font-size-2xl: 1.875rem;   /* 30px */
+  --font-size-3xl: 2.25rem;    /* 36px */
+  --font-size-4xl: 3rem;       /* 48px */
+  --font-size-5xl: 3.75rem;    /* 60px */
+
+  /* 최적화된 줄 간격 */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.6;
+  --line-height-relaxed: 1.75;
 }
 
 html {
@@ -25,6 +46,38 @@ body {
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Noto Sans KR', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 1.125rem; /* 18px 기본 크기 */
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: -0.01em; /* 한글 최적화 */
+}
+
+/* 헤딩 폰트 최적화 */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+/* 본문 텍스트 가독성 향상 */
+p {
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+}
+
+/* 작은 텍스트 최소 크기 보장 */
+small, .text-sm {
+  font-size: 1rem !important; /* 최소 16px */
+}
+
+.text-xs {
+  font-size: 0.875rem !important; /* 최소 14px */
+}
+
+/* 버튼 텍스트 가독성 */
+button, .btn {
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 /* 드래그 앤 드롭 커서 개선 */

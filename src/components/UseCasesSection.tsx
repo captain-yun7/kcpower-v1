@@ -16,7 +16,7 @@ const useCases: UseCase[] = [
     id: '1',
     title: '한전 변전소 외함 납품',
     category: '한전',
-    categoryColor: 'bg-primary',
+    categoryColor: 'bg-secondary',
     imageUrl: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80',
     link: '/cases/kepco',
   },
@@ -32,7 +32,7 @@ const useCases: UseCase[] = [
     id: '3',
     title: '현대일렉트릭 협력',
     category: 'LS/현대',
-    categoryColor: 'bg-primary',
+    categoryColor: 'bg-secondary',
     imageUrl: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80',
     link: '/cases/hyundai',
   },
@@ -48,7 +48,7 @@ const useCases: UseCase[] = [
     id: '5',
     title: 'LS일렉트릭 공장',
     category: 'LS/현대',
-    categoryColor: 'bg-primary',
+    categoryColor: 'bg-secondary',
     imageUrl: 'https://images.unsplash.com/photo-1581093458791-9d42e2e7b07f?w=800&q=80',
     link: '/cases/ls',
   },
@@ -84,8 +84,8 @@ export default function UseCasesSection() {
       <div className="max-w-[1400px] mx-auto">
         {/* Header */}
         <div className="mb-16 text-center">
-          <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-4">
-            <p className="text-[14px] text-primary font-semibold tracking-wide uppercase">Project Cases</p>
+          <div className="inline-block px-4 py-2 bg-secondary/10 rounded-full mb-4">
+            <p className="text-[14px] text-secondary font-semibold tracking-wide uppercase">Project Cases</p>
           </div>
           <h2 className="text-[48px] lg:text-[56px] font-bold text-gray-900 mb-6 leading-tight">
             30년 경험, 검증된 시공사례
