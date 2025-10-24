@@ -18,7 +18,7 @@ const useCases: UseCase[] = [
     title: '한전 변전소 외함 납품',
     category: '한전',
     categoryColor: 'bg-primary',
-    imageUrl: '/images/cases/kepco.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80',
     link: '/cases/kepco',
   },
   {
@@ -26,7 +26,7 @@ const useCases: UseCase[] = [
     title: '서울지하철 9호선',
     category: '철도',
     categoryColor: 'bg-secondary',
-    imageUrl: '/images/cases/metro.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&q=80',
     link: '/cases/metro',
   },
   {
@@ -34,7 +34,7 @@ const useCases: UseCase[] = [
     title: '현대일렉트릭 협력',
     category: 'LS/현대',
     categoryColor: 'bg-primary',
-    imageUrl: '/images/cases/hyundai.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80',
     link: '/cases/hyundai',
   },
   {
@@ -42,7 +42,7 @@ const useCases: UseCase[] = [
     title: '동탄2신도시 인프라',
     category: '신도시',
     categoryColor: 'bg-secondary',
-    imageUrl: '/images/cases/dongtan.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
     link: '/cases/dongtan',
   },
   {
@@ -50,7 +50,7 @@ const useCases: UseCase[] = [
     title: 'LS일렉트릭 공장',
     category: 'LS/현대',
     categoryColor: 'bg-primary',
-    imageUrl: '/images/cases/ls.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1581093458791-9d42e2e7b07f?w=800&q=80',
     link: '/cases/ls',
   },
   {
@@ -58,7 +58,7 @@ const useCases: UseCase[] = [
     title: '산일전기 프로젝트',
     category: '협력사',
     categoryColor: 'bg-secondary',
-    imageUrl: '/images/cases/sanil.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80',
     link: '/cases/sanil',
   },
   {
@@ -66,7 +66,7 @@ const useCases: UseCase[] = [
     title: '터널용 특수 외함',
     category: '철도',
     categoryColor: 'bg-secondary',
-    imageUrl: '/images/cases/tunnel.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1464207687429-7505649dae38?w=800&q=80',
     link: '/cases/tunnel',
   },
   {
@@ -74,7 +74,7 @@ const useCases: UseCase[] = [
     title: '침수형 외함 설치',
     category: '협력사',
     categoryColor: 'bg-secondary',
-    imageUrl: '/images/cases/waterproof.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=800&q=80',
     link: '/cases/waterproof',
   },
 ];
@@ -87,92 +87,115 @@ export default function UseCasesSection() {
     : useCases.filter(uc => uc.category === filter);
 
   return (
-    <section className="py-24 px-6 bg-white">
+    <section className="py-24 px-6 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-[1400px] mx-auto">
         {/* Header */}
-        <div className="mb-12">
-          <p className="text-[16px] text-gray-500 mb-3">Project Cases</p>
-          <h2 className="text-[42px] lg:text-[48px] font-bold text-gray-900 mb-6 leading-tight">
+        <div className="mb-16 text-center">
+          <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-4">
+            <p className="text-[14px] text-primary font-semibold tracking-wide uppercase">Project Cases</p>
+          </div>
+          <h2 className="text-[48px] lg:text-[56px] font-bold text-gray-900 mb-6 leading-tight">
             30년 경험, 검증된 시공사례
           </h2>
-          <p className="text-[18px] text-primary mb-8">
+          <p className="text-[20px] text-gray-600 mb-10 max-w-3xl mx-auto">
             대한민국 주요 전력 인프라를 책임진 케이씨파워의 다양한 프로젝트를 확인하세요.
           </p>
 
           {/* Filter */}
-          <div className="flex items-center gap-3">
-            <select
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-              className="px-6 py-3 border-2 border-gray-300 rounded-lg text-[16px] focus:border-primary focus:outline-none bg-white"
+          <div className="flex justify-center items-center gap-3 flex-wrap">
+            <button
+              onClick={() => setFilter('전체')}
+              className={`px-6 py-2.5 rounded-full text-[15px] font-medium transition-all ${
+                filter === '전체'
+                  ? 'bg-primary text-white shadow-lg shadow-primary/30'
+                  : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+              }`}
             >
-              <option value="전체">모든 시공사례</option>
-              <option value="한전">한전</option>
-              <option value="LS/현대">LS/현대</option>
-              <option value="철도">철도</option>
-              <option value="신도시">신도시</option>
-              <option value="협력사">협력사</option>
-            </select>
+              전체
+            </button>
+            {['한전', 'LS/현대', '철도', '신도시', '협력사'].map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setFilter(cat)}
+                className={`px-6 py-2.5 rounded-full text-[15px] font-medium transition-all ${
+                  filter === cat
+                    ? 'bg-primary text-white shadow-lg shadow-primary/30'
+                    : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
           </div>
         </div>
 
         {/* Use Cases Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {filteredCases.map((useCase) => (
             <Link
               key={useCase.id}
               href={useCase.link}
-              className="group relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+              className="group relative aspect-[3/4] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
             >
               {/* Background Image */}
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-700">
-                {/* Placeholder for image */}
-                <div className={`w-full h-full bg-gradient-to-br ${useCase.categoryColor === 'bg-primary' ? 'from-primary/20 to-primary/40' : 'from-secondary/20 to-secondary/40'} flex items-center justify-center`}>
-                  <div className="text-white/30 text-6xl font-bold">
-                    {useCase.title.charAt(0)}
+              <div className="absolute inset-0">
+                <img
+                  src={useCase.imageUrl}
+                  alt={useCase.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              </div>
+
+              {/* Overlay Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent group-hover:from-black/95 transition-all duration-500" />
+
+              {/* Content */}
+              <div className="absolute inset-0 p-7 flex flex-col justify-between">
+                {/* Category Badge */}
+                <div className="flex justify-between items-start">
+                  <span className={`inline-block px-4 py-2 ${useCase.categoryColor} text-white text-[12px] font-bold rounded-lg shadow-lg uppercase tracking-wider backdrop-blur-sm`}>
+                    {useCase.category}
+                  </span>
+
+                  {/* Hover Arrow */}
+                  <div className="w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-300">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Bottom Content */}
+                <div className="space-y-3">
+                  <h3 className="text-white text-[24px] font-bold leading-tight transform group-hover:translate-y-[-8px] transition-transform duration-500">
+                    {useCase.title}
+                  </h3>
+
+                  {/* Read More Link */}
+                  <div className="flex items-center gap-2 text-white/80 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                    <span className="text-[14px] font-medium">자세히 보기</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
                   </div>
                 </div>
               </div>
 
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent group-hover:from-black/80 transition-all duration-300" />
-
-              {/* Content */}
-              <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                {/* Category Badge */}
-                <div className="mb-3">
-                  <span className={`inline-block px-4 py-1.5 ${useCase.categoryColor} text-white text-[13px] font-medium rounded-md`}>
-                    {useCase.category}
-                  </span>
-                </div>
-
-                {/* Title */}
-                <h3 className="text-white text-[22px] font-bold leading-tight group-hover:translate-y-[-4px] transition-transform duration-300">
-                  {useCase.title}
-                </h3>
-              </div>
-
-              {/* Hover Arrow */}
-              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </div>
+              {/* Decorative Border */}
+              <div className="absolute inset-0 border-2 border-white/0 group-hover:border-white/20 rounded-2xl transition-all duration-500" />
             </Link>
           ))}
         </div>
 
         {/* View More Button */}
-        <div className="text-center mt-12">
+        <div className="text-center mt-16">
           <Link
             href="/cases"
-            className="inline-flex items-center gap-2 px-10 py-4 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors text-[16px] font-semibold"
+            className="inline-flex items-center gap-3 px-12 py-5 bg-gradient-to-r from-primary to-primary-dark text-white rounded-full hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 text-[17px] font-bold group hover:scale-105"
           >
             모든 시공사례 보기
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </Link>
         </div>
