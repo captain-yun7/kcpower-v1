@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FeatureSection from '@/components/FeatureSection';
+import UseCasesSection from '@/components/UseCasesSection';
 
 export default function Home() {
   return (
@@ -16,7 +17,7 @@ export default function Home() {
             {/* Robot silhouette placeholder - 실제로는 이미지나 비디오 */}
             <div className="absolute right-[10%] top-1/2 -translate-y-1/2 w-[500px] h-[500px]">
               <div className="relative w-full h-full">
-                <div className="absolute inset-0 bg-gradient-radial from-blue-500/20 via-transparent to-transparent blur-3xl"></div>
+                <div className="absolute inset-0 bg-gradient-radial from-red-600/20 via-transparent to-transparent blur-3xl"></div>
                 <svg className="w-full h-full text-white/10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={0.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
                 </svg>
@@ -51,7 +52,7 @@ export default function Home() {
             href="/contact"
             className="group flex items-center gap-3 px-6 py-4 text-white hover:bg-[#2a3555] transition-all duration-300 border-b border-white/10"
           >
-            <div className="w-10 h-10 flex items-center justify-center bg-blue-600 rounded-full group-hover:scale-110 transition-transform">
+            <div className="w-10 h-10 flex items-center justify-center bg-red-700 rounded-full group-hover:scale-110 transition-transform">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
@@ -102,6 +103,9 @@ export default function Home() {
           </svg>
         </div>
       </section>
+
+      {/* Use Cases Section */}
+      <UseCasesSection />
 
       {/* Feature Sections */}
       {/* 1. SUPER FLEXIBLE */}
@@ -188,13 +192,13 @@ export default function Home() {
             {/* P-Series Card */}
             <div className="group bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all cursor-pointer">
               <div className="aspect-square bg-white rounded-xl mb-6 flex items-center justify-center">
-                <span className="text-6xl font-bold text-blue-600">P</span>
+                <span className="text-6xl font-bold text-red-700">P</span>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">P-SERIES</h3>
               <p className="text-gray-600 mb-4">고성능 정밀 작업용 로봇</p>
               <Link
                 href="/products"
-                className="text-blue-600 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
+                className="text-red-700 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
               >
                 자세히 보기
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -206,13 +210,13 @@ export default function Home() {
             {/* H-Series Card */}
             <div className="group bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all cursor-pointer">
               <div className="aspect-square bg-white rounded-xl mb-6 flex items-center justify-center">
-                <span className="text-6xl font-bold text-blue-600">H</span>
+                <span className="text-6xl font-bold text-red-700">H</span>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">H-SERIES</h3>
               <p className="text-gray-600 mb-4">중량물 핸들링 전문 로봇</p>
               <Link
                 href="/products"
-                className="text-blue-600 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
+                className="text-red-700 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
               >
                 자세히 보기
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -224,13 +228,13 @@ export default function Home() {
             {/* M-Series Card */}
             <div className="group bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all cursor-pointer">
               <div className="aspect-square bg-white rounded-xl mb-6 flex items-center justify-center">
-                <span className="text-6xl font-bold text-blue-600">M</span>
+                <span className="text-6xl font-bold text-red-700">M</span>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">M-SERIES</h3>
               <p className="text-gray-600 mb-4">범용 협동로봇의 표준</p>
               <Link
                 href="/products"
-                className="text-blue-600 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
+                className="text-red-700 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
               >
                 자세히 보기
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -242,13 +246,13 @@ export default function Home() {
             {/* A-Series Card */}
             <div className="group bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all cursor-pointer">
               <div className="aspect-square bg-white rounded-xl mb-6 flex items-center justify-center">
-                <span className="text-6xl font-bold text-blue-600">A</span>
+                <span className="text-6xl font-bold text-red-700">A</span>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">A-SERIES</h3>
               <p className="text-gray-600 mb-4">산업용 고속 작업 로봇</p>
               <Link
                 href="/products"
-                className="text-blue-600 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
+                className="text-red-700 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
               >
                 자세히 보기
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -260,13 +264,13 @@ export default function Home() {
             {/* E-Series Card */}
             <div className="group bg-gray-50 rounded-2xl p-8 hover:shadow-xl transition-all cursor-pointer">
               <div className="aspect-square bg-white rounded-xl mb-6 flex items-center justify-center">
-                <span className="text-6xl font-bold text-blue-600">E</span>
+                <span className="text-6xl font-bold text-red-700">E</span>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">E-SERIES</h3>
               <p className="text-gray-600 mb-4">경제적이고 효율적인 로봇</p>
               <Link
                 href="/products"
-                className="text-blue-600 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
+                className="text-red-700 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all"
               >
                 자세히 보기
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -276,7 +280,7 @@ export default function Home() {
             </div>
 
             {/* View All Card */}
-            <div className="group bg-blue-600 rounded-2xl p-8 hover:bg-blue-700 transition-all cursor-pointer flex items-center justify-center">
+            <div className="group bg-red-700 rounded-2xl p-8 hover:bg-red-800 transition-all cursor-pointer flex items-center justify-center">
               <Link href="/products" className="text-center">
                 <div className="text-white mb-4">
                   <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -284,80 +288,16 @@ export default function Home() {
                   </svg>
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">모든 제품 보기</h3>
-                <p className="text-blue-100">전체 라인업 살펴보기</p>
+                <p className="text-red-100">전체 라인업 살펴보기</p>
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Solutions Section */}
-      <section className="py-32 px-4 bg-gray-50">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl font-bold text-gray-900 mb-6">산업별 솔루션</h2>
-            <p className="text-xl text-gray-600">다양한 산업 분야에서 검증된 협동로봇 솔루션</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white p-8 rounded-xl hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">제조</h3>
-              <p className="text-gray-600 text-sm">조립, 검사, 포장 등 제조 공정 자동화</p>
-            </div>
-
-            <div className="bg-white p-8 rounded-xl hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">물류</h3>
-              <p className="text-gray-600 text-sm">피킹, 패킹, 팔레타이징 자동화</p>
-            </div>
-
-            <div className="bg-white p-8 rounded-xl hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">연구개발</h3>
-              <p className="text-gray-600 text-sm">실험 자동화 및 정밀 작업 지원</p>
-            </div>
-
-            <div className="bg-white p-8 rounded-xl hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">서비스</h3>
-              <p className="text-gray-600 text-sm">카페, 식음료 서비스 자동화</p>
-            </div>
-          </div>
-
-          <div className="text-center mt-12">
-            <Link
-              href="/solutions"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white border-2 border-gray-300 rounded-lg hover:border-blue-600 hover:text-blue-600 transition-colors font-semibold"
-            >
-              모든 솔루션 보기
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-32 px-4 bg-[#0a0e1a] relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-red-700/10 to-red-900/10"></div>
         <div className="max-w-[1400px] mx-auto text-center relative z-10">
           <h2 className="text-5xl font-bold text-white mb-6">
             지금 바로 시작하세요

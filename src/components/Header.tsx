@@ -123,7 +123,10 @@ export default function Header() {
   const { data: session } = useSession();
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-[#0a0e1a] z-50 border-b border-gray-800">
+    <header
+      className="fixed top-0 left-0 right-0 bg-[#0a0e1a] z-50 border-b border-gray-800"
+      onMouseLeave={() => setActiveMenu(null)}
+    >
       <div className="max-w-[1600px] mx-auto px-8">
         <nav className="flex items-center justify-between h-[90px]">
           {/* Logo */}
@@ -136,36 +139,32 @@ export default function Header() {
             <li
               className="relative"
               onMouseEnter={() => setActiveMenu('products')}
-              onMouseLeave={() => setActiveMenu(null)}
             >
-              <button className="text-white text-[17px] hover:text-blue-400 transition-colors font-medium">
+              <button className="text-white text-[17px] hover:text-red-500 transition-colors font-medium">
                 제품 & 솔루션
               </button>
             </li>
             <li
               className="relative"
               onMouseEnter={() => setActiveMenu('education')}
-              onMouseLeave={() => setActiveMenu(null)}
             >
-              <button className="text-white text-[17px] hover:text-blue-400 transition-colors font-medium">
+              <button className="text-white text-[17px] hover:text-red-500 transition-colors font-medium">
                 교육 & 서비스
               </button>
             </li>
             <li
               className="relative"
               onMouseEnter={() => setActiveMenu('investment')}
-              onMouseLeave={() => setActiveMenu(null)}
             >
-              <button className="text-white text-[17px] hover:text-blue-400 transition-colors font-medium">
+              <button className="text-white text-[17px] hover:text-red-500 transition-colors font-medium">
                 투자정보
               </button>
             </li>
             <li
               className="relative"
               onMouseEnter={() => setActiveMenu('company')}
-              onMouseLeave={() => setActiveMenu(null)}
             >
-              <button className="text-white text-[17px] hover:text-blue-400 transition-colors font-medium">
+              <button className="text-white text-[17px] hover:text-red-500 transition-colors font-medium">
                 회사소개
               </button>
             </li>
@@ -220,29 +219,25 @@ export default function Header() {
 
       {/* Mega Menu Dropdown */}
       {activeMenu && (
-        <div
-          className="absolute top-[90px] left-0 right-0 bg-white shadow-2xl border-t border-gray-200"
-          onMouseEnter={() => setActiveMenu(activeMenu)}
-          onMouseLeave={() => setActiveMenu(null)}
-        >
-          <div className="max-w-[1600px] mx-auto px-8 py-12">
+        <div className="absolute top-[90px] left-0 right-0 bg-white shadow-2xl border-t border-gray-200">
+          <div className="max-w-[1600px] mx-auto px-8 py-14">
             {(() => {
               const sections = megaMenuData[activeMenu as keyof typeof megaMenuData]?.sections || [];
               const gridCols = sections.length === 4 ? 'grid-cols-4' : sections.length === 3 ? 'grid-cols-3' : sections.length === 2 ? 'grid-cols-2' : 'grid-cols-1';
 
               return (
-                <div className={`grid ${gridCols} gap-12`}>
+                <div className={`grid ${gridCols} gap-16`}>
                   {sections.map((section, index) => (
                     <div key={index}>
-                      <h3 className="text-[14px] font-semibold text-gray-400 mb-6 tracking-wide">
+                      <h3 className="text-[16px] font-semibold text-gray-400 mb-7 tracking-wide uppercase">
                         {section.title}
                       </h3>
-                      <ul className="space-y-3">
+                      <ul className="space-y-4">
                         {section.links.map((link, linkIndex) => (
                           <li key={linkIndex}>
                             <Link
                               href={link.href}
-                              className="text-[15px] text-gray-700 hover:text-blue-600 transition-colors block"
+                              className="text-[17px] text-gray-700 hover:text-red-700 transition-colors block font-normal"
                               onClick={() => setActiveMenu(null)}
                             >
                               {link.title}

@@ -44,6 +44,8 @@ export default function FeatureSection({
   const descriptionColorClass = isDark ? 'text-white/80' : 'text-gray-700';
   const labelColorClass = isDark ? 'text-white/10' : 'text-gray-200/30';
   const featureTextColorClass = isDark ? 'text-white/70' : 'text-gray-600';
+  const accentColorClass = isDark ? 'text-red-400' : 'text-red-700';
+  const dotColorClass = isDark ? 'bg-red-400' : 'bg-red-700';
 
   return (
     <section className={`relative py-24 lg:py-32 overflow-hidden ${backgroundColor}`}>
@@ -86,9 +88,9 @@ export default function FeatureSection({
               <div className="space-y-6 mb-10">
                 {features.map((feature, index) => (
                   <div key={index} className="flex gap-4">
-                    <div className={`flex-shrink-0 w-2 h-2 ${isDark ? 'bg-blue-400' : 'bg-blue-600'} rounded-full mt-2`} />
+                    <div className={`flex-shrink-0 w-2 h-2 ${dotColorClass} rounded-full mt-2`} />
                     <div>
-                      <h4 className={`text-[18px] font-bold ${isDark ? 'text-blue-400' : 'text-blue-600'} mb-2`}>
+                      <h4 className={`text-[18px] font-bold ${accentColorClass} mb-2`}>
                         {feature.title}
                       </h4>
                       <p className={`text-[15px] ${featureTextColorClass} leading-relaxed`}>
@@ -103,7 +105,7 @@ export default function FeatureSection({
             {/* CTA Link */}
             <Link
               href={linkHref}
-              className={`inline-flex items-center gap-2 ${isDark ? 'text-blue-400' : 'text-blue-600'} font-semibold text-[16px] hover:gap-4 transition-all group`}
+              className={`inline-flex items-center gap-2 ${accentColorClass} font-semibold text-[16px] hover:gap-4 transition-all group`}
             >
               {linkText}
               <svg
@@ -128,10 +130,10 @@ export default function FeatureSection({
               {videoUrl ? (
                 <div className="relative w-full h-full group">
                   {/* Video Placeholder with Play Button */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-gradient-to-br from-red-700/20 to-red-900/20 flex items-center justify-center">
                     <button className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-transform group-hover:bg-white">
                       <svg
-                        className="w-8 h-8 text-blue-600 ml-1"
+                        className="w-8 h-8 text-red-700 ml-1"
                         fill="currentColor"
                         viewBox="0 0 24 24"
                       >
@@ -154,7 +156,7 @@ export default function FeatureSection({
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
+                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-red-50 to-red-100">
                   <div className="text-center text-gray-400">
                     <svg
                       className="w-24 h-24 mx-auto mb-4"
