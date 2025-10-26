@@ -44,8 +44,8 @@ const clients: Client[] = [
   {
     name: '산일전기',
     fullName: 'SANIL ELECTRIC',
-    color: 'text-green-600',
-    bgColor: 'bg-green-50',
+    color: 'text-blue-600',
+    bgColor: 'bg-blue-50',
   },
   {
     name: '대우',

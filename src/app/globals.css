@@ -7,10 +7,10 @@
   --color-primary-dark: #991B1B;   /* red-800 */
   --color-primary-light: #DC2626;  /* red-600 */
 
-  /* Secondary Green: 에너지, 친환경을 상징 - 메인 컬러로 사용 */
-  --color-secondary: #059669;      /* emerald-600 */
-  --color-secondary-dark: #047857; /* emerald-700 */
-  --color-secondary-light: #10B981; /* emerald-500 */
+  /* Secondary Blue: 신뢰, 기술을 상징 - 메인 컬러로 사용 */
+  --color-secondary: rgb(0, 94, 184);      /* 파란색 */
+  --color-secondary-dark: rgb(0, 74, 147); /* 어두운 파란색 */
+  --color-secondary-light: rgb(0, 114, 221); /* 밝은 파란색 */
 
   /* 텍스트 색상 - 검정/회색 계열 */
   --color-text-primary: #111827;   /* gray-900 */
