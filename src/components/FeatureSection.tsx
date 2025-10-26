@@ -46,8 +46,8 @@ export default function FeatureSection({
   const descriptionColorClass = isDark ? 'text-white/80' : 'text-gray-700';
   const labelColorClass = isDark ? 'text-white/10' : 'text-gray-200/30';
   const featureTextColorClass = isDark ? 'text-white/70' : 'text-gray-600';
-  const accentColorClass = isDark ? 'text-red-400' : 'text-red-700';
-  const dotColorClass = isDark ? 'bg-red-400' : 'bg-red-700';
+  const accentColorClass = isDark ? 'text-blue-400' : 'text-blue-700';
+  const dotColorClass = isDark ? 'bg-blue-400' : 'bg-blue-700';
 
   return (
     <section className={`relative py-24 lg:py-32 overflow-hidden ${backgroundColor}`}>

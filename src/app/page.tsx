@@ -162,7 +162,6 @@ export default function Home() {
         linkText="제품 라인업 및 시공사례 보러가기"
         linkHref="/products"
         imageUrl="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80"
-        videoUrl="https://videos.pexels.com/video-files/3195394/3195394-uhd_2560_1440_25fps.mp4"
         imagePosition="right"
         backgroundColor="bg-white"
       />
@@ -186,7 +185,6 @@ export default function Home() {
         linkText="기술 서비스 및 A/S 신청하기"
         linkHref="/services"
         imageUrl="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80"
-        videoUrl="https://videos.pexels.com/video-files/5198936/5198936-uhd_2560_1440_30fps.mp4"
         imagePosition="left"
         backgroundColor="bg-gray-50"
       />
@@ -209,8 +207,7 @@ export default function Home() {
         ]}
         linkText="견적 문의하기"
         linkHref="/quote"
-        imageUrl="https://images.unsplash.com/photo-1581093458791-9d42e2e7b07f?w=800&q=80"
-        videoUrl="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_25fps.mp4"
+        imageUrl="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80"
         imagePosition="right"
         backgroundColor="bg-[#0a0e1a]"
       />
