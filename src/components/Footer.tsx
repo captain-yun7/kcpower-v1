@@ -89,11 +89,6 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">연락처</h4>
             <div className="space-y-3 text-sm">
               <div>
-                <p className="text-gray-400 mb-1">본사 1공장</p>
-                <p className="text-gray-300">인천광역시 남동구</p>
-                <p className="text-gray-300">능허대로 633</p>
-              </div>
-              <div>
                 <p className="text-gray-400 mb-1">전화</p>
                 <a
                   href="tel:032-816-8034"
@@ -111,24 +106,33 @@ export default function Footer() {
                   peskorea@naver.com
                 </a>
               </div>
+              <div>
+                <p className="text-gray-400 mb-1">영업시간</p>
+                <p className="text-gray-300">평일 09:00 - 18:00</p>
+                <p className="text-gray-300 text-xs">(주말, 공휴일 휴무)</p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Additional Locations */}
+        {/* Factory Locations */}
         <div className="mt-8 pt-8 border-t border-gray-800">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-            <div>
-              <p className="text-gray-400 mb-1">2공장</p>
-              <p className="text-gray-300">인천광역시 남동구 능허대로 649번길 83</p>
+          <h4 className="text-white font-semibold mb-4">공장 위치</h4>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+            <div className="bg-gray-800/50 rounded-lg p-4">
+              <p className="text-secondary font-semibold mb-2">본사 1공장</p>
+              <p className="text-gray-300">인천광역시 남동구</p>
+              <p className="text-gray-300">능허대로 633</p>
             </div>
-            <div>
-              <p className="text-gray-400 mb-1">3공장</p>
-              <p className="text-gray-300">인천광역시 남동구 청능대로 267</p>
+            <div className="bg-gray-800/50 rounded-lg p-4">
+              <p className="text-secondary font-semibold mb-2">2공장</p>
+              <p className="text-gray-300">인천광역시 남동구</p>
+              <p className="text-gray-300">능허대로 649번길 83</p>
             </div>
-            <div className="text-gray-400">
-              <p className="mb-1">영업시간</p>
-              <p className="text-gray-300">평일 09:00 - 18:00 (주말, 공휴일 휴무)</p>
+            <div className="bg-gray-800/50 rounded-lg p-4">
+              <p className="text-secondary font-semibold mb-2">3공장</p>
+              <p className="text-gray-300">인천광역시 남동구</p>
+              <p className="text-gray-300">청능대로 267</p>
             </div>
           </div>
         </div>
