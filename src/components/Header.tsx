@@ -172,14 +172,11 @@ export default function Header() {
             <img
               src="/logo.png"
               alt="케이씨파워 로고"
-              className="h-[55px] w-auto object-contain transition-transform group-hover:scale-105"
+              className="h-[40px] w-auto object-contain transition-transform group-hover:scale-105"
             />
-            <div className="flex flex-col justify-center -space-y-0.5">
-              <span className="text-white text-[26px] font-semibold italic tracking-wide leading-none bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
+            <div className="flex flex-col justify-center">
+              <span className="text-white text-[24px] font-bold tracking-wide leading-none">
                 케이씨파워
-              </span>
-              <span className="text-secondary text-[10px] font-bold tracking-[0.3em] uppercase pl-0.5">
-                KC POWER
               </span>
             </div>
           </Link>

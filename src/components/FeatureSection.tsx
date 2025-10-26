@@ -145,18 +145,19 @@ export default function FeatureSection({
 
                   {/* Play Button Overlay (hidden when playing) */}
                   {!isVideoPlaying && (
-                    <div className="absolute inset-0 bg-gradient-to-br from-black/40 to-black/20 flex items-center justify-center">
+                    <div className="absolute inset-0 flex items-center justify-center cursor-pointer" onClick={() => setIsVideoPlaying(true)}>
                       <button
-                        onClick={() => setIsVideoPlaying(true)}
-                        className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-transform group-hover:bg-white"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setIsVideoPlaying(true);
+                        }}
+                        className="w-32 h-32 backdrop-blur-sm rounded-full flex items-center justify-center hover:scale-110 transition-transform"
                       >
-                        <svg
-                          className="w-8 h-8 text-primary ml-1"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
+                        <img
+                          src="/logo.png"
+                          alt="재생"
+                          className="w-full h-full object-contain"
+                        />
                       </button>
                     </div>
                   )}
