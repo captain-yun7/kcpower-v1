@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
-import { supabaseAdmin, COURSE_THUMBNAILS_BUCKET } from '@/lib/supabase';
+import { uploadFile, COURSE_THUMBNAILS_FOLDER } from '@/lib/storage';
 
 // POST /api/admin/courses/thumbnail - 썸네일 이미지 업로드
 export async function POST(request: NextRequest) {
@@ -43,37 +43,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 파일명 생성 (타임스탬프 + 원본 파일명)
-    const timestamp = Date.now();
-    const sanitizedFileName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-    const fileName = `${timestamp}-${sanitizedFileName}`;
-
-    // Supabase Storage에 업로드
-    const fileBuffer = await file.arrayBuffer();
-    const { data, error } = await supabaseAdmin.storage
-      .from(COURSE_THUMBNAILS_BUCKET)
-      .upload(fileName, fileBuffer, {
-        contentType: file.type,
-        upsert: false,
-      });
-
-    if (error) {
-      console.error('Supabase upload error:', error);
-      return NextResponse.json(
-        { error: '파일 업로드에 실패했습니다.' },
-        { status: 500 }
-      );
-    }
-
-    // Public URL 생성
-    const { data: publicUrlData } = supabaseAdmin.storage
-      .from(COURSE_THUMBNAILS_BUCKET)
-      .getPublicUrl(fileName);
+    // Vercel Blob에 업로드
+    const fileUrl = await uploadFile(file, COURSE_THUMBNAILS_FOLDER);
 
     return NextResponse.json({
       success: true,
-      fileName,
-      fileUrl: publicUrlData.publicUrl,
+      fileName: file.name,
+      fileUrl,
     });
   } catch (error) {
     console.error('썸네일 업로드 오류:', error);

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
-import { supabaseAdmin, COURSE_FILES_BUCKET } from '@/lib/supabase';
+import { deleteFile } from '@/lib/storage';
 
 // DELETE /api/admin/files/[id] - 강의 자료 삭제
 export async function DELETE(
@@ -26,27 +26,8 @@ export async function DELETE(
       return NextResponse.json({ error: '파일을 찾을 수 없습니다' }, { status: 404 });
     }
 
-    // Supabase Storage에서 파일 URL로 경로 추출
-    try {
-      const url = new URL(file.fileUrl);
-      const pathParts = url.pathname.split(`/${COURSE_FILES_BUCKET}/`);
-      if (pathParts.length > 1) {
-        const filePath = pathParts[1];
-
-        // Supabase Storage에서 파일 삭제
-        const { error: deleteError } = await supabaseAdmin.storage
-          .from(COURSE_FILES_BUCKET)
-          .remove([filePath]);
-
-        if (deleteError) {
-          console.error('Supabase delete error:', deleteError);
-          // Storage 삭제 실패해도 DB는 삭제 진행
-        }
-      }
-    } catch (urlError) {
-      console.error('Error parsing file URL:', urlError);
-      // URL 파싱 실패해도 DB는 삭제 진행
-    }
+    // Vercel Blob에서 파일 삭제
+    await deleteFile(file.fileUrl);
 
     // DB에서 파일 정보 삭제
     await prisma.courseFile.delete({
