@@ -1,74 +1,177 @@
-# Motnt Ad Place
+# 케이씨파워 (KC Power)
 
-한국 옥외광고 정보 플랫폼
+전기설비 전문 제조업체 웹사이트
 
-## 프로젝트 개요
+## 회사 소개
 
-옥외광고(간판, LED, 현수막 등)의 위치, 가격, 상세 정보를 지도 기반으로 제공하는 웹 플랫폼입니다.
+30년 전통의 변압기 외함 제조 전문업체입니다.
+한국전력공사, LS일렉트릭, HD현대일렉트릭 등 대한민국 주요 전력 기업들이 신뢰하는 파트너입니다.
 
-## 주요 기능
+### 주요 사업 분야
+- 변압기 외함 제조
+- 수배전반 제작
+- 특수 전기설비 맞춤 제작
+- 전기설비 유지보수 및 A/S
 
-### 사용자 기능
-- **지도 기반 광고 위치 검색**: 카카오맵을 활용한 시각적 광고 위치 표시
-- **광고 정보 조회**: 광고판 크기, 타입, 가격, 위치 상세 정보
-- **검색 및 필터링**: 
-  - 지역별 검색 (구/동 단위)
-  - 가격대별 필터링
-  - 광고 유형별 필터링 (LED, 현수막, 버스정류장 등)
-- **반응형 웹/웹앱**: 모바일 최적화
-
-### 관리자 기능
-- **광고 데이터 관리**: 광고 위치 추가/수정/삭제
-- **광고판 정보 관리**: 크기, 타입, 가격 정보 관리
-- **이미지 관리**: 광고판 실제 사진 업로드
-- **지도 데이터 관리**: 지도 마커 위치 설정, 지역 분류 관리
-- **관리자 인증**: 로그인/로그아웃 시스템
+### 주요 제품
+- 밀폐형 외함 (옥외 설치용)
+- 소음저감형 외함 (주거지역용)
+- 터널용 특수 외함
+- 수배전반
 
 ## 기술 스택
 
 ### Frontend & Backend
-- **Next.js 14** (App Router) - 풀스택 프레임워크
-- **TypeScript** - 타입 안정성
-- **TailwindCSS** - 스타일링
+- **Next.js 15** (App Router, Turbopack)
+- **TypeScript**
+- **TailwindCSS**
+- **React 19**
 
-### Database & Authentication
-- **Supabase** - PostgreSQL 기반 BaaS
+### Database & ORM
+- **Neon PostgreSQL** - 서버리스 데이터베이스
 - **Prisma** - ORM
-- **Supabase Auth** - 관리자 인증
 
-### Map & External APIs
-- **Kakao Maps API** - 지도 서비스
-- **react-kakao-maps-sdk** - React 카카오맵 라이브러리
+### Authentication
+- **NextAuth.js v5** (Auth.js)
+- Google, Kakao, Naver 소셜 로그인
 
 ### File Storage
-- **Supabase Storage** - 이미지 업로드 및 관리
+- **Vercel Blob** - 이미지 및 파일 업로드
 
-## Getting Started
+### Payment
+- **TossPayments** - 결제 시스템
+- 카드, 가상계좌, 계좌이체 지원
 
-First, run the development server:
+### UI/UX
+- **Framer Motion** - 애니메이션
+- **React Hook Form** - 폼 관리
+- **React Hot Toast** - 알림
 
+## 주요 기능
+
+### 회원 기능
+- 소셜 로그인 (Google, Kakao, Naver)
+- 디바이스 관리 (최대 3대)
+- 문의하기 및 답변 확인
+- 결제 내역 관리
+- 세금계산서 발급 요청
+
+### 관리자 기능
+- 강의 관리 (생성, 수정, 삭제)
+- 학생 관리
+- 결제 관리 (가상계좌 승인)
+- 문의 관리 및 답변
+- 환불 처리
+- 세금계산서 발급
+- 통계 대시보드
+
+### 콘텐츠 관리
+- 제품 카탈로그
+- 시공사례
+- 공지사항
+- 회사 소개
+
+## 시작하기
+
+### 환경 설정
+
+1. 환경변수 설정
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. 환경변수 편집 (.env)
+```bash
+# Database (Neon)
+DATABASE_URL="postgresql://..."
+DIRECT_URL="postgresql://..."
 
-## 개발 진행
+# NextAuth
+NEXTAUTH_SECRET="your-secret"
+NEXTAUTH_URL="http://localhost:3000"
 
-현재 Phase 1 진행 중 - 프로젝트 기반 설정
+# OAuth (선택사항)
+GOOGLE_CLIENT_ID="..."
+KAKAO_CLIENT_ID="..."
+NAVER_CLIENT_ID="..."
 
-자세한 마일스톤은 [MILESTONES.md](./MILESTONES.md)를 참조하세요.
+# Vercel Blob (파일 업로드용)
+BLOB_READ_WRITE_TOKEN="vercel_blob_rw_..."
 
-## 향후 확장 계획
+# TossPayments
+NEXT_PUBLIC_TOSS_CLIENT_KEY="test_ck_..."
+TOSS_SECRET_KEY="test_sk_..."
+```
 
-- PWA 기능 추가
-- 모바일 네이티브 앱 개발
-- 다국어 지원 (영어, 일본어, 중국어)
-- 예약 및 결제 시스템 도입
-- 실시간 광고 가용성 업데이트
+### 개발 서버 실행
+
+```bash
+npm install
+npm run dev
+```
+
+브라우저에서 [http://localhost:3000](http://localhost:3000) 접속
+
+### 데이터베이스 마이그레이션
+
+```bash
+# Prisma 마이그레이션 실행
+npx prisma migrate dev
+
+# Prisma Studio 실행 (DB GUI)
+npx prisma studio
+```
+
+### 빌드
+
+```bash
+npm run build
+```
+
+## 프로젝트 구조
+
+```
+src/
+├── app/                  # Next.js App Router
+│   ├── api/             # API Routes
+│   ├── admin/           # 관리자 페이지
+│   ├── courses/         # 강의 페이지
+│   ├── mypage/          # 마이페이지
+│   └── ...
+├── components/          # React 컴포넌트
+├── lib/                 # 유틸리티 및 설정
+│   ├── prisma.ts       # Prisma 클라이언트
+│   ├── storage.ts      # Vercel Blob 헬퍼
+│   └── ...
+└── auth.ts             # NextAuth 설정
+
+prisma/
+└── schema.prisma       # 데이터베이스 스키마
+
+public/
+├── logo/               # 고객사 로고
+└── ...
+```
+
+## 배포
+
+### Vercel 배포
+
+1. Vercel에 프로젝트 연결
+2. 환경변수 설정
+3. Vercel Blob Storage 생성
+4. 배포
+
+```bash
+vercel deploy
+```
+
+## 라이선스
+
+© 2025 케이씨파워. All rights reserved.
+
+## 연락처
+
+- 주소: 인천광역시 남동구
+- 전화: [전화번호]
+- 이메일: [이메일]

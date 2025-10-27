@@ -4,14 +4,14 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Private LMS',
-    default: 'Private LMS - 온라인 강의 플랫폼'
+    template: '%s | 케이씨파워',
+    default: '케이씨파워 - 전기설비 전문 제조업체'
   },
-  description: "전문가와 함께하는 온라인 강의. 언제 어디서나 최고의 강의를 들을 수 있습니다.",
-  keywords: ["온라인 강의", "이러닝", "LMS", "교육", "강의", "학습"],
-  authors: [{ name: "Private LMS" }],
-  creator: "Private LMS",
-  publisher: "Private LMS",
+  description: "30년 전통의 변압기 외함 제조 전문업체. 한전, LS일렉트릭, 현대일렉트릭이 신뢰하는 케이씨파워입니다.",
+  keywords: ["변압기 외함", "전기설비", "수배전반", "케이씨파워", "한전", "밀폐형 외함", "소음저감형", "터널용 외함"],
+  authors: [{ name: "케이씨파워" }],
+  creator: "케이씨파워",
+  publisher: "케이씨파워",
   formatDetection: {
     email: false,
     address: false,
@@ -19,17 +19,26 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   openGraph: {
-    title: 'Private LMS - 온라인 강의 플랫폼',
-    description: '전문가와 함께하는 온라인 강의. 언제 어디서나 최고의 강의를 들을 수 있습니다.',
+    title: '케이씨파워 - 전기설비 전문 제조업체',
+    description: '30년 전통의 변압기 외함 제조 전문업체. 한전, LS일렉트릭, 현대일렉트릭이 신뢰하는 케이씨파워입니다.',
     url: '/',
-    siteName: 'Private LMS',
+    siteName: '케이씨파워',
     locale: 'ko_KR',
     type: 'website',
+    images: [
+      {
+        url: '/logo2.png',
+        width: 1200,
+        height: 630,
+        alt: '케이씨파워 로고',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Private LMS - 온라인 강의 플랫폼',
-    description: '전문가와 함께하는 온라인 강의. 언제 어디서나 최고의 강의를 들을 수 있습니다.',
+    title: '케이씨파워 - 전기설비 전문 제조업체',
+    description: '30년 전통의 변압기 외함 제조 전문업체. 한전, LS일렉트릭, 현대일렉트릭이 신뢰하는 케이씨파워입니다.',
+    images: ['/logo2.png'],
   },
   robots: {
     index: true,

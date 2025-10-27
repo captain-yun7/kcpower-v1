@@ -1,6 +1,7 @@
 {
   "name": "kcpower-v1",
   "version": "0.1.0",
+  "description": "케이씨파워 - 전기설비 전문 제조업체 웹사이트",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
