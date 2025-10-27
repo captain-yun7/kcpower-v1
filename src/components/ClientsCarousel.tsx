@@ -6,58 +6,54 @@ import Image from 'next/image';
 interface Client {
   name: string;
   fullName: string;
-  color: string;
-  bgColor: string;
+  logoPath: string;
 }
 
 const clients: Client[] = [
   {
     name: 'KEPCO',
     fullName: '한국전력공사',
-    color: 'text-blue-600',
-    bgColor: 'bg-blue-50',
+    logoPath: '/logo/한국전력공사.png',
   },
   {
-    name: 'LS',
-    fullName: 'LS일렉트릭',
-    color: 'text-red-600',
-    bgColor: 'bg-red-50',
+    name: 'KORAIL',
+    fullName: '한국철도공사',
+    logoPath: '/logo/한국철도공사.png',
   },
   {
     name: 'HD',
     fullName: 'HD현대일렉트릭',
-    color: 'text-blue-700',
-    bgColor: 'bg-blue-50',
+    logoPath: '/logo/현대일렉트릭.png',
   },
   {
     name: '효성',
     fullName: '효성중공업',
-    color: 'text-orange-600',
-    bgColor: 'bg-orange-50',
+    logoPath: '/logo/효성.png',
   },
   {
-    name: 'GS',
-    fullName: 'GS건설',
-    color: 'text-blue-500',
-    bgColor: 'bg-blue-50',
+    name: '국가철도공단',
+    fullName: '국가철도공단',
+    logoPath: '/logo/국가철도공간.png',
   },
   {
     name: '산일전기',
-    fullName: 'SANIL ELECTRIC',
-    color: 'text-blue-600',
-    bgColor: 'bg-blue-50',
+    fullName: '산일전기(주)',
+    logoPath: '/logo/산일전기.png',
   },
   {
-    name: '대우',
-    fullName: '대우건설',
-    color: 'text-indigo-600',
-    bgColor: 'bg-indigo-50',
+    name: '서울교통공사',
+    fullName: '서울교통공사',
+    logoPath: '/logo/서울교통공사.png',
   },
   {
-    name: '포스코',
-    fullName: 'POSCO E&C',
-    color: 'text-gray-700',
-    bgColor: 'bg-gray-50',
+    name: '인천교통공사',
+    fullName: '인천교통공사',
+    logoPath: '/logo/인천교통공사.jpg',
+  },
+  {
+    name: '제룡전기',
+    fullName: '제룡전기주식회사',
+    logoPath: '/logo/제룡전기.webp',
   },
 ];
 
@@ -120,16 +116,18 @@ export default function ClientsCarousel() {
             {duplicatedClients.map((client, index) => (
               <div
                 key={`${client.name}-${index}`}
-                className="flex-shrink-0 bg-white rounded-2xl p-8 w-[280px] h-[160px] flex items-center justify-center hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-primary/20 group"
+                className="flex-shrink-0 bg-white rounded-2xl p-8 w-[280px] h-[180px] flex items-center justify-center hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-primary/20 group"
               >
-                <div className="text-center w-full">
-                  <div className={`mb-4 flex items-center justify-center h-20 w-20 mx-auto rounded-2xl ${client.bgColor} group-hover:scale-110 transition-transform duration-300`}>
-                    <span className={`text-4xl font-bold ${client.color}`}>
-                      {client.name.charAt(0)}
-                    </span>
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="relative w-full h-[120px] group-hover:scale-105 transition-transform duration-300">
+                    <Image
+                      src={client.logoPath}
+                      alt={client.fullName}
+                      fill
+                      className="object-contain"
+                      sizes="280px"
+                    />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-1">{client.name}</h3>
-                  <p className="text-sm text-gray-500 font-medium">{client.fullName}</p>
                 </div>
               </div>
             ))}
