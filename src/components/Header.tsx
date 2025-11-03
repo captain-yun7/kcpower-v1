@@ -65,9 +65,17 @@ const megaMenuData = {
   community: {
     sections: [
       {
+        title: '공지사항',
+        links: [
+          { title: '전체 공지', href: '/notices' },
+          { title: '납품 소식', href: '/notices?category=납품' },
+          { title: '신제품 출시', href: '/notices?category=제품' },
+          { title: '행사 안내', href: '/notices?category=행사' },
+        ],
+      },
+      {
         title: '고객 지원',
         links: [
-          { title: '공지사항', href: '/notices' },
           { title: '견적 문의', href: '/quote' },
           { title: 'A/S 신청', href: '/services' },
           { title: '자료 다운로드', href: '/downloads' },
