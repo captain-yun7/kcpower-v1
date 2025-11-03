@@ -85,35 +85,26 @@ model VerificationToken {
 // 제품 관련
 // ===========================
 
-model ProductSeries {
-  id          String   @id @default(cuid())
-  name        String   @unique // P-series, H-series, M-series, A-series, E-series
-  displayName String   // 표시용 이름
-  description String   @db.Text
-  order       Int      // 정렬 순서
-  imageUrl    String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  products    Product[]
-
-  @@map("product_series")
-}
-
 model Product {
   id           String        @id @default(cuid())
-  seriesId     String
   name         String
-  model        String        @unique // 모델명 (예: M0617, H2017)
+  model        String        @unique // 모델명 (예: TR-1000, NR-500)
+  category     String        // 카테고리 (변압기외함, 수배전반, 제어반 등)
+  tags         String[]      // 태그 배열 (밀폐형, 소음저감형, 터널용, 수배전반 등)
   description  String        @db.Text
-  payload      String?       // 가반하중
-  reach        String?       // 작업반경
-  repeatability String?      // 반복정밀도
-  weight       String?       // 본체중량
+  shortDesc    String?       @db.Text // 짧은 설명 (목록용)
+  capacity     String?       // 용량 (예: 1000kVA)
+  voltage      String?       // 전압 (예: 22.9kV)
+  dimensions   String?       // 크기 (예: W2400 × D1800 × H2400)
+  weight       String?       // 중량
+  material     String?       // 재질 (예: 스테인리스강, 아연도금강판)
+  protection   String?       // 보호등급 (예: IP54, IP65)
   specs        Json?         // 상세 스펙 (JSON)
-  features     Json?         // 주요 기능 (JSON array)
+  features     Json?         // 주요 기능/특징 (JSON array)
+  applications Json?         // 적용 분야 (JSON array)
   imageUrl     String?
   thumbnailUrl String?
+  images       String[]      // 추가 이미지들
   brochureUrl  String?       // 제품 브로셔 PDF
   videoUrl     String?       // 제품 소개 영상
   order        Int           @default(0)
@@ -121,11 +112,11 @@ model Product {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 
-  series       ProductSeries @relation(fields: [seriesId], references: [id], onDelete: Cascade)
   solutions    SolutionProduct[]
+  cases        CaseProduct[]
 
   @@map("products")
-  @@index([seriesId])
+  @@index([category])
 }
 
 // ===========================
@@ -385,4 +376,54 @@ enum BannerPosition {
   HOME_SECONDARY // 메인 페이지 서브
   PRODUCTS       // 제품 페이지
   SOLUTIONS      // 솔루션 페이지
+}
+
+// ===========================
+// 시공사례
+// ===========================
+
+model CaseStudy {
+  id          String   @id @default(cuid())
+  title       String
+  client      String?  // 고객사 (예: 한국전력공사, LS일렉트릭)
+  location    String?  // 설치 장소
+  projectType String?  // 사업 유형 (변전소, 철도, 뉴타운, 산업단지, 터널)
+  year        Int?     // 완공 연도
+  description String   @db.Text
+  content     String   @db.Text // 상세 내용 (HTML)
+  challenge   String?  @db.Text // 프로젝트 과제/어려움
+  solution    String?  @db.Text // 해결 방법
+  result      String?  @db.Text // 결과/성과
+  thumbnailUrl String?
+  imageUrl    String?
+  images      String[] // 추가 이미지들
+  videoUrl    String?
+  tags        String[] // 태그 (밀폐형, 소음저감형 등)
+  isPinned    Boolean  @default(false) // 주요 사례 (상단 고정)
+  views       Int      @default(0)     // 조회수
+  order       Int      @default(0)
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  products    CaseProduct[]
+
+  @@map("case_studies")
+  @@index([projectType])
+  @@index([client])
+}
+
+model CaseProduct {
+  id          String    @id @default(cuid())
+  caseId      String
+  productId   String
+  createdAt   DateTime  @default(now())
+
+  case        CaseStudy @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([caseId, productId])
+  @@map("case_products")
+  @@index([caseId])
+  @@index([productId])
 }
