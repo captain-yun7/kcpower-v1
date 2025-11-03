@@ -118,7 +118,7 @@ export default function Header() {
       onMouseLeave={() => setActiveMenu(null)}
     >
       <div className="max-w-[1600px] mx-auto px-8">
-        <nav className="flex items-center justify-between h-[90px]">
+        <nav className="flex items-center h-[90px]">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-4 group">
             <img
@@ -133,8 +133,8 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Right Side: Navigation + Actions */}
-          <div className="hidden lg:flex items-center gap-20">
+          {/* Center: Navigation */}
+          <div className="hidden lg:flex items-center flex-1 justify-center">
             {/* Desktop Navigation */}
             <ul className="flex items-center gap-14">
               <li
@@ -170,9 +170,10 @@ export default function Header() {
                 </button>
               </li>
             </ul>
+          </div>
 
-            {/* Desktop Actions */}
-            <div className="flex items-center gap-2 pl-6 border-l border-white/20">
+          {/* Right Side: Actions */}
+          <div className="hidden lg:flex items-center gap-2">
             <Link
               href="/services"
               className="px-6 py-2.5 border border-white/30 text-white text-[15px] rounded hover:bg-white/10 transition-colors font-medium"
@@ -193,7 +194,6 @@ export default function Header() {
                 관리자
               </Link>
             )}
-            </div>
           </div>
 
           {/* Mobile Menu Button */}
