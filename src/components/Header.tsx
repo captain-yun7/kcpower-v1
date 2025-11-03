@@ -145,29 +145,31 @@ export default function Header() {
                   제품 & 서비스
                 </button>
                 {activeMenu === 'productsServices' && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6">
-                    <div className="bg-white shadow-2xl rounded-lg p-8 min-w-[800px]">
-                      <div className="grid grid-cols-3 gap-12">
-                        {megaMenuData.productsServices.sections.map((section, index) => (
-                          <div key={index}>
-                            <h3 className="text-[14px] font-semibold text-gray-400 mb-4 tracking-wide uppercase">
-                              {section.title}
-                            </h3>
-                            <ul className="space-y-3">
-                              {section.links.map((link, linkIndex) => (
-                                <li key={linkIndex}>
-                                  <Link
-                                    href={link.href}
-                                    className="text-[15px] text-gray-700 hover:text-secondary transition-colors block"
-                                    onClick={() => setActiveMenu(null)}
-                                  >
-                                    {link.title}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
+                  <div className="fixed top-[90px] left-0 right-0 w-full z-50">
+                    <div className="bg-white shadow-lg border-t border-gray-200">
+                      <div className="max-w-[1400px] mx-auto px-8 py-8">
+                        <div className="grid grid-cols-3 gap-8">
+                          {megaMenuData.productsServices.sections.map((section, index) => (
+                            <div key={index}>
+                              <h3 className="text-[14px] font-semibold text-gray-400 mb-5 tracking-wide uppercase">
+                                {section.title}
+                              </h3>
+                              <ul className="space-y-3">
+                                {section.links.map((link, linkIndex) => (
+                                  <li key={linkIndex}>
+                                    <Link
+                                      href={link.href}
+                                      className="text-[15px] text-gray-700 hover:text-secondary transition-colors block"
+                                      onClick={() => setActiveMenu(null)}
+                                    >
+                                      {link.title}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -181,29 +183,31 @@ export default function Header() {
                   시공사례
                 </button>
                 {activeMenu === 'cases' && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6">
-                    <div className="bg-white shadow-2xl rounded-lg p-8 min-w-[600px]">
-                      <div className="grid grid-cols-2 gap-12">
-                        {megaMenuData.cases.sections.map((section, index) => (
-                          <div key={index}>
-                            <h3 className="text-[14px] font-semibold text-gray-400 mb-4 tracking-wide uppercase">
-                              {section.title}
-                            </h3>
-                            <ul className="space-y-3">
-                              {section.links.map((link, linkIndex) => (
-                                <li key={linkIndex}>
-                                  <Link
-                                    href={link.href}
-                                    className="text-[15px] text-gray-700 hover:text-secondary transition-colors block"
-                                    onClick={() => setActiveMenu(null)}
-                                  >
-                                    {link.title}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
+                  <div className="fixed top-[90px] left-0 right-0 w-full z-50">
+                    <div className="bg-white shadow-lg border-t border-gray-200">
+                      <div className="max-w-[1400px] mx-auto px-8 py-8">
+                        <div className="grid grid-cols-2 gap-8">
+                          {megaMenuData.cases.sections.map((section, index) => (
+                            <div key={index}>
+                              <h3 className="text-[14px] font-semibold text-gray-400 mb-5 tracking-wide uppercase">
+                                {section.title}
+                              </h3>
+                              <ul className="space-y-3">
+                                {section.links.map((link, linkIndex) => (
+                                  <li key={linkIndex}>
+                                    <Link
+                                      href={link.href}
+                                      className="text-[15px] text-gray-700 hover:text-secondary transition-colors block"
+                                      onClick={() => setActiveMenu(null)}
+                                    >
+                                      {link.title}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -217,29 +221,31 @@ export default function Header() {
                   소통공간
                 </button>
                 {activeMenu === 'community' && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6">
-                    <div className="bg-white shadow-2xl rounded-lg p-8 min-w-[500px]">
-                      <div className="grid grid-cols-2 gap-12">
-                        {megaMenuData.community.sections.map((section, index) => (
-                          <div key={index}>
-                            <h3 className="text-[14px] font-semibold text-gray-400 mb-4 tracking-wide uppercase">
-                              {section.title}
-                            </h3>
-                            <ul className="space-y-3">
-                              {section.links.map((link, linkIndex) => (
-                                <li key={linkIndex}>
-                                  <Link
-                                    href={link.href}
-                                    className="text-[15px] text-gray-700 hover:text-secondary transition-colors block"
-                                    onClick={() => setActiveMenu(null)}
-                                  >
-                                    {link.title}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
+                  <div className="fixed top-[90px] left-0 right-0 w-full z-50">
+                    <div className="bg-white shadow-lg border-t border-gray-200">
+                      <div className="max-w-[1400px] mx-auto px-8 py-8">
+                        <div className="grid grid-cols-2 gap-8">
+                          {megaMenuData.community.sections.map((section, index) => (
+                            <div key={index}>
+                              <h3 className="text-[14px] font-semibold text-gray-400 mb-5 tracking-wide uppercase">
+                                {section.title}
+                              </h3>
+                              <ul className="space-y-3">
+                                {section.links.map((link, linkIndex) => (
+                                  <li key={linkIndex}>
+                                    <Link
+                                      href={link.href}
+                                      className="text-[15px] text-gray-700 hover:text-secondary transition-colors block"
+                                      onClick={() => setActiveMenu(null)}
+                                    >
+                                      {link.title}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -253,29 +259,31 @@ export default function Header() {
                   회사소개
                 </button>
                 {activeMenu === 'company' && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6">
-                    <div className="bg-white shadow-2xl rounded-lg p-8 min-w-[500px]">
-                      <div className="grid grid-cols-2 gap-12">
-                        {megaMenuData.company.sections.map((section, index) => (
-                          <div key={index}>
-                            <h3 className="text-[14px] font-semibold text-gray-400 mb-4 tracking-wide uppercase">
-                              {section.title}
-                            </h3>
-                            <ul className="space-y-3">
-                              {section.links.map((link, linkIndex) => (
-                                <li key={linkIndex}>
-                                  <Link
-                                    href={link.href}
-                                    className="text-[15px] text-gray-700 hover:text-secondary transition-colors block"
-                                    onClick={() => setActiveMenu(null)}
-                                  >
-                                    {link.title}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
+                  <div className="fixed top-[90px] left-0 right-0 w-full z-50">
+                    <div className="bg-white shadow-lg border-t border-gray-200">
+                      <div className="max-w-[1400px] mx-auto px-8 py-8">
+                        <div className="grid grid-cols-2 gap-8">
+                          {megaMenuData.company.sections.map((section, index) => (
+                            <div key={index}>
+                              <h3 className="text-[14px] font-semibold text-gray-400 mb-5 tracking-wide uppercase">
+                                {section.title}
+                              </h3>
+                              <ul className="space-y-3">
+                                {section.links.map((link, linkIndex) => (
+                                  <li key={linkIndex}>
+                                    <Link
+                                      href={link.href}
+                                      className="text-[15px] text-gray-700 hover:text-secondary transition-colors block"
+                                      onClick={() => setActiveMenu(null)}
+                                    >
+                                      {link.title}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
