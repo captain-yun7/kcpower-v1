@@ -10,8 +10,10 @@ export async function GET(
     const { id } = params;
 
     // 공지사항 조회 및 조회수 증가
-    const notice = await prisma.notice.update({
-      where: { id },
+    const notice = await prisma.news.update({
+      where: {
+        id,
+      },
       data: {
         views: {
           increment: 1,
