@@ -10,6 +10,7 @@ const megaMenuData = {
     sections: [
       {
         title: '제품 라인업',
+        titleHref: '/products',
         links: [
           { title: '전체 제품 보기', href: '/products' },
           { title: '밀폐형 외함', href: '/products?tag=밀폐형' },
@@ -21,6 +22,7 @@ const megaMenuData = {
       },
       {
         title: '기술 서비스',
+        titleHref: '/services',
         links: [
           { title: 'A/S 신청', href: '/services' },
           { title: '출장 서비스', href: '/services#onsite' },
@@ -30,6 +32,7 @@ const megaMenuData = {
       },
       {
         title: '다운로드',
+        titleHref: '/downloads',
         links: [
           { title: '제품 카탈로그', href: '/downloads' },
           { title: '기술 사양서', href: '/downloads#specs' },
@@ -43,6 +46,7 @@ const megaMenuData = {
     sections: [
       {
         title: '시공사례',
+        titleHref: '/cases',
         links: [
           { title: '전체 사례 보기', href: '/cases' },
           { title: '발전/변전소 프로젝트', href: '/cases?type=발전변전' },
@@ -53,6 +57,7 @@ const megaMenuData = {
       },
       {
         title: '주요 고객사',
+        titleHref: '/cases',
         links: [
           { title: '한국전력공사', href: '/cases?client=한전' },
           { title: 'LS일렉트릭', href: '/cases?client=LS' },
@@ -66,6 +71,7 @@ const megaMenuData = {
     sections: [
       {
         title: '공지사항',
+        titleHref: '/notices',
         links: [
           { title: '전체 공지', href: '/notices' },
           { title: '납품 소식', href: '/notices?category=납품' },
@@ -75,6 +81,7 @@ const megaMenuData = {
       },
       {
         title: '고객 지원',
+        titleHref: '/services',
         links: [
           { title: '견적 문의', href: '/quote' },
           { title: 'A/S 신청', href: '/services' },
@@ -87,6 +94,7 @@ const megaMenuData = {
     sections: [
       {
         title: '회사 소개',
+        titleHref: '/about',
         links: [
           { title: '회사 개요', href: '/about' },
           { title: '경영 이념', href: '/about#values' },
@@ -96,6 +104,7 @@ const megaMenuData = {
       },
       {
         title: '오시는 길',
+        titleHref: '/about/contact',
         links: [
           { title: '찾아오시는 길', href: '/about/contact' },
           { title: '본사/1공장', href: '/about/contact#factory1' },
@@ -141,25 +150,29 @@ export default function Header() {
                 className="relative group"
                 onMouseEnter={() => setActiveMenu('productsServices')}
               >
-                <button className="text-white text-[17px] hover:text-secondary transition-colors font-medium">
+                <button className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
                   제품 & 서비스
                 </button>
                 {activeMenu === 'productsServices' && (
                   <div className="fixed top-[90px] left-0 right-0 w-full z-50">
-                    <div className="bg-white shadow-lg border-t border-gray-200">
-                      <div className="max-w-[900px] mx-auto px-6 py-6">
-                        <div className="grid grid-cols-3 gap-6">
+                    <div className="bg-[#f8f9fa] shadow-xl border-t border-gray-300">
+                      <div className="max-w-[900px] mx-auto px-6 py-10">
+                        <div className="grid grid-cols-3 gap-12">
                           {megaMenuData.productsServices.sections.map((section, index) => (
                             <div key={index}>
-                              <h3 className="text-[14px] font-semibold text-gray-400 mb-5 tracking-wide uppercase">
+                              <Link
+                                href={section.titleHref}
+                                className="text-[18px] font-bold text-gray-900 hover:text-secondary transition-colors block pb-4 mb-5 border-b border-gray-300"
+                                onClick={() => setActiveMenu(null)}
+                              >
                                 {section.title}
-                              </h3>
-                              <ul className="space-y-3">
+                              </Link>
+                              <ul className="space-y-3.5">
                                 {section.links.map((link, linkIndex) => (
                                   <li key={linkIndex}>
                                     <Link
                                       href={link.href}
-                                      className="text-[15px] text-gray-700 hover:text-secondary transition-colors block"
+                                      className="text-[16px] text-gray-600 hover:text-secondary transition-colors block"
                                       onClick={() => setActiveMenu(null)}
                                     >
                                       {link.title}
@@ -179,25 +192,29 @@ export default function Header() {
                 className="relative group"
                 onMouseEnter={() => setActiveMenu('cases')}
               >
-                <button className="text-white text-[17px] hover:text-secondary transition-colors font-medium">
+                <button className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
                   시공사례
                 </button>
                 {activeMenu === 'cases' && (
                   <div className="fixed top-[90px] left-0 right-0 w-full z-50">
-                    <div className="bg-white shadow-lg border-t border-gray-200">
-                      <div className="max-w-[700px] mx-auto px-6 py-6">
-                        <div className="grid grid-cols-2 gap-6">
+                    <div className="bg-[#f8f9fa] shadow-xl border-t border-gray-300">
+                      <div className="max-w-[700px] mx-auto px-6 py-10">
+                        <div className="grid grid-cols-2 gap-12">
                           {megaMenuData.cases.sections.map((section, index) => (
                             <div key={index}>
-                              <h3 className="text-[14px] font-semibold text-gray-400 mb-5 tracking-wide uppercase">
+                              <Link
+                                href={section.titleHref}
+                                className="text-[18px] font-bold text-gray-900 hover:text-secondary transition-colors block pb-4 mb-5 border-b border-gray-300"
+                                onClick={() => setActiveMenu(null)}
+                              >
                                 {section.title}
-                              </h3>
-                              <ul className="space-y-3">
+                              </Link>
+                              <ul className="space-y-3.5">
                                 {section.links.map((link, linkIndex) => (
                                   <li key={linkIndex}>
                                     <Link
                                       href={link.href}
-                                      className="text-[15px] text-gray-700 hover:text-secondary transition-colors block"
+                                      className="text-[16px] text-gray-600 hover:text-secondary transition-colors block"
                                       onClick={() => setActiveMenu(null)}
                                     >
                                       {link.title}
@@ -217,25 +234,29 @@ export default function Header() {
                 className="relative group"
                 onMouseEnter={() => setActiveMenu('community')}
               >
-                <button className="text-white text-[17px] hover:text-secondary transition-colors font-medium">
+                <button className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
                   소통공간
                 </button>
                 {activeMenu === 'community' && (
                   <div className="fixed top-[90px] left-0 right-0 w-full z-50">
-                    <div className="bg-white shadow-lg border-t border-gray-200">
-                      <div className="max-w-[600px] mx-auto px-6 py-6">
-                        <div className="grid grid-cols-2 gap-6">
+                    <div className="bg-[#f8f9fa] shadow-xl border-t border-gray-300">
+                      <div className="max-w-[600px] mx-auto px-6 py-10">
+                        <div className="grid grid-cols-2 gap-12">
                           {megaMenuData.community.sections.map((section, index) => (
                             <div key={index}>
-                              <h3 className="text-[14px] font-semibold text-gray-400 mb-5 tracking-wide uppercase">
+                              <Link
+                                href={section.titleHref}
+                                className="text-[18px] font-bold text-gray-900 hover:text-secondary transition-colors block pb-4 mb-5 border-b border-gray-300"
+                                onClick={() => setActiveMenu(null)}
+                              >
                                 {section.title}
-                              </h3>
-                              <ul className="space-y-3">
+                              </Link>
+                              <ul className="space-y-3.5">
                                 {section.links.map((link, linkIndex) => (
                                   <li key={linkIndex}>
                                     <Link
                                       href={link.href}
-                                      className="text-[15px] text-gray-700 hover:text-secondary transition-colors block"
+                                      className="text-[16px] text-gray-600 hover:text-secondary transition-colors block"
                                       onClick={() => setActiveMenu(null)}
                                     >
                                       {link.title}
@@ -255,25 +276,29 @@ export default function Header() {
                 className="relative group"
                 onMouseEnter={() => setActiveMenu('company')}
               >
-                <button className="text-white text-[17px] hover:text-secondary transition-colors font-medium">
+                <button className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
                   회사소개
                 </button>
                 {activeMenu === 'company' && (
                   <div className="fixed top-[90px] left-0 right-0 w-full z-50">
-                    <div className="bg-white shadow-lg border-t border-gray-200">
-                      <div className="max-w-[700px] mx-auto px-6 py-6">
-                        <div className="grid grid-cols-2 gap-6">
+                    <div className="bg-[#f8f9fa] shadow-xl border-t border-gray-300">
+                      <div className="max-w-[700px] mx-auto px-6 py-10">
+                        <div className="grid grid-cols-2 gap-12">
                           {megaMenuData.company.sections.map((section, index) => (
                             <div key={index}>
-                              <h3 className="text-[14px] font-semibold text-gray-400 mb-5 tracking-wide uppercase">
+                              <Link
+                                href={section.titleHref}
+                                className="text-[18px] font-bold text-gray-900 hover:text-secondary transition-colors block pb-4 mb-5 border-b border-gray-300"
+                                onClick={() => setActiveMenu(null)}
+                              >
                                 {section.title}
-                              </h3>
-                              <ul className="space-y-3">
+                              </Link>
+                              <ul className="space-y-3.5">
                                 {section.links.map((link, linkIndex) => (
                                   <li key={linkIndex}>
                                     <Link
                                       href={link.href}
-                                      className="text-[15px] text-gray-700 hover:text-secondary transition-colors block"
+                                      className="text-[16px] text-gray-600 hover:text-secondary transition-colors block"
                                       onClick={() => setActiveMenu(null)}
                                     >
                                       {link.title}
