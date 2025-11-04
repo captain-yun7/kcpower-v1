@@ -11,7 +11,10 @@ export async function GET(request: NextRequest) {
 
     // 공지사항 목록 조회 (중요 공지 상단 고정)
     const [notices, total] = await Promise.all([
-      prisma.notice.findMany({
+      prisma.news.findMany({
+        where: {
+          category: "NOTICE",
+        },
         select: {
           id: true,
           title: true,
@@ -28,7 +31,11 @@ export async function GET(request: NextRequest) {
         skip,
         take: limit,
       }),
-      prisma.notice.count(),
+      prisma.news.count({
+        where: {
+          category: "NOTICE",
+        },
+      }),
     ]);
 
     return NextResponse.json({
