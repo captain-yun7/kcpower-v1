@@ -147,8 +147,8 @@ export default function Header() {
                 {activeMenu === 'productsServices' && (
                   <div className="fixed top-[90px] left-0 right-0 w-full z-50">
                     <div className="bg-white shadow-lg border-t border-gray-200">
-                      <div className="max-w-[1400px] mx-auto px-8 py-8">
-                        <div className="grid grid-cols-3 gap-8">
+                      <div className="max-w-[900px] mx-auto px-6 py-6">
+                        <div className="grid grid-cols-3 gap-6">
                           {megaMenuData.productsServices.sections.map((section, index) => (
                             <div key={index}>
                               <h3 className="text-[14px] font-semibold text-gray-400 mb-5 tracking-wide uppercase">
@@ -185,8 +185,8 @@ export default function Header() {
                 {activeMenu === 'cases' && (
                   <div className="fixed top-[90px] left-0 right-0 w-full z-50">
                     <div className="bg-white shadow-lg border-t border-gray-200">
-                      <div className="max-w-[1400px] mx-auto px-8 py-8">
-                        <div className="grid grid-cols-2 gap-8">
+                      <div className="max-w-[700px] mx-auto px-6 py-6">
+                        <div className="grid grid-cols-2 gap-6">
                           {megaMenuData.cases.sections.map((section, index) => (
                             <div key={index}>
                               <h3 className="text-[14px] font-semibold text-gray-400 mb-5 tracking-wide uppercase">
@@ -223,8 +223,8 @@ export default function Header() {
                 {activeMenu === 'community' && (
                   <div className="fixed top-[90px] left-0 right-0 w-full z-50">
                     <div className="bg-white shadow-lg border-t border-gray-200">
-                      <div className="max-w-[1400px] mx-auto px-8 py-8">
-                        <div className="grid grid-cols-2 gap-8">
+                      <div className="max-w-[600px] mx-auto px-6 py-6">
+                        <div className="grid grid-cols-2 gap-6">
                           {megaMenuData.community.sections.map((section, index) => (
                             <div key={index}>
                               <h3 className="text-[14px] font-semibold text-gray-400 mb-5 tracking-wide uppercase">
@@ -261,8 +261,8 @@ export default function Header() {
                 {activeMenu === 'company' && (
                   <div className="fixed top-[90px] left-0 right-0 w-full z-50">
                     <div className="bg-white shadow-lg border-t border-gray-200">
-                      <div className="max-w-[1400px] mx-auto px-8 py-8">
-                        <div className="grid grid-cols-2 gap-8">
+                      <div className="max-w-[700px] mx-auto px-6 py-6">
+                        <div className="grid grid-cols-2 gap-6">
                           {megaMenuData.company.sections.map((section, index) => (
                             <div key={index}>
                               <h3 className="text-[14px] font-semibold text-gray-400 mb-5 tracking-wide uppercase">
