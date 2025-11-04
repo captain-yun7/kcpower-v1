@@ -145,14 +145,14 @@ export default function Header() {
           {/* Center: Navigation */}
           <div className="hidden lg:flex items-center flex-1 justify-center">
             {/* Desktop Navigation */}
-            <ul className="flex items-center gap-14">
+            <ul className="flex items-center gap-20">
               <li
                 className="relative group"
                 onMouseEnter={() => setActiveMenu('productsServices')}
               >
-                <button className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
+                <Link href="/products" className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
                   제품 & 서비스
-                </button>
+                </Link>
                 {activeMenu === 'productsServices' && (
                   <div className="fixed top-[90px] left-0 right-0 w-full z-50">
                     <div className="bg-[#f8f9fa] shadow-xl border-t border-gray-300">
@@ -192,9 +192,9 @@ export default function Header() {
                 className="relative group"
                 onMouseEnter={() => setActiveMenu('cases')}
               >
-                <button className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
+                <Link href="/cases" className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
                   시공사례
-                </button>
+                </Link>
                 {activeMenu === 'cases' && (
                   <div className="fixed top-[90px] left-0 right-0 w-full z-50">
                     <div className="bg-[#f8f9fa] shadow-xl border-t border-gray-300">
@@ -234,9 +234,9 @@ export default function Header() {
                 className="relative group"
                 onMouseEnter={() => setActiveMenu('community')}
               >
-                <button className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
+                <Link href="/notices" className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
                   소통공간
-                </button>
+                </Link>
                 {activeMenu === 'community' && (
                   <div className="fixed top-[90px] left-0 right-0 w-full z-50">
                     <div className="bg-[#f8f9fa] shadow-xl border-t border-gray-300">
@@ -276,9 +276,9 @@ export default function Header() {
                 className="relative group"
                 onMouseEnter={() => setActiveMenu('company')}
               >
-                <button className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
+                <Link href="/about" className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
                   회사소개
-                </button>
+                </Link>
                 {activeMenu === 'company' && (
                   <div className="fixed top-[90px] left-0 right-0 w-full z-50">
                     <div className="bg-[#f8f9fa] shadow-xl border-t border-gray-300">

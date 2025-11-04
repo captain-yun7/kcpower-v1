@@ -8,8 +8,9 @@ export default function ContactPage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative py-20 px-4 bg-gradient-to-r from-[#0a0e1a] via-[#1a2847] to-[#0a0e1a]">
-        <div className="max-w-[1400px] mx-auto text-center">
+      <section className="relative min-h-[50vh] flex items-center justify-center bg-gradient-to-r from-[#0a0e1a] via-[#1a2847] to-[#0a0e1a]">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80')] bg-cover bg-center opacity-10" />
+        <div className="relative z-10 text-center px-4 max-w-[1400px] mx-auto">
           <div className="inline-block px-4 py-2 bg-secondary/10 rounded-full mb-6">
             <p className="text-secondary font-semibold uppercase tracking-wide">Contact</p>
           </div>
