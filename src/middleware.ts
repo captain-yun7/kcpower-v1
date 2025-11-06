@@ -5,8 +5,8 @@ export default auth((req) => {
   const isLoggedIn = !!req.auth;
   const { pathname } = req.nextUrl;
 
-  // Protected routes
-  const protectedRoutes = ['/dashboard', '/mypage'];
+  // Protected routes (Admin only)
+  const protectedRoutes = ['/admin'];
   const isProtectedRoute = protectedRoutes.some((route) => pathname.startsWith(route));
 
   if (isProtectedRoute && !isLoggedIn) {

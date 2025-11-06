@@ -16,7 +16,7 @@ export default async function AdminLayout({
 
   // 관리자 권한 확인
   if (session.user.role !== 'ADMIN') {
-    redirect('/dashboard');
+    redirect('/');
   }
 
   return (

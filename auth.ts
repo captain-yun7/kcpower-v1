@@ -1,9 +1,6 @@
 import NextAuth from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import GoogleProvider from 'next-auth/providers/google';
-import KakaoProvider from 'next-auth/providers/kakao';
-import NaverProvider from 'next-auth/providers/naver';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 
@@ -16,7 +13,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: '/login',
   },
   providers: [
-    // Credentials Provider (일반 로그인)
+    // Credentials Provider (관리자 전용 로그인)
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
@@ -38,6 +35,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new Error('이메일 또는 비밀번호가 올바르지 않습니다');
         }
 
+        // 관리자 권한 체크
+        if (user.role !== 'ADMIN') {
+          throw new Error('관리자 권한이 필요합니다');
+        }
+
         const isPasswordValid = await bcrypt.compare(
           credentials.password as string,
           user.password
@@ -55,24 +57,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         };
       },
     }),
-
-    // Google Provider
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
-
-    // Kakao Provider
-    KakaoProvider({
-      clientId: process.env.KAKAO_CLIENT_ID!,
-      clientSecret: process.env.KAKAO_CLIENT_SECRET!,
-    }),
-
-    // Naver Provider
-    NaverProvider({
-      clientId: process.env.NAVER_CLIENT_ID!,
-      clientSecret: process.env.NAVER_CLIENT_SECRET!,
-    }),
   ],
   callbacks: {
     async jwt({ token, user }) {
@@ -88,6 +72,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.role = token.role as string;
       }
       return session;
+    },
+    async signIn({ user }) {
+      // 관리자만 로그인 허용
+      if (user.role !== 'ADMIN') {
+        return false;
+      }
+      return true;
     },
   },
 });

@@ -2,439 +2,307 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 
-interface DashboardData {
-  overview: {
-    totalUsers: number;
-    totalCourses: number;
-    totalEnrollments: number;
-    totalRevenue: number;
-    newUsers: number;
-    newEnrollments: number;
-    periodRevenue: number;
-    completedPayments: number;
-    pendingPayments: number;
+interface DashboardStats {
+  products: {
+    total: number;
+    published: number;
+    draft: number;
   };
-  courseStats: Array<{
-    id: string;
-    title: string;
-    thumbnailUrl: string | null;
-    price: number;
-    revenue: number;
-    _count: {
-      enrollments: number;
-      purchases: number;
-    };
-  }>;
-  recentEnrollments: Array<{
-    id: string;
-    enrolledAt: string;
-    user: {
-      id: string;
-      name: string | null;
-      email: string | null;
-    };
-    course: {
-      id: string;
-      title: string;
-    };
-  }>;
-  recentPayments: Array<{
-    id: string;
-    orderId: string;
-    method: string;
-    paidAt: string | null;
-    purchase: {
-      amount: number;
-      user: {
-        id: string;
-        name: string | null;
-        email: string | null;
-      };
-      course: {
-        id: string;
-        title: string;
-      };
-    };
-  }>;
-  charts: {
-    userGrowth: Array<{ date: string; count: number }>;
-    revenueByDay: Array<{ date: string; amount: number }>;
+  cases: {
+    total: number;
+    pinned: number;
+    thisMonth: number;
+  };
+  news: {
+    total: number;
+    pinned: number;
+    thisWeek: number;
+  };
+  inquiries: {
+    total: number;
+    pending: number;
+    responded: number;
+  };
+  users: {
+    total: number;
+    thisMonth: number;
+  };
+  downloads: {
+    total: number;
+    thisWeek: number;
   };
 }
 
 export default function AdminDashboardPage() {
-  const [data, setData] = useState<DashboardData | null>(null);
+  const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
-  const [period, setPeriod] = useState('30');
 
   useEffect(() => {
-    fetchDashboardData();
-  }, [period]);
+    fetchDashboardStats();
+  }, []);
 
-  const fetchDashboardData = async () => {
+  const fetchDashboardStats = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/admin/dashboard?period=${period}`);
-      const result = await response.json();
-
+      const response = await fetch('/api/admin/dashboard');
       if (response.ok) {
-        setData(result);
-      } else {
-        alert(result.error || '대시보드 데이터를 불러오는데 실패했습니다');
+        const data = await response.json();
+        setStats(data);
       }
     } catch (error) {
       console.error('대시보드 데이터 로딩 실패:', error);
-      alert('대시보드 데이터를 불러오는데 실패했습니다');
     } finally {
       setLoading(false);
     }
   };
 
-  const formatAmount = (amount: number) => {
-    return amount.toLocaleString('ko-KR') + '원';
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('ko-KR', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
-
-  const formatShortDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return `${date.getMonth() + 1}/${date.getDate()}`;
-  };
-
-  if (loading || !data) {
+  if (loading) {
     return (
       <div className="flex justify-center items-center py-20">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-secondary"></div>
       </div>
     );
   }
 
-  const { overview, courseStats, recentEnrollments, recentPayments, charts } = data;
-
-  // 최대값 계산 (차트용)
-  const maxUserGrowth = Math.max(...charts.userGrowth.map(d => d.count), 1);
-  const maxRevenue = Math.max(...charts.revenueByDay.map(d => d.amount), 1);
-
   return (
-    <div>
+    <div className="space-y-8">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">관리자 대시보드</h1>
-        <p className="text-gray-600 mt-2">플랫폼 전체 현황을 한눈에 확인하세요</p>
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900">대시보드</h1>
+        <p className="text-gray-600 mt-2">케이씨파워 관리 시스템에 오신 것을 환영합니다</p>
       </div>
 
-      {/* Period Selector */}
-      <div className="mb-6">
-        <select
-          value={period}
-          onChange={(e) => setPeriod(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-        >
-          <option value="7">최근 7일</option>
-          <option value="30">최근 30일</option>
-          <option value="90">최근 90일</option>
-          <option value="365">최근 1년</option>
-        </select>
-      </div>
-
-      {/* Overview Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow-sm p-6">
+      {/* Quick Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* 제품 통계 */}
+        <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all hover:scale-105">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">전체 회원</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {overview.totalUsers.toLocaleString()}
-              </p>
-              <p className="text-xs text-green-600 mt-1">
-                +{overview.newUsers} (최근 {period}일)
+              <p className="text-blue-100 text-sm font-medium">전체 제품</p>
+              <p className="text-4xl font-bold mt-2">{stats?.products.total || 0}</p>
+              <p className="text-blue-100 text-xs mt-2">
+                게시: {stats?.products.published || 0} / 임시: {stats?.products.draft || 0}
               </p>
             </div>
-            <div className="p-3 bg-blue-100 rounded-full">
-              <svg
-                className="w-6 h-6 text-blue-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-                />
+            <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
               </svg>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm p-6">
+        {/* 시공사례 통계 */}
+        <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all hover:scale-105">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">전체 강의</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {overview.totalCourses.toLocaleString()}
+              <p className="text-emerald-100 text-sm font-medium">시공사례</p>
+              <p className="text-4xl font-bold mt-2">{stats?.cases.total || 0}</p>
+              <p className="text-emerald-100 text-xs mt-2">
+                주요 사례: {stats?.cases.pinned || 0} / 이번 달: +{stats?.cases.thisMonth || 0}
               </p>
-              <p className="text-xs text-gray-500 mt-1">게시된 강의</p>
             </div>
-            <div className="p-3 bg-green-100 rounded-full">
-              <svg
-                className="w-6 h-6 text-green-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                />
+            <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
               </svg>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm p-6">
+        {/* 뉴스/공지사항 통계 */}
+        <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all hover:scale-105">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">전체 수강 신청</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {overview.totalEnrollments.toLocaleString()}
-              </p>
-              <p className="text-xs text-green-600 mt-1">
-                +{overview.newEnrollments} (최근 {period}일)
+              <p className="text-purple-100 text-sm font-medium">뉴스/공지</p>
+              <p className="text-4xl font-bold mt-2">{stats?.news.total || 0}</p>
+              <p className="text-purple-100 text-xs mt-2">
+                고정: {stats?.news.pinned || 0} / 이번 주: +{stats?.news.thisWeek || 0}
               </p>
             </div>
-            <div className="p-3 bg-purple-100 rounded-full">
-              <svg
-                className="w-6 h-6 text-purple-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
+            <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
               </svg>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm p-6">
+        {/* 문의 통계 */}
+        <div className="bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all hover:scale-105">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">전체 수익</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {formatAmount(overview.totalRevenue)}
-              </p>
-              <p className="text-xs text-green-600 mt-1">
-                +{formatAmount(overview.periodRevenue)} (최근 {period}일)
+              <p className="text-amber-100 text-sm font-medium">문의 사항</p>
+              <p className="text-4xl font-bold mt-2">{stats?.inquiries.total || 0}</p>
+              <p className="text-amber-100 text-xs mt-2">
+                대기: {stats?.inquiries.pending || 0} / 답변: {stats?.inquiries.responded || 0}
               </p>
             </div>
-            <div className="p-3 bg-yellow-100 rounded-full">
-              <svg
-                className="w-6 h-6 text-yellow-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
+            <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
               </svg>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Payment Status */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">결제 현황</h3>
+      {/* Secondary Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* 회원 통계 */}
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-900">회원 현황</h3>
+            <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+              <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </div>
+          </div>
           <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-600">완료된 결제</span>
-              <span className="text-lg font-semibold text-green-600">
-                {overview.completedPayments.toLocaleString()}건
-              </span>
+              <span className="text-gray-600">전체 회원</span>
+              <span className="text-2xl font-bold text-gray-900">{stats?.users.total || 0}</span>
             </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-gray-500">이번 달 신규</span>
+              <span className="text-green-600 font-semibold">+{stats?.users.thisMonth || 0}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* 다운로드 통계 */}
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-900">다운로드 현황</h3>
+            <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
+              <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+              </svg>
+            </div>
+          </div>
+          <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-600">대기 중 (무통장입금)</span>
-              <span className="text-lg font-semibold text-yellow-600">
-                {overview.pendingPayments.toLocaleString()}건
-              </span>
+              <span className="text-gray-600">전체 다운로드</span>
+              <span className="text-2xl font-bold text-gray-900">{stats?.downloads.total || 0}</span>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-gray-500">이번 주</span>
+              <span className="text-blue-600 font-semibold">+{stats?.downloads.thisWeek || 0}</span>
             </div>
           </div>
         </div>
-
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">빠른 링크</h3>
-          <div className="space-y-2">
-            <Link
-              href="/admin/students"
-              className="block px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm text-gray-700"
-            >
-              회원 관리
-            </Link>
-            <Link
-              href="/admin/payments"
-              className="block px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm text-gray-700"
-            >
-              결제 관리
-            </Link>
-            <Link
-              href="/admin/courses"
-              className="block px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm text-gray-700"
-            >
-              강의 관리
-            </Link>
-          </div>
-        </div>
       </div>
 
-      {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        {/* User Growth Chart */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">회원 가입 추이 (최근 7일)</h3>
-          <div className="h-64 flex items-end justify-between gap-2">
-            {charts.userGrowth.map((data, index) => (
-              <div key={index} className="flex-1 flex flex-col items-center">
-                <div className="w-full bg-blue-500 rounded-t" style={{ height: `${(data.count / maxUserGrowth) * 100}%`, minHeight: data.count > 0 ? '4px' : '0' }}>
-                  <div className="text-xs text-center text-white font-semibold pt-1">
-                    {data.count > 0 ? data.count : ''}
-                  </div>
-                </div>
-                <div className="text-xs text-gray-500 mt-2">{formatShortDate(data.date)}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Revenue Chart */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">일별 수익 추이 (최근 7일)</h3>
-          <div className="h-64 flex items-end justify-between gap-2">
-            {charts.revenueByDay.map((data, index) => (
-              <div key={index} className="flex-1 flex flex-col items-center">
-                <div className="w-full bg-green-500 rounded-t" style={{ height: `${(data.amount / maxRevenue) * 100}%`, minHeight: data.amount > 0 ? '4px' : '0' }}>
-                  <div className="text-xs text-center text-white font-semibold pt-1">
-                    {data.amount > 0 ? Math.round(data.amount / 10000) + '만' : ''}
-                  </div>
-                </div>
-                <div className="text-xs text-gray-500 mt-2">{formatShortDate(data.date)}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Top Courses */}
-      <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">인기 강의 Top 5</h3>
-        <div className="space-y-4">
-          {courseStats.map((course, index) => (
-            <div key={course.id} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-              <div className="text-2xl font-bold text-gray-400 w-8">{index + 1}</div>
-              {course.thumbnailUrl && (
-                <div className="relative w-20 h-12 flex-shrink-0">
-                  <Image
-                    src={course.thumbnailUrl}
-                    alt={course.title}
-                    fill
-                    className="object-cover rounded"
-                  />
-                </div>
-              )}
-              <div className="flex-1">
-                <Link href={`/admin/courses/${course.id}`} className="font-medium text-gray-900 hover:text-primary">
-                  {course.title}
-                </Link>
-                <div className="text-sm text-gray-500 mt-1">
-                  수강생: {course._count.enrollments}명 | 구매: {course._count.purchases}건
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="text-lg font-semibold text-gray-900">
-                  {formatAmount(course.revenue)}
-                </div>
-                <div className="text-sm text-gray-500">수익</div>
-              </div>
+      {/* Quick Actions */}
+      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+        <h3 className="text-lg font-semibold text-gray-900 mb-6">빠른 작업</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Link
+            href="/admin/products/new"
+            className="flex items-center gap-4 p-4 bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 rounded-xl transition-all group"
+          >
+            <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
             </div>
-          ))}
+            <div>
+              <p className="font-semibold text-gray-900">신규 제품</p>
+              <p className="text-sm text-gray-600">제품 등록</p>
+            </div>
+          </Link>
+
+          <Link
+            href="/admin/cases/new"
+            className="flex items-center gap-4 p-4 bg-gradient-to-br from-emerald-50 to-emerald-100 hover:from-emerald-100 hover:to-emerald-200 rounded-xl transition-all group"
+          >
+            <div className="w-12 h-12 bg-emerald-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+            </div>
+            <div>
+              <p className="font-semibold text-gray-900">시공사례</p>
+              <p className="text-sm text-gray-600">사례 등록</p>
+            </div>
+          </Link>
+
+          <Link
+            href="/admin/news/new"
+            className="flex items-center gap-4 p-4 bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 rounded-xl transition-all group"
+          >
+            <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+            </div>
+            <div>
+              <p className="font-semibold text-gray-900">뉴스/공지</p>
+              <p className="text-sm text-gray-600">작성하기</p>
+            </div>
+          </Link>
+
+          <Link
+            href="/admin/inquiries"
+            className="flex items-center gap-4 p-4 bg-gradient-to-br from-amber-50 to-amber-100 hover:from-amber-100 hover:to-amber-200 rounded-xl transition-all group"
+          >
+            <div className="w-12 h-12 bg-amber-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <p className="font-semibold text-gray-900">문의 관리</p>
+              <p className="text-sm text-gray-600">답변하기</p>
+            </div>
+          </Link>
         </div>
       </div>
 
-      {/* Recent Activities */}
+      {/* Recent Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Recent Enrollments */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">최근 수강 신청</h3>
+        {/* Pending Inquiries */}
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-900">미처리 문의</h3>
+            <Link href="/admin/inquiries" className="text-sm text-secondary hover:text-secondary-dark font-medium">
+              전체보기 →
+            </Link>
+          </div>
           <div className="space-y-3">
-            {recentEnrollments.map((enrollment) => (
-              <div key={enrollment.id} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                <div className="flex-1">
-                  <Link
-                    href={`/admin/students/${enrollment.user.id}`}
-                    className="font-medium text-gray-900 hover:text-primary text-sm"
-                  >
-                    {enrollment.user.name || '익명'}
-                  </Link>
-                  <div className="text-sm text-gray-600 mt-1">
-                    {enrollment.course.title}
-                  </div>
-                  <div className="text-xs text-gray-500 mt-1">
-                    {formatDate(enrollment.enrolledAt)}
-                  </div>
-                </div>
-              </div>
-            ))}
+            <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
+              <p className="text-sm text-gray-600">답변 대기 중인 문의</p>
+              <p className="text-2xl font-bold text-amber-600 mt-1">{stats?.inquiries.pending || 0}건</p>
+            </div>
+            <p className="text-sm text-gray-500 text-center py-4">
+              대기 중인 문의가 {stats?.inquiries.pending || 0}건 있습니다
+            </p>
           </div>
         </div>
 
-        {/* Recent Payments */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">최근 결제</h3>
+        {/* System Status */}
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-900">시스템 상태</h3>
+            <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">
+              정상 작동
+            </span>
+          </div>
           <div className="space-y-3">
-            {recentPayments.map((payment) => (
-              <div key={payment.id} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                <div className="flex-1">
-                  <Link
-                    href={`/admin/students/${payment.purchase.user.id}`}
-                    className="font-medium text-gray-900 hover:text-primary text-sm"
-                  >
-                    {payment.purchase.user.name || '익명'}
-                  </Link>
-                  <div className="text-sm text-gray-600 mt-1">
-                    {payment.purchase.course.title}
-                  </div>
-                  <div className="text-xs text-gray-500 mt-1">
-                    {payment.paidAt ? formatDate(payment.paidAt) : ''}
-                  </div>
-                </div>
-                <div className="text-sm font-semibold text-gray-900">
-                  {formatAmount(payment.purchase.amount)}
-                </div>
-              </div>
-            ))}
+            <div className="flex items-center justify-between py-2 border-b border-gray-100">
+              <span className="text-sm text-gray-600">데이터베이스</span>
+              <span className="text-sm font-semibold text-green-600">●  정상</span>
+            </div>
+            <div className="flex items-center justify-between py-2 border-b border-gray-100">
+              <span className="text-sm text-gray-600">파일 시스템</span>
+              <span className="text-sm font-semibold text-green-600">● 정상</span>
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <span className="text-sm text-gray-600">서버 상태</span>
+              <span className="text-sm font-semibold text-green-600">● 정상</span>
+            </div>
           </div>
         </div>
       </div>
