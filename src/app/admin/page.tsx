@@ -175,7 +175,7 @@ export default function AdminDashboardPage() {
           </Link>
 
           <Link
-            href="/admin/news/new"
+            href="/admin/notices/new"
             className="flex items-center gap-4 p-4 bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 rounded-xl transition-all group"
           >
             <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
