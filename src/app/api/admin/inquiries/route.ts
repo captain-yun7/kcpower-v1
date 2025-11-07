@@ -29,20 +29,20 @@ export async function GET(request: NextRequest) {
         where,
         select: {
           id: true,
-          title: true,
-          isPrivate: true,
+          subject: true,
+          type: true,
+          name: true,
+          email: true,
+          phone: true,
+          company: true,
           status: true,
+          respondedAt: true,
           createdAt: true,
           updatedAt: true,
           user: {
             select: {
               name: true,
               email: true,
-            },
-          },
-          _count: {
-            select: {
-              replies: true,
             },
           },
         },

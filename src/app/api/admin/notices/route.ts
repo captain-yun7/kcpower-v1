@@ -28,7 +28,10 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit;
 
     const [notices, total] = await Promise.all([
-      prisma.notice.findMany({
+      prisma.news.findMany({
+        where: {
+          category: "NOTICE",
+        },
         orderBy: [
           { isPinned: "desc" },
           { createdAt: "desc" },
@@ -36,7 +39,11 @@ export async function GET(request: NextRequest) {
         skip,
         take: limit,
       }),
-      prisma.notice.count(),
+      prisma.news.count({
+        where: {
+          category: "NOTICE",
+        },
+      }),
     ]);
 
     return NextResponse.json({
@@ -72,10 +79,11 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { title, content, isPinned } = createNoticeSchema.parse(body);
 
-    const notice = await prisma.notice.create({
+    const notice = await prisma.news.create({
       data: {
         title,
         content,
+        category: "NOTICE",
         isPinned,
       },
     });

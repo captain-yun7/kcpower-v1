@@ -29,7 +29,7 @@ export async function PATCH(
     const body = await request.json();
     const data = updateNoticeSchema.parse(body);
 
-    const notice = await prisma.notice.update({
+    const notice = await prisma.news.update({
       where: { id },
       data,
     });
@@ -72,7 +72,7 @@ export async function DELETE(
 
     const { id } = params;
 
-    await prisma.notice.delete({
+    await prisma.news.delete({
       where: { id },
     });
 
