@@ -6,10 +6,16 @@ import Link from 'next/link';
 interface Case {
   id: string;
   title: string;
-  client: string;
-  location: string;
+  client?: string;
+  projectType?: string;
+  year?: number;
+  thumbnailUrl?: string;
   isPinned: boolean;
+  isPublished: boolean;
   createdAt: string;
+  _count?: {
+    products: number;
+  };
 }
 
 export default function CasesPage() {
@@ -23,10 +29,10 @@ export default function CasesPage() {
   const fetchCases = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/admin/cases');
+      const response = await fetch('/api/admin/case-studies');
       if (response.ok) {
         const data = await response.json();
-        setCases(data);
+        setCases(data.caseStudies || []);
       }
     } catch (error) {
       console.error('시공사례 목록 로딩 실패:', error);
@@ -39,7 +45,7 @@ export default function CasesPage() {
     if (!confirm('정말 삭제하시겠습니까?')) return;
 
     try {
-      const response = await fetch(`/api/admin/cases/${id}`, {
+      const response = await fetch(`/api/admin/case-studies/${id}`, {
         method: 'DELETE',
       });
 
@@ -53,7 +59,7 @@ export default function CasesPage() {
 
   const handleTogglePin = async (id: string, isPinned: boolean) => {
     try {
-      const response = await fetch(`/api/admin/cases/${id}/pin`, {
+      const response = await fetch(`/api/admin/case-studies/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ isPinned: !isPinned }),
@@ -126,10 +132,10 @@ export default function CasesPage() {
                 제목
               </th>
               <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
-                고객사
+                프로젝트 유형
               </th>
               <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
-                위치
+                고객사
               </th>
               <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
                 상태
@@ -166,8 +172,8 @@ export default function CasesPage() {
                       <p className="font-medium text-gray-900">{caseItem.title}</p>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-gray-600">{caseItem.client}</td>
-                  <td className="px-6 py-4 text-gray-600">{caseItem.location}</td>
+                  <td className="px-6 py-4 text-gray-600">{caseItem.projectType || '-'}</td>
+                  <td className="px-6 py-4 text-gray-600">{caseItem.client || '-'}</td>
                   <td className="px-6 py-4">
                     <button
                       onClick={() => handleTogglePin(caseItem.id, caseItem.isPinned)}
