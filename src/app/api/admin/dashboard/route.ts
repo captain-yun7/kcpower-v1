@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
     const [totalInquiries, pendingInquiries, respondedInquiries] = await Promise.all([
       prisma.inquiry.count(),
       prisma.inquiry.count({ where: { status: 'PENDING' } }),
-      prisma.inquiry.count({ where: { status: 'RESPONDED' } }),
+      prisma.inquiry.count({ where: { status: 'ANSWERED' } }),
     ]);
 
     // 회원 통계
