@@ -4,7 +4,7 @@
   "description": "케이씨파워 - 전기설비 전문 제조업체 웹사이트",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack -p 3000",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",

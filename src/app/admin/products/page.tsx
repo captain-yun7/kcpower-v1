@@ -6,8 +6,10 @@ import Link from 'next/link';
 interface Product {
   id: string;
   name: string;
+  model: string;
   category: string;
-  status: 'PUBLISHED' | 'DRAFT';
+  thumbnailUrl?: string;
+  isPublished: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -27,7 +29,7 @@ export default function ProductsPage() {
       const response = await fetch('/api/admin/products');
       if (response.ok) {
         const data = await response.json();
-        setProducts(data);
+        setProducts(data.products || []);
       }
     } catch (error) {
       console.error('제품 목록 로딩 실패:', error);
@@ -38,7 +40,9 @@ export default function ProductsPage() {
 
   const filteredProducts = products.filter((product) => {
     if (filter === 'ALL') return true;
-    return product.status === filter;
+    if (filter === 'PUBLISHED') return product.isPublished;
+    if (filter === 'DRAFT') return !product.isPublished;
+    return true;
   });
 
   const handleDelete = async (id: string) => {
@@ -101,7 +105,7 @@ export default function ProductsPage() {
               : 'text-gray-600 hover:bg-gray-100'
           }`}
         >
-          게시 ({products.filter((p) => p.status === 'PUBLISHED').length})
+          게시 ({products.filter((p) => p.isPublished).length})
         </button>
         <button
           onClick={() => setFilter('DRAFT')}
@@ -111,7 +115,7 @@ export default function ProductsPage() {
               : 'text-gray-600 hover:bg-gray-100'
           }`}
         >
-          임시저장 ({products.filter((p) => p.status === 'DRAFT').length})
+          임시저장 ({products.filter((p) => !p.isPublished).length})
         </button>
       </div>
 
@@ -156,12 +160,12 @@ export default function ProductsPage() {
                   <td className="px-6 py-4">
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        product.status === 'PUBLISHED'
+                        product.isPublished
                           ? 'bg-green-100 text-green-700'
                           : 'bg-gray-100 text-gray-700'
                       }`}
                     >
-                      {product.status === 'PUBLISHED' ? '게시' : '임시저장'}
+                      {product.isPublished ? '게시' : '임시저장'}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-gray-600">
