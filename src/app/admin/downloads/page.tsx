@@ -1,21 +1,22 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 interface Download {
   id: string;
   title: string;
-  category: string;
+  category: { name: string };
   fileName: string;
   fileSize: number;
-  downloadCount: number;
+  downloads: number;
+  requireAuth: boolean;
   createdAt: string;
 }
 
 export default function DownloadsPage() {
   const [downloads, setDownloads] = useState<Download[]>([]);
   const [loading, setLoading] = useState(true);
-  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     fetchDownloads();
@@ -27,7 +28,7 @@ export default function DownloadsPage() {
       const response = await fetch('/api/admin/downloads');
       if (response.ok) {
         const data = await response.json();
-        setDownloads(data);
+        setDownloads(data.downloads || []);
       }
     } catch (error) {
       console.error('다운로드 목록 로딩 실패:', error);
@@ -76,15 +77,12 @@ export default function DownloadsPage() {
           <h1 className="text-3xl font-bold text-gray-900">다운로드 관리</h1>
           <p className="text-gray-600 mt-2">카탈로그 및 자료를 관리합니다</p>
         </div>
-        <button
-          onClick={() => {
-            // 파일 업로드 모달 열기
-            alert('파일 업로드 기능은 추후 구현됩니다');
-          }}
+        <Link
+          href="/admin/downloads/new"
           className="px-6 py-3 bg-secondary text-white rounded-xl hover:bg-secondary-dark transition-colors font-medium"
         >
-          + 파일 업로드
-        </button>
+          + 새 자료 등록
+        </Link>
       </div>
 
       {/* Stats */}
@@ -96,7 +94,7 @@ export default function DownloadsPage() {
         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
           <p className="text-sm text-gray-600">총 다운로드 수</p>
           <p className="text-3xl font-bold text-blue-600 mt-2">
-            {downloads.reduce((sum, d) => sum + d.downloadCount, 0).toLocaleString()}
+            {downloads.reduce((sum, d) => sum + d.downloads, 0).toLocaleString()}
           </p>
         </div>
         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
@@ -150,7 +148,7 @@ export default function DownloadsPage() {
                   </td>
                   <td className="px-6 py-4">
                     <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
-                      {download.category}
+                      {download.category.name}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-gray-600">{download.fileName}</td>
@@ -158,7 +156,7 @@ export default function DownloadsPage() {
                     {formatFileSize(download.fileSize)}
                   </td>
                   <td className="px-6 py-4 text-gray-600">
-                    {download.downloadCount.toLocaleString()}회
+                    {download.downloads.toLocaleString()}회
                   </td>
                   <td className="px-6 py-4 text-gray-600">
                     {new Date(download.createdAt).toLocaleDateString('ko-KR')}
@@ -174,6 +172,12 @@ export default function DownloadsPage() {
                       >
                         다운로드
                       </button>
+                      <Link
+                        href={`/admin/downloads/${download.id}/edit`}
+                        className="px-4 py-2 text-sm text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                      >
+                        수정
+                      </Link>
                       <button
                         onClick={() => handleDelete(download.id)}
                         className="px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors"

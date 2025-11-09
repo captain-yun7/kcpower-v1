@@ -24,20 +24,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const type = formData.get('type') as string || 'image';
+
     // 파일 타입 검증
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+    const imageTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+    const docTypes = ['application/pdf', 'application/zip', 'application/x-zip-compressed'];
+    const allowedTypes = type === 'document' ? [...imageTypes, ...docTypes] : imageTypes;
+
     if (!allowedTypes.includes(file.type)) {
       return NextResponse.json(
-        { error: '지원하지 않는 파일 형식입니다. (JPG, PNG, WEBP, GIF만 가능)' },
+        { error: '지원하지 않는 파일 형식입니다' },
         { status: 400 }
       );
     }
 
-    // 파일 크기 검증 (10MB)
-    const maxSize = 10 * 1024 * 1024;
+    // 파일 크기 검증 (이미지 10MB, 문서 50MB)
+    const maxSize = type === 'document' ? 50 * 1024 * 1024 : 10 * 1024 * 1024;
     if (file.size > maxSize) {
       return NextResponse.json(
-        { error: '파일 크기는 10MB 이하여야 합니다' },
+        { error: `파일 크기는 ${maxSize / 1024 / 1024}MB 이하여야 합니다` },
         { status: 400 }
       );
     }
