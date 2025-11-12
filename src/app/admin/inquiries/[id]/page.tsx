@@ -189,5 +189,6 @@ export default function AdminInquiryDetailPage() {
           </button>
         </div>
       </div>
+    </div>
   );
 }
