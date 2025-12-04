@@ -5,14 +5,50 @@ import FeatureSection from '@/components/FeatureSection';
 import UseCasesSection from '@/components/UseCasesSection';
 import HeroSection from '@/components/HeroSection';
 import ClientsCarousel from '@/components/ClientsCarousel';
+import { prisma } from '@/lib/prisma';
 
-export default function Home() {
+async function getBanners() {
+  const now = new Date();
+
+  const banners = await prisma.banner.findMany({
+    where: {
+      position: 'HOME_MAIN',
+      isActive: true,
+      OR: [
+        { startDate: null },
+        { startDate: { lte: now } },
+      ],
+      AND: [
+        {
+          OR: [
+            { endDate: null },
+            { endDate: { gte: now } },
+          ],
+        },
+      ],
+    },
+    orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      imageUrl: true,
+      linkUrl: true,
+      linkText: true,
+    },
+  });
+
+  return banners;
+}
+
+export default async function Home() {
+  const banners = await getBanners();
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e1a]">
       <Header />
 
       {/* Hero Section with Auto-Slide */}
-      <HeroSection />
+      <HeroSection banners={banners} />
 
       {/* Floating Action Buttons - Right Side */}
       <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-0 bg-[#1e2847] rounded-l-lg overflow-hidden shadow-2xl">

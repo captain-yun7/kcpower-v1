@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 interface Slide {
-  id: number;
+  id: string;
   title: string;
   subtitle: string;
   imageUrl: string;
@@ -12,9 +12,10 @@ interface Slide {
   ctaLink: string;
 }
 
-const slides: Slide[] = [
+// 기본 슬라이드 (DB 배너가 없을 경우 폴백)
+const defaultSlides: Slide[] = [
   {
-    id: 1,
+    id: '1',
     title: '30년 신뢰,\n최고의 전기설비 솔루션',
     subtitle: '1993년부터 쌓아온 기술력과 신뢰로 대한민국 전력 인프라를 책임집니다',
     imageUrl: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1920&q=80',
@@ -22,7 +23,7 @@ const slides: Slide[] = [
     ctaLink: '/products',
   },
   {
-    id: 2,
+    id: '2',
     title: '한전이 선택한\n믿을 수 있는 파트너',
     subtitle: '한국전력공사 우수협력업체로 선정된 검증된 품질',
     imageUrl: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1920&q=80',
@@ -30,7 +31,7 @@ const slides: Slide[] = [
     ctaLink: '/cases',
   },
   {
-    id: 3,
+    id: '3',
     title: '3개 공장,\n신속한 생산 체계',
     subtitle: '대량 주문부터 긴급 납품까지 빠르게 대응합니다',
     imageUrl: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1920&q=80',
@@ -38,7 +39,7 @@ const slides: Slide[] = [
     ctaLink: '/about',
   },
   {
-    id: 4,
+    id: '4',
     title: '특수 환경 대응,\n맞춤형 솔루션',
     subtitle: '터널용, 침수형, 소음저감형 등 현장에 최적화된 제품',
     imageUrl: 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=1920&q=80',
@@ -47,9 +48,32 @@ const slides: Slide[] = [
   },
 ];
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  banners?: {
+    id: string;
+    title: string;
+    description: string | null;
+    imageUrl: string;
+    linkUrl: string | null;
+    linkText: string | null;
+  }[];
+}
+
+export default function HeroSection({ banners }: HeroSectionProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
+
+  // 배너 데이터를 슬라이드 형식으로 변환
+  const slides: Slide[] = banners && banners.length > 0
+    ? banners.map((banner) => ({
+        id: banner.id,
+        title: banner.title.replace(/\\n/g, '\n'), // \n을 실제 줄바꿈으로 변환
+        subtitle: banner.description || '',
+        imageUrl: banner.imageUrl,
+        ctaText: banner.linkText || '자세히 보기',
+        ctaLink: banner.linkUrl || '/',
+      }))
+    : defaultSlides;
 
   useEffect(() => {
     if (!isAutoPlay) return;
@@ -59,7 +83,7 @@ export default function HeroSection() {
     }, 5000); // 5초마다 슬라이드 변경
 
     return () => clearInterval(interval);
-  }, [isAutoPlay]);
+  }, [isAutoPlay, slides.length]);
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
@@ -108,25 +132,27 @@ export default function HeroSection() {
               <p className="text-[20px] text-white/90 mb-12 font-light tracking-wide">
                 {slide.subtitle}
               </p>
-              <Link
-                href={slide.ctaLink}
-                className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-secondary to-secondary-dark text-white text-[17px] rounded-full hover:shadow-2xl hover:shadow-secondary/30 transition-all duration-300 font-semibold hover:scale-105 group"
-              >
-                {slide.ctaText}
-                <svg
-                  className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+              {slide.ctaLink && (
+                <Link
+                  href={slide.ctaLink}
+                  className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-secondary to-secondary-dark text-white text-[17px] rounded-full hover:shadow-2xl hover:shadow-secondary/30 transition-all duration-300 font-semibold hover:scale-105 group"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </Link>
+                  {slide.ctaText}
+                  <svg
+                    className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </Link>
+              )}
             </div>
           ))}
         </div>
