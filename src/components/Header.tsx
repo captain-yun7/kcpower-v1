@@ -4,117 +4,48 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 
-// 메가 메뉴 데이터 구조 (실제 페이지와 매칭)
-const megaMenuData = {
-  productsServices: {
-    sections: [
-      {
-        title: '제품 라인업',
-        titleHref: '/products',
-        links: [
-          { title: '전체 제품 보기', href: '/products' },
-          { title: '밀폐형 외함', href: '/products?tag=밀폐형' },
-          { title: '소음저감형 외함', href: '/products?tag=소음저감형' },
-          { title: '터널용 외함', href: '/products?tag=터널용' },
-          { title: '수배전반', href: '/products?tag=수배전반' },
-          { title: '기타 제품', href: '/products?category=기타' },
-        ],
-      },
-      {
-        title: '기술 서비스',
-        titleHref: '/services',
-        links: [
-          { title: 'A/S 신청', href: '/services' },
-          { title: '출장 서비스', href: '/services#onsite' },
-          { title: '긴급 공사', href: '/services#emergency' },
-          { title: '유지보수', href: '/services#maintenance' },
-        ],
-      },
-      {
-        title: '다운로드',
-        titleHref: '/downloads',
-        links: [
-          { title: '제품 카탈로그', href: '/downloads' },
-          { title: '기술 사양서', href: '/downloads#specs' },
-          { title: '인증서', href: '/downloads#certificates' },
-          { title: 'CAD 도면', href: '/downloads#cad' },
-        ],
-      },
+// GNB 메뉴 구조: 회사소개 / 사업영역 / 고객지원 / 소통공간
+const navMenus = [
+  {
+    key: 'company',
+    title: '회사소개',
+    href: '/about',
+    links: [
+      { title: '개요', href: '/about#overview' },
+      { title: '이념', href: '/about#values' },
+      { title: '연혁', href: '/about#history' },
+      { title: '오시는길', href: '/about/contact' },
     ],
   },
-  cases: {
-    sections: [
-      {
-        title: '시공사례',
-        titleHref: '/cases',
-        links: [
-          { title: '전체 사례 보기', href: '/cases' },
-          { title: '발전/변전소 프로젝트', href: '/cases?type=발전변전' },
-          { title: '철도 전기설비', href: '/cases?type=철도' },
-          { title: '산업단지 프로젝트', href: '/cases?type=산업' },
-          { title: '터널 전기설비', href: '/cases?type=터널' },
-        ],
-      },
-      {
-        title: '주요 고객사',
-        titleHref: '/cases',
-        links: [
-          { title: '한국전력공사', href: '/cases?client=한전' },
-          { title: 'LS일렉트릭', href: '/cases?client=LS' },
-          { title: '현대일렉트릭', href: '/cases?client=현대' },
-          { title: '산일전기', href: '/cases?client=산일' },
-        ],
-      },
+  {
+    key: 'business',
+    title: '사업영역',
+    href: '/business/technology',
+    links: [
+      { title: 'KCP 기술', href: '/business/technology' },
+      { title: '시공사례', href: '/cases' },
+      { title: '인증서', href: '/business/certifications' },
     ],
   },
-  community: {
-    sections: [
-      {
-        title: '공지사항',
-        titleHref: '/notices',
-        links: [
-          { title: '전체 공지', href: '/notices' },
-          { title: '납품 소식', href: '/notices?category=납품' },
-          { title: '신제품 출시', href: '/notices?category=제품' },
-          { title: '행사 안내', href: '/notices?category=행사' },
-        ],
-      },
-      {
-        title: '고객 지원',
-        titleHref: '/services',
-        links: [
-          { title: '견적 문의', href: '/quote' },
-          { title: 'A/S 신청', href: '/services' },
-          { title: '자료 다운로드', href: '/downloads' },
-        ],
-      },
+  {
+    key: 'support',
+    title: '고객지원',
+    href: '/quote',
+    links: [
+      { title: '견적문의', href: '/quote' },
+      { title: '자료다운로드', href: '/downloads' },
     ],
   },
-  company: {
-    sections: [
-      {
-        title: '회사 소개',
-        titleHref: '/about',
-        links: [
-          { title: '회사 개요', href: '/about' },
-          { title: '경영 이념', href: '/about#values' },
-          { title: '회사 연혁', href: '/about#history' },
-          { title: '사업장 정보', href: '/about#company-info' },
-        ],
-      },
-      {
-        title: '오시는 길',
-        titleHref: '/about/contact',
-        links: [
-          { title: '찾아오시는 길', href: '/about/contact' },
-          { title: '본사/1공장', href: '/about/contact#factory1' },
-          { title: '2공장', href: '/about/contact#factory2' },
-          { title: '3공장', href: '/about/contact#factory3' },
-        ],
-      },
+  {
+    key: 'community',
+    title: '소통공간',
+    href: '/notices',
+    links: [
+      { title: '뉴스&공지', href: '/notices' },
+      { title: '홍보영상', href: '/media' },
     ],
   },
-};
+];
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -146,185 +77,41 @@ export default function Header() {
           <div className="hidden lg:flex items-center flex-1 justify-center">
             {/* Desktop Navigation */}
             <ul className="flex items-center gap-20">
-              <li
-                className="relative group"
-                onMouseEnter={() => setActiveMenu('productsServices')}
-              >
-                <Link href="/products" className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
-                  제품 & 서비스
-                </Link>
-                {activeMenu === 'productsServices' && (
-                  <div className="fixed top-[90px] left-0 right-0 w-full z-50">
-                    <div className="bg-[#f8f9fa] shadow-xl border-t border-gray-300">
-                      <div className="max-w-[900px] mx-auto px-6 py-10">
-                        <div className="grid grid-cols-3 gap-12">
-                          {megaMenuData.productsServices.sections.map((section, index) => (
-                            <div key={index}>
+              {navMenus.map((menu) => (
+                <li
+                  key={menu.key}
+                  className="relative group"
+                  onMouseEnter={() => setActiveMenu(menu.key)}
+                >
+                  <Link href={menu.href} className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
+                    {menu.title}
+                  </Link>
+                  {activeMenu === menu.key && (
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-50">
+                      <div className="bg-[#f8f9fa] shadow-xl rounded-lg border border-gray-200 min-w-[180px] py-3">
+                        <ul>
+                          {menu.links.map((link, linkIndex) => (
+                            <li key={linkIndex}>
                               <Link
-                                href={section.titleHref}
-                                className="text-[18px] font-bold text-gray-900 hover:text-secondary transition-colors block pb-4 mb-5 border-b border-gray-300"
+                                href={link.href}
+                                className="block px-6 py-2.5 text-[15px] text-gray-700 hover:text-secondary hover:bg-gray-100 transition-colors whitespace-nowrap"
                                 onClick={() => setActiveMenu(null)}
                               >
-                                {section.title}
+                                {link.title}
                               </Link>
-                              <ul className="space-y-3.5">
-                                {section.links.map((link, linkIndex) => (
-                                  <li key={linkIndex}>
-                                    <Link
-                                      href={link.href}
-                                      className="text-[16px] text-gray-600 hover:text-secondary transition-colors block"
-                                      onClick={() => setActiveMenu(null)}
-                                    >
-                                      {link.title}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
+                            </li>
                           ))}
-                        </div>
+                        </ul>
                       </div>
                     </div>
-                  </div>
-                )}
-              </li>
-              <li
-                className="relative group"
-                onMouseEnter={() => setActiveMenu('cases')}
-              >
-                <Link href="/cases" className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
-                  시공사례
-                </Link>
-                {activeMenu === 'cases' && (
-                  <div className="fixed top-[90px] left-0 right-0 w-full z-50">
-                    <div className="bg-[#f8f9fa] shadow-xl border-t border-gray-300">
-                      <div className="max-w-[700px] mx-auto px-6 py-10">
-                        <div className="grid grid-cols-2 gap-12">
-                          {megaMenuData.cases.sections.map((section, index) => (
-                            <div key={index}>
-                              <Link
-                                href={section.titleHref}
-                                className="text-[18px] font-bold text-gray-900 hover:text-secondary transition-colors block pb-4 mb-5 border-b border-gray-300"
-                                onClick={() => setActiveMenu(null)}
-                              >
-                                {section.title}
-                              </Link>
-                              <ul className="space-y-3.5">
-                                {section.links.map((link, linkIndex) => (
-                                  <li key={linkIndex}>
-                                    <Link
-                                      href={link.href}
-                                      className="text-[16px] text-gray-600 hover:text-secondary transition-colors block"
-                                      onClick={() => setActiveMenu(null)}
-                                    >
-                                      {link.title}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </li>
-              <li
-                className="relative group"
-                onMouseEnter={() => setActiveMenu('community')}
-              >
-                <Link href="/notices" className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
-                  소통공간
-                </Link>
-                {activeMenu === 'community' && (
-                  <div className="fixed top-[90px] left-0 right-0 w-full z-50">
-                    <div className="bg-[#f8f9fa] shadow-xl border-t border-gray-300">
-                      <div className="max-w-[600px] mx-auto px-6 py-10">
-                        <div className="grid grid-cols-2 gap-12">
-                          {megaMenuData.community.sections.map((section, index) => (
-                            <div key={index}>
-                              <Link
-                                href={section.titleHref}
-                                className="text-[18px] font-bold text-gray-900 hover:text-secondary transition-colors block pb-4 mb-5 border-b border-gray-300"
-                                onClick={() => setActiveMenu(null)}
-                              >
-                                {section.title}
-                              </Link>
-                              <ul className="space-y-3.5">
-                                {section.links.map((link, linkIndex) => (
-                                  <li key={linkIndex}>
-                                    <Link
-                                      href={link.href}
-                                      className="text-[16px] text-gray-600 hover:text-secondary transition-colors block"
-                                      onClick={() => setActiveMenu(null)}
-                                    >
-                                      {link.title}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </li>
-              <li
-                className="relative group"
-                onMouseEnter={() => setActiveMenu('company')}
-              >
-                <Link href="/about" className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
-                  회사소개
-                </Link>
-                {activeMenu === 'company' && (
-                  <div className="fixed top-[90px] left-0 right-0 w-full z-50">
-                    <div className="bg-[#f8f9fa] shadow-xl border-t border-gray-300">
-                      <div className="max-w-[700px] mx-auto px-6 py-10">
-                        <div className="grid grid-cols-2 gap-12">
-                          {megaMenuData.company.sections.map((section, index) => (
-                            <div key={index}>
-                              <Link
-                                href={section.titleHref}
-                                className="text-[18px] font-bold text-gray-900 hover:text-secondary transition-colors block pb-4 mb-5 border-b border-gray-300"
-                                onClick={() => setActiveMenu(null)}
-                              >
-                                {section.title}
-                              </Link>
-                              <ul className="space-y-3.5">
-                                {section.links.map((link, linkIndex) => (
-                                  <li key={linkIndex}>
-                                    <Link
-                                      href={link.href}
-                                      className="text-[16px] text-gray-600 hover:text-secondary transition-colors block"
-                                      onClick={() => setActiveMenu(null)}
-                                    >
-                                      {link.title}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </li>
+                  )}
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Right Side: Actions */}
           <div className="hidden lg:flex items-center gap-2">
-            <Link
-              href="/services"
-              className="px-6 py-2.5 border border-white/30 text-white text-[15px] rounded hover:bg-white/10 transition-colors font-medium"
-            >
-              A/S 신청
-            </Link>
             <Link
               href="/quote"
               className="px-6 py-2.5 border border-secondary text-secondary text-[15px] rounded hover:bg-secondary/10 transition-colors font-medium"
@@ -364,52 +151,31 @@ export default function Header() {
         {mobileMenuOpen && (
           <div className="lg:hidden pb-4 border-t border-white/20 mt-2 pt-4">
             <ul className="flex flex-col gap-2">
-              <li>
-                <Link
-                  href="/products"
-                  className="block px-4 py-2 text-white hover:bg-white/10 hover:text-secondary rounded-lg transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  제품 & 서비스
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/cases"
-                  className="block px-4 py-2 text-white hover:bg-white/10 hover:text-secondary rounded-lg transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  시공사례
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/notices"
-                  className="block px-4 py-2 text-white hover:bg-white/10 hover:text-secondary rounded-lg transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  소통공간
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about"
-                  className="block px-4 py-2 text-white hover:bg-white/10 hover:text-secondary rounded-lg transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  회사소개
-                </Link>
-              </li>
+              {navMenus.map((menu) => (
+                <li key={menu.key}>
+                  <Link
+                    href={menu.href}
+                    className="block px-4 py-2 text-white font-semibold hover:bg-white/10 hover:text-secondary rounded-lg transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {menu.title}
+                  </Link>
+                  <ul className="pl-4">
+                    {menu.links.map((link, linkIndex) => (
+                      <li key={linkIndex}>
+                        <Link
+                          href={link.href}
+                          className="block px-4 py-1.5 text-white/70 text-sm hover:bg-white/10 hover:text-secondary rounded-lg transition-colors"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {link.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
               <li className="pt-3 border-t border-white/20 mt-2">
-                <Link
-                  href="/services"
-                  className="block px-4 py-2.5 text-center bg-secondary text-white rounded-lg hover:bg-secondary/90 transition-colors font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  A/S 신청
-                </Link>
-              </li>
-              <li>
                 <Link
                   href="/quote"
                   className="block px-4 py-2.5 text-center border border-secondary text-secondary rounded-lg hover:bg-secondary/10 transition-colors font-medium"

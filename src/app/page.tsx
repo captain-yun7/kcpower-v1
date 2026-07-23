@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import FeatureSection from '@/components/FeatureSection';
-import UseCasesSection from '@/components/UseCasesSection';
 import HeroSection from '@/components/HeroSection';
-import ClientsCarousel from '@/components/ClientsCarousel';
 import { prisma } from '@/lib/prisma';
+
+// 회사소개영상 URL (mp4 또는 스트리밍 주소 확보 시 입력)
+const COMPANY_VIDEO_URL = '';
 
 async function getBanners() {
   const now = new Date();
@@ -77,7 +77,7 @@ export default async function Home() {
         </Link>
         <Link
           href="/downloads"
-          className="group flex items-center gap-3 px-6 py-4 text-white hover:bg-[#2a3555] transition-all duration-300 border-b border-white/10"
+          className="group flex items-center gap-3 px-6 py-4 text-white hover:bg-[#2a3555] transition-all duration-300"
         >
           <div className="w-10 h-10 flex items-center justify-center bg-white/10 rounded-full group-hover:scale-110 transition-transform">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -86,19 +86,30 @@ export default async function Home() {
           </div>
           <span className="text-[14px] font-medium">자료 다운로드</span>
         </Link>
-        <Link
-          href="/quote"
-          className="group flex items-center gap-3 px-6 py-4 text-white hover:bg-[#2a3555] transition-all duration-300"
-        >
-          <div className="w-10 h-10 flex items-center justify-center bg-white/10 rounded-full group-hover:scale-110 transition-transform">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-          </div>
-          <span className="text-[14px] font-medium">A/S 신청</span>
-        </Link>
       </div>
+
+      {/* 회사소개영상 */}
+      <section className="py-20 px-4 bg-[#0a0e1a]">
+        <div className="max-w-[1000px] mx-auto">
+          <h2 className="text-3xl lg:text-4xl font-bold text-white text-center mb-10">
+            회사소개영상
+          </h2>
+          <div className="aspect-video rounded-xl overflow-hidden bg-black shadow-2xl">
+            {COMPANY_VIDEO_URL ? (
+              <video src={COMPANY_VIDEO_URL} controls className="w-full h-full object-contain" />
+            ) : (
+              <div className="w-full h-full flex flex-col items-center justify-center gap-4">
+                <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center">
+                  <svg className="w-9 h-9 text-gray-800 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+                <p className="text-white/60 text-sm">영상 준비 중입니다</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
 
       {/* Company Stats Section */}
       <section className="py-20 px-4 bg-white">
@@ -171,223 +182,6 @@ export default async function Home() {
                 끊임없는 R&D로 업계 최초의 혁신 제품을 개발합니다
               </p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Use Cases Section */}
-      <UseCasesSection />
-
-      {/* Feature Sections */}
-      {/* 1. 품질과 안전 */}
-      <FeatureSection
-        label="QUALITY & SAFETY"
-        subtitle="30년간 쌓아온 기술력으로"
-        title="최고 품질의 변압기 외함을 제공합니다"
-        description="한전, LS일렉트릭, 현대일렉트릭 등 대한민국 주요 전력 기업들이 신뢰하는 케이씨파워. 변전소부터 철도, 터널까지 고객에게 최고의 전기설비 솔루션을 제공합니다."
-        features={[
-          {
-            title: "업계 최고 수준의 품질 관리",
-            description: "철저한 품질 검사와 30년 노하우로 완벽한 방수, 방진, 내구성을 자랑하는 제품을 생산합니다. 한전 우수협력업체로 선정된 신뢰할 수 있는 품질을 경험하세요."
-          },
-          {
-            title: "다양한 환경에 최적화된 솔루션",
-            description: "옥외 설치용 밀폐형부터 주거지역 소음저감형, 터널용 특수 외함까지 현장 환경에 맞는 맞춤형 솔루션을 제공합니다."
-          }
-        ]}
-        linkText="제품 라인업 및 시공사례 보러가기"
-        linkHref="/products"
-        imageUrl="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80"
-        imagePosition="right"
-        backgroundColor="bg-white"
-      />
-
-      {/* 2. 신속한 대응 */}
-      <FeatureSection
-        label="FAST RESPONSE"
-        subtitle="24시간 긴급 대응 시스템으로"
-        title="언제나 빠르고 정확한 서비스"
-        description="3개 공장을 통한 신속한 생산 체계와 24시간 긴급 출동 시스템으로 고객의 긴급한 요구에 즉시 대응합니다."
-        features={[
-          {
-            title: "전국 어디서나 신속한 출장 서비스",
-            description: "인천 남동구에 위치한 3개 공장을 기반으로 수도권은 물론 전국 어디든 빠르게 출장 서비스를 제공합니다. A/S 및 긴급 공사도 신속하게 처리합니다."
-          },
-          {
-            title: "체계적인 사후 관리",
-            description: "납품 후에도 지속적인 점검과 유지보수로 제품의 안정적인 작동을 보장합니다. 고객 만족을 최우선으로 생각하는 케이씨파워입니다."
-          }
-        ]}
-        linkText="기술 서비스 및 A/S 신청하기"
-        linkHref="/services"
-        imageUrl="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80"
-        imagePosition="left"
-        backgroundColor="bg-gray-50"
-      />
-
-      {/* 3. 맞춤형 제작 */}
-      <FeatureSection
-        label="CUSTOMIZATION"
-        subtitle="고객 맞춤형 설계로"
-        title="현장에 딱 맞는 솔루션 제공"
-        description="표준 제품부터 특수 목적 맞춤 제작까지, 고객의 요구사항을 정확히 반영한 최적의 솔루션을 제공합니다."
-        features={[
-          {
-            title: "현장 환경 분석 및 맞춤 설계",
-            description: "현장의 특수한 조건과 요구사항을 면밀히 분석하여 최적화된 설계를 제공합니다. 침수형, 터널용 등 특수 환경에도 완벽 대응합니다."
-          },
-          {
-            title: "빠른 납품과 유연한 생산 체계",
-            description: "3개 공장의 효율적인 생산 시스템으로 대량 주문은 물론 긴급 납품에도 신속하게 대응합니다. 고객의 일정에 맞춰 유연하게 생산합니다."
-          }
-        ]}
-        linkText="견적 문의하기"
-        linkHref="/quote"
-        imageUrl="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80"
-        imagePosition="right"
-        backgroundColor="bg-[#0a0e1a]"
-      />
-
-      {/* Product Lineup Section */}
-      <section className="py-32 px-4 bg-white">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl font-bold text-gray-900 mb-6">주요 제품</h2>
-            <p className="text-xl text-gray-600">다양한 환경에 최적화된 변압기 외함 솔루션</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* 밀폐형 외함 */}
-            <Link href="/products/sealed" className="group bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all cursor-pointer">
-              <div className="aspect-square relative overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80"
-                  alt="밀폐형 외함"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">밀폐형 외함</h3>
-                <p className="text-gray-600 text-sm mb-4">완벽한 방수/방진 성능으로 옥외 설치 최적화</p>
-                <span className="text-secondary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
-                  자세히 보기
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </span>
-              </div>
-            </Link>
-
-            {/* 소음저감형 */}
-            <Link href="/products/soundproof" className="group bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all cursor-pointer">
-              <div className="aspect-square relative overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80"
-                  alt="소음저감형 외함"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">소음저감형 외함</h3>
-                <p className="text-gray-600 text-sm mb-4">주거지역 설치 가능한 특수 설계</p>
-                <span className="text-secondary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
-                  자세히 보기
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </span>
-              </div>
-            </Link>
-
-            {/* 터널용 외함 */}
-            <Link href="/products/tunnel" className="group bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all cursor-pointer">
-              <div className="aspect-square relative overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&q=80"
-                  alt="터널용 외함"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">터널용 외함</h3>
-                <p className="text-gray-600 text-sm mb-4">철도/도로 터널 특수 환경 대응</p>
-                <span className="text-secondary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
-                  자세히 보기
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </span>
-              </div>
-            </Link>
-
-            {/* 수배전반 */}
-            <Link href="/products/switchboard" className="group bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all cursor-pointer">
-              <div className="aspect-square relative overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80"
-                  alt="수배전반"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">수배전반</h3>
-                <p className="text-gray-600 text-sm mb-4">통합 전력 관리 솔루션</p>
-                <span className="text-secondary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
-                  자세히 보기
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </span>
-              </div>
-            </Link>
-          </div>
-
-          {/* View More Link */}
-          <div className="text-center mt-12">
-            <Link
-              href="/products"
-              className="inline-flex items-center gap-2 text-secondary font-semibold hover:gap-3 transition-all text-lg hover:text-secondary-dark"
-            >
-              모든 제품 보기
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Major Clients Section */}
-      <ClientsCarousel />
-
-      {/* CTA Section */}
-      <section className="py-32 px-4 bg-[#0a0e1a] relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10"></div>
-        <div className="max-w-[1400px] mx-auto text-center relative z-10">
-          <h2 className="text-5xl font-bold text-white mb-6">
-            지금 바로 시작하세요
-          </h2>
-          <p className="text-xl text-white/70 mb-12 font-light">
-            케이씨파워의 전기설비 솔루션으로 안전하고 효율적인 <br />
-            전력 인프라를 구축하세요
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/quote"
-              className="px-10 py-4 bg-secondary text-white rounded-lg hover:bg-secondary-dark transition-all duration-300 font-semibold shadow-xl"
-            >
-              견적 문의하기
-            </Link>
-            <Link
-              href="/cases"
-              className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white border-2 border-white rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold"
-            >
-              시공사례 보기
-            </Link>
           </div>
         </div>
       </section>
