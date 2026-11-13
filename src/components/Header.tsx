@@ -3,54 +3,56 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { useLocale } from '@/i18n/LocaleProvider';
+import { messages } from '@/i18n/messages/common';
+import { company } from '@/lib/company';
 
 // GNB 메뉴 구조: 회사소개 / 사업영역 / 고객지원 / 소통공간
 const navMenus = [
   {
     key: 'company',
-    title: '회사소개',
     href: '/about',
     links: [
-      { title: '개요', href: '/about#overview' },
-      { title: '이념', href: '/about#values' },
-      { title: '연혁', href: '/about#history' },
-      { title: '오시는길', href: '/about/contact' },
+      { key: 'overview', href: '/about#overview' },
+      { key: 'values', href: '/about#values' },
+      { key: 'history', href: '/about#history' },
+      { key: 'location', href: '/about/contact' },
     ],
   },
   {
     key: 'business',
-    title: '사업영역',
     href: '/business/technology',
     links: [
-      { title: 'KCP 기술', href: '/business/technology' },
-      { title: '시공사례', href: '/cases' },
-      { title: '인증서', href: '/business/certifications' },
+      { key: 'technology', href: '/business/technology' },
+      { key: 'cases', href: '/cases' },
+      { key: 'certifications', href: '/business/certifications' },
     ],
   },
   {
     key: 'support',
-    title: '고객지원',
     href: '/quote',
     links: [
-      { title: '견적문의', href: '/quote' },
-      { title: '자료다운로드', href: '/downloads' },
+      { key: 'quote', href: '/quote' },
+      { key: 'downloads', href: '/downloads' },
     ],
   },
   {
     key: 'community',
-    title: '소통공간',
     href: '/notices',
     links: [
-      { title: '뉴스&공지', href: '/notices' },
-      { title: '홍보영상', href: '/media' },
+      { key: 'notices', href: '/notices' },
+      { key: 'media', href: '/media' },
     ],
   },
-];
+] as const;
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const { data: session } = useSession();
+  const locale = useLocale();
+  const t = messages[locale];
 
   return (
     <header
@@ -63,12 +65,12 @@ export default function Header() {
           <Link href="/" className="flex items-center gap-4 group">
             <img
               src="/logo.png"
-              alt="케이씨파워 로고"
+              alt={t.logoAlt}
               className="h-[40px] w-auto object-contain transition-transform group-hover:scale-105"
             />
             <div className="flex flex-col justify-center">
               <span className="text-white text-[24px] font-bold tracking-wide leading-none">
-                케이씨파워
+                {company.name[locale]}
               </span>
             </div>
           </Link>
@@ -76,7 +78,7 @@ export default function Header() {
           {/* Center: Navigation */}
           <div className="hidden lg:flex items-center flex-1 justify-center">
             {/* Desktop Navigation */}
-            <ul className="flex items-center gap-20">
+            <ul className="flex items-center gap-12 xl:gap-20">
               {navMenus.map((menu) => (
                 <li
                   key={menu.key}
@@ -84,7 +86,7 @@ export default function Header() {
                   onMouseEnter={() => setActiveMenu(menu.key)}
                 >
                   <Link href={menu.href} className="text-white text-[17px] hover:text-secondary transition-colors font-medium cursor-pointer">
-                    {menu.title}
+                    {t.nav[menu.key]}
                   </Link>
                   {activeMenu === menu.key && (
                     <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-50">
@@ -97,7 +99,7 @@ export default function Header() {
                                 className="block px-6 py-2.5 text-[15px] text-gray-700 hover:text-secondary hover:bg-gray-100 transition-colors whitespace-nowrap"
                                 onClick={() => setActiveMenu(null)}
                               >
-                                {link.title}
+                                {t.nav[link.key]}
                               </Link>
                             </li>
                           ))}
@@ -111,19 +113,20 @@ export default function Header() {
           </div>
 
           {/* Right Side: Actions */}
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-5">
+            <LanguageSwitcher />
             <Link
               href="/quote"
               className="px-6 py-2.5 border border-secondary text-secondary text-[15px] rounded hover:bg-secondary/10 transition-colors font-medium"
             >
-              견적 문의
+              {t.quoteButton}
             </Link>
             {session?.user.role === 'ADMIN' && (
               <Link
                 href="/admin"
                 className="px-4 py-2 text-white hover:text-gray-300 transition-colors text-[14px]"
               >
-                관리자
+                {t.admin}
               </Link>
             )}
           </div>
@@ -132,7 +135,7 @@ export default function Header() {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="lg:hidden p-2 text-white"
-            aria-label="메뉴"
+            aria-label={t.menu}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               {mobileMenuOpen ? (
@@ -158,7 +161,7 @@ export default function Header() {
                     className="block px-4 py-2 text-white font-semibold hover:bg-white/10 hover:text-secondary rounded-lg transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    {menu.title}
+                    {t.nav[menu.key]}
                   </Link>
                   <ul className="pl-4">
                     {menu.links.map((link, linkIndex) => (
@@ -168,7 +171,7 @@ export default function Header() {
                           className="block px-4 py-1.5 text-white/70 text-sm hover:bg-white/10 hover:text-secondary rounded-lg transition-colors"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          {link.title}
+                          {t.nav[link.key]}
                         </Link>
                       </li>
                     ))}
@@ -181,8 +184,11 @@ export default function Header() {
                   className="block px-4 py-2.5 text-center border border-secondary text-secondary rounded-lg hover:bg-secondary/10 transition-colors font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  견적 문의
+                  {t.quoteButton}
                 </Link>
+              </li>
+              <li className="px-4 pt-3">
+                <LanguageSwitcher />
               </li>
             </ul>
           </div>
