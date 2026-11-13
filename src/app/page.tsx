@@ -3,9 +3,11 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import HeroSection from '@/components/HeroSection';
 import { prisma } from '@/lib/prisma';
+import { getLocale } from '@/i18n/server';
+import { messages } from '@/i18n/messages/home';
 
-// 회사소개영상 URL (mp4 또는 스트리밍 주소 확보 시 입력)
-const COMPANY_VIDEO_URL = '';
+const COMPANY_VIDEO_URL = 'https://sgbtbrhav48xk7cq.public.blob.vercel-storage.com/videos/company-intro-ko.mp4';
+const COMPANY_VIDEO_POSTER = '/videos/company-intro-poster.jpg';
 
 async function getBanners() {
   const now = new Date();
@@ -43,6 +45,7 @@ async function getBanners() {
 
 export default async function Home() {
   const banners = await getBanners();
+  const t = messages[await getLocale()];
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e1a]">
       <Header />
@@ -61,7 +64,7 @@ export default async function Home() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
           </div>
-          <span className="text-[14px] font-medium">견적 문의</span>
+          <span className="text-[14px] font-medium">{t.quickQuote}</span>
         </Link>
         <Link
           href="/about/contact"
@@ -73,7 +76,7 @@ export default async function Home() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
           </div>
-          <span className="text-[14px] font-medium">오시는 길</span>
+          <span className="text-[14px] font-medium">{t.quickLocation}</span>
         </Link>
         <Link
           href="/downloads"
@@ -84,7 +87,7 @@ export default async function Home() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </div>
-          <span className="text-[14px] font-medium">자료 다운로드</span>
+          <span className="text-[14px] font-medium">{t.quickDownloads}</span>
         </Link>
       </div>
 
@@ -92,21 +95,17 @@ export default async function Home() {
       <section className="py-20 px-4 bg-[#0a0e1a]">
         <div className="max-w-[1000px] mx-auto">
           <h2 className="text-3xl lg:text-4xl font-bold text-white text-center mb-10">
-            회사소개영상
+            {t.videoTitle}
           </h2>
           <div className="aspect-video rounded-xl overflow-hidden bg-black shadow-2xl">
-            {COMPANY_VIDEO_URL ? (
-              <video src={COMPANY_VIDEO_URL} controls className="w-full h-full object-contain" />
-            ) : (
-              <div className="w-full h-full flex flex-col items-center justify-center gap-4">
-                <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center">
-                  <svg className="w-9 h-9 text-gray-800 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-                <p className="text-white/60 text-sm">영상 준비 중입니다</p>
-              </div>
-            )}
+            <video
+              src={COMPANY_VIDEO_URL}
+              poster={COMPANY_VIDEO_POSTER}
+              controls
+              playsInline
+              preload="none"
+              className="w-full h-full object-contain"
+            />
           </div>
         </div>
       </section>
@@ -116,35 +115,22 @@ export default async function Home() {
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-              대한민국 전기설비의 신뢰할 수 있는 파트너
+              {t.statsTitle}
             </h2>
             <p className="text-xl text-gray-600">
-              30년간 쌓아온 기술력과 노하우로 안전하고 효율적인 전기설비 솔루션을 제공합니다
+              {t.statsSubtitle}
             </p>
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            <div className="text-center">
-              <div className="text-5xl lg:text-6xl font-bold text-secondary mb-2">30+</div>
-              <div className="text-gray-700 font-semibold">년 역사</div>
-              <div className="text-sm text-gray-600 mt-1">1993년 설립</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl lg:text-6xl font-bold text-secondary mb-2">3</div>
-              <div className="text-gray-700 font-semibold">개 공장</div>
-              <div className="text-sm text-gray-600 mt-1">인천 남동구</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl lg:text-6xl font-bold text-secondary mb-2">10K+</div>
-              <div className="text-gray-700 font-semibold">누적 납품</div>
-              <div className="text-sm text-gray-600 mt-1">변압기 외함</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl lg:text-6xl font-bold text-secondary mb-2">4+</div>
-              <div className="text-gray-700 font-semibold">주요 고객사</div>
-              <div className="text-sm text-gray-600 mt-1">한전, LS, 현대일렉트릭</div>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-16 max-w-[1000px] mx-auto">
+            {t.stats.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <div className="text-5xl lg:text-6xl font-bold text-secondary mb-2">{stat.value}</div>
+                <div className="text-gray-700 font-semibold">{stat.label}</div>
+                <div className="text-sm text-gray-600 mt-1">{stat.note}</div>
+              </div>
+            ))}
           </div>
 
           {/* Core Values */}
@@ -155,9 +141,9 @@ export default async function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">안전</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{t.values[0].title}</h3>
               <p className="text-gray-600 text-sm">
-                모든 제품과 서비스에서 안전을 최우선으로 합니다
+                {t.values[0].desc}
               </p>
             </div>
             <div className="bg-gray-50 rounded-xl p-8 text-center">
@@ -166,9 +152,9 @@ export default async function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">신뢰</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{t.values[1].title}</h3>
               <p className="text-gray-600 text-sm">
-                30년간 쌓아온 기술력과 실적으로 신뢰를 증명합니다
+                {t.values[1].desc}
               </p>
             </div>
             <div className="bg-gray-50 rounded-xl p-8 text-center">
@@ -177,9 +163,9 @@ export default async function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">혁신</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{t.values[2].title}</h3>
               <p className="text-gray-600 text-sm">
-                끊임없는 R&D로 업계 최초의 혁신 제품을 개발합니다
+                {t.values[2].desc}
               </p>
             </div>
           </div>
