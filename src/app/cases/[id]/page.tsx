@@ -5,6 +5,8 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { useLocale } from '@/i18n/LocaleProvider';
+import { messages } from '@/i18n/messages/case-detail';
 
 interface CaseStudy {
   id: string;
@@ -29,6 +31,7 @@ interface CaseStudy {
 
 export default function CaseDetailPage() {
   const params = useParams();
+  const t = messages[useLocale()];
   const [caseStudy, setCaseStudy] = useState<CaseStudy | null>(null);
   const [relatedCases, setRelatedCases] = useState<CaseStudy[]>([]);
   const [loading, setLoading] = useState(true);
@@ -76,9 +79,9 @@ export default function CaseDetailPage() {
         <Header />
         <div className="flex-1 flex items-center justify-center px-4">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">시공사례를 찾을 수 없습니다</h1>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">{t.notFound}</h1>
             <Link href="/cases" className="text-secondary hover:underline">
-              시공사례 목록으로 돌아가기
+              {t.backToCases}
             </Link>
           </div>
         </div>
@@ -149,7 +152,7 @@ export default function CaseDetailPage() {
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  <span>{caseStudy.year}년</span>
+                  <span>{t.year(caseStudy.year)}</span>
                 </div>
               )}
               {caseStudy.projectType && (
@@ -169,11 +172,11 @@ export default function CaseDetailPage() {
       <section className="py-6 px-4 bg-gray-50 border-b border-gray-200">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-center gap-2 text-sm text-gray-600">
-            <Link href="/" className="hover:text-secondary">홈</Link>
+            <Link href="/" className="hover:text-secondary">{t.breadcrumbHome}</Link>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-            <Link href="/cases" className="hover:text-secondary">시공사례</Link>
+            <Link href="/cases" className="hover:text-secondary">{t.breadcrumbCases}</Link>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
@@ -214,7 +217,7 @@ export default function CaseDetailPage() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-500 mb-1">고객사</p>
+                      <p className="text-xs text-gray-500 mb-1">{t.client}</p>
                       <p className="text-sm font-bold text-gray-900">{caseStudy.client}</p>
                     </div>
                   </div>
@@ -229,7 +232,7 @@ export default function CaseDetailPage() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-500 mb-1">위치</p>
+                      <p className="text-xs text-gray-500 mb-1">{t.location}</p>
                       <p className="text-sm font-bold text-gray-900">{caseStudy.location}</p>
                     </div>
                   </div>
@@ -243,8 +246,8 @@ export default function CaseDetailPage() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-500 mb-1">완공 연도</p>
-                      <p className="text-sm font-bold text-gray-900">{caseStudy.year}년</p>
+                      <p className="text-xs text-gray-500 mb-1">{t.yearCompleted}</p>
+                      <p className="text-sm font-bold text-gray-900">{t.year(caseStudy.year)}</p>
                     </div>
                   </div>
                 )}
@@ -257,7 +260,7 @@ export default function CaseDetailPage() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-500 mb-1">프로젝트 유형</p>
+                      <p className="text-xs text-gray-500 mb-1">{t.projectType}</p>
                       <p className="text-sm font-bold text-gray-900">{caseStudy.projectType}</p>
                     </div>
                   </div>
@@ -271,7 +274,7 @@ export default function CaseDetailPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                   </svg>
-                  <span className="text-sm font-medium">조회수 {caseStudy.views.toLocaleString()}</span>
+                  <span className="text-sm font-medium">{t.views(caseStudy.views.toLocaleString())}</span>
                 </div>
               </div>
             </div>
@@ -287,7 +290,7 @@ export default function CaseDetailPage() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
-                    프로젝트 개요
+                    {t.overview}
                   </h2>
                   <p className="text-lg text-gray-700 leading-relaxed">
                     {caseStudy.description}
@@ -306,7 +309,7 @@ export default function CaseDetailPage() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                           </svg>
                         </div>
-                        <h2 className="text-2xl font-bold text-gray-900">과제</h2>
+                        <h2 className="text-2xl font-bold text-gray-900">{t.challenge}</h2>
                       </div>
                       <div className="text-gray-700 leading-relaxed whitespace-pre-line">
                         {caseStudy.challenge}
@@ -322,7 +325,7 @@ export default function CaseDetailPage() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                           </svg>
                         </div>
-                        <h2 className="text-2xl font-bold text-gray-900">솔루션</h2>
+                        <h2 className="text-2xl font-bold text-gray-900">{t.solution}</h2>
                       </div>
                       <div className="text-gray-700 leading-relaxed whitespace-pre-line">
                         {caseStudy.solution}
@@ -338,7 +341,7 @@ export default function CaseDetailPage() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
                         </div>
-                        <h2 className="text-2xl font-bold text-gray-900">성과</h2>
+                        <h2 className="text-2xl font-bold text-gray-900">{t.result}</h2>
                       </div>
                       <div className="text-gray-700 leading-relaxed whitespace-pre-line">
                         {caseStudy.result}
@@ -363,7 +366,7 @@ export default function CaseDetailPage() {
             <div className="border-t border-gray-200 px-8 lg:px-12 py-8 bg-gradient-to-r from-gray-50 to-white">
               <div className="flex flex-col sm:flex-row gap-4 justify-between items-center">
                 <div className="text-sm text-gray-500">
-                  <p>이 시공사례가 도움이 되셨나요?</p>
+                  <p>{t.helpful}</p>
                 </div>
 
                 <div className="flex gap-3">
@@ -374,7 +377,7 @@ export default function CaseDetailPage() {
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
                     </svg>
-                    인쇄
+                    {t.print}
                   </button>
                   <Link
                     href="/cases"
@@ -383,7 +386,7 @@ export default function CaseDetailPage() {
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                     </svg>
-                    목록으로
+                    {t.backToList}
                   </Link>
                 </div>
               </div>
@@ -396,7 +399,7 @@ export default function CaseDetailPage() {
       {allImages.length > 1 && (
         <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-[1400px] mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">프로젝트 갤러리</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">{t.gallery}</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {allImages.slice(1).map((image, idx) => (
                 <div key={idx} className="aspect-video rounded-xl overflow-hidden bg-gray-200">
@@ -416,7 +419,7 @@ export default function CaseDetailPage() {
       {caseStudy.products && caseStudy.products.length > 0 && (
         <section className="py-16 px-4 bg-white">
           <div className="max-w-[1400px] mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">사용된 제품</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">{t.productsUsed}</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {caseStudy.products.map((product: any) => (
                 <Link
@@ -458,7 +461,7 @@ export default function CaseDetailPage() {
       {relatedCases.length > 0 && (
         <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-[1400px] mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">관련 시공사례</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">{t.relatedCases}</h2>
             <div className="grid md:grid-cols-3 gap-8">
               {relatedCases.map((relCase) => (
                 <Link
@@ -492,7 +495,7 @@ export default function CaseDetailPage() {
                     </h3>
                     <div className="flex items-center gap-4 text-sm text-gray-600">
                       {relCase.location && <span>{relCase.location}</span>}
-                      {relCase.year && <span>{relCase.year}년</span>}
+                      {relCase.year && <span>{t.year(relCase.year)}</span>}
                     </div>
                   </div>
                 </Link>
@@ -506,17 +509,17 @@ export default function CaseDetailPage() {
       <section className="py-24 px-4 bg-[#0a0e1a]">
         <div className="max-w-[1400px] mx-auto text-center">
           <h2 className="text-4xl font-bold text-white mb-6">
-            프로젝트를 시작할 준비가 되셨나요?
+            {t.ctaTitle}
           </h2>
           <p className="text-xl text-white/70 mb-10">
-            전문 상담을 통해 최적의 솔루션을 제안해드립니다
+            {t.ctaDesc}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/quote"
               className="px-10 py-4 bg-secondary text-white rounded-full hover:bg-secondary-dark hover:shadow-2xl hover:shadow-secondary/30 transition-all duration-300 font-semibold inline-flex items-center gap-2 hover:scale-105"
             >
-              견적 문의하기
+              {t.ctaQuote}
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -525,7 +528,7 @@ export default function CaseDetailPage() {
               href="/cases"
               className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white border-2 border-white rounded-full hover:bg-white/20 transition-all duration-300 font-semibold"
             >
-              더 많은 사례 보기
+              {t.ctaMoreCases}
             </Link>
           </div>
         </div>

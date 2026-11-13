@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { useLocale } from '@/i18n/LocaleProvider';
+import { messages } from '@/i18n/messages/cases';
 
 interface CaseStudy {
   id: string;
@@ -27,6 +29,7 @@ interface Filters {
 }
 
 export default function CasesPage() {
+  const t = messages[useLocale()];
   const [cases, setCases] = useState<CaseStudy[]>([]);
   const [filters, setFilters] = useState<Filters>({
     tags: [],
@@ -83,11 +86,11 @@ export default function CasesPage() {
             <p className="text-secondary font-semibold uppercase tracking-wide">Case Studies</p>
           </div>
           <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-            시공사례
+            {t.heroTitle}
           </h1>
           <p className="text-xl text-white/70 max-w-3xl mx-auto">
-            한전, LS일렉트릭, 현대일렉트릭 등 대한민국 주요 전력 기업들과<br />
-            함께한 케이씨파워의 성공적인 프로젝트를 소개합니다
+            {t.heroDescLine1}<br />
+            {t.heroDescLine2}
           </p>
         </div>
       </section>
@@ -102,7 +105,7 @@ export default function CasesPage() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="프로젝트명, 고객사, 위치로 검색..."
+                placeholder={t.searchPlaceholder}
                 className="w-full px-6 py-4 pr-14 border-2 border-gray-200 rounded-full focus:outline-none focus:border-secondary transition-colors text-gray-900"
               />
               <button
@@ -121,7 +124,7 @@ export default function CasesPage() {
             {/* Project Type Filter */}
             {filters.projectTypes.length > 0 && (
               <div>
-                <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">사업 유형</h3>
+                <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">{t.filterProjectType}</h3>
                 <div className="flex flex-wrap gap-2">
                   <button
                     onClick={() => setSelectedProjectType('all')}
@@ -131,7 +134,7 @@ export default function CasesPage() {
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                   >
-                    전체
+                    {t.all}
                   </button>
                   {filters.projectTypes.map((type) => (
                     <button
@@ -153,7 +156,7 @@ export default function CasesPage() {
             {/* Tag Filter */}
             {filters.tags.length > 0 && (
               <div>
-                <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">제품 유형</h3>
+                <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">{t.filterProductType}</h3>
                 <div className="flex flex-wrap gap-2">
                   <button
                     onClick={() => setSelectedTag('all')}
@@ -163,7 +166,7 @@ export default function CasesPage() {
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                   >
-                    전체
+                    {t.all}
                   </button>
                   {filters.tags.map((tag) => (
                     <button
@@ -185,7 +188,7 @@ export default function CasesPage() {
             {/* Year Filter */}
             {filters.years.length > 0 && (
               <div>
-                <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">연도</h3>
+                <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">{t.filterYear}</h3>
                 <div className="flex flex-wrap gap-2">
                   <button
                     onClick={() => setSelectedYear('all')}
@@ -195,7 +198,7 @@ export default function CasesPage() {
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                   >
-                    전체
+                    {t.all}
                   </button>
                   {filters.years.map((year) => (
                     <button
@@ -207,7 +210,7 @@ export default function CasesPage() {
                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                       }`}
                     >
-                      {year}년
+                      {t.year(year)}
                     </button>
                   ))}
                 </div>
@@ -217,7 +220,7 @@ export default function CasesPage() {
 
           {/* Results Count */}
           <div className="mt-6 text-gray-600">
-            총 <span className="font-bold text-secondary">{cases.length}</span>개의 시공사례
+            {t.resultsPrefix}<span className="font-bold text-secondary">{cases.length}</span>{t.resultsSuffix(cases.length)}
           </div>
         </div>
       </section>
@@ -245,8 +248,8 @@ export default function CasesPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">시공사례가 없습니다</h3>
-              <p className="text-gray-600">다른 필터를 선택해보세요</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">{t.emptyTitle}</h3>
+              <p className="text-gray-600">{t.emptyDesc}</p>
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -277,7 +280,7 @@ export default function CasesPage() {
                     {caseItem.isPinned && (
                       <div className="absolute top-4 left-4">
                         <span className="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full">
-                          주요 사례
+                          {t.pinned}
                         </span>
                       </div>
                     )}
@@ -324,7 +327,7 @@ export default function CasesPage() {
                           <svg className="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                           </svg>
-                          <span>{caseItem.year}년</span>
+                          <span>{t.year(caseItem.year)}</span>
                         </div>
                       )}
                       {caseItem.projectType && (
@@ -344,7 +347,7 @@ export default function CasesPage() {
                     {/* CTA */}
                     <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                       <span className="text-secondary font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all">
-                        자세히 보기
+                        {t.viewDetails}
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
@@ -369,17 +372,17 @@ export default function CasesPage() {
       <section className="py-24 px-4 bg-[#0a0e1a]">
         <div className="max-w-[1400px] mx-auto text-center">
           <h2 className="text-4xl font-bold text-white mb-6">
-            다음 성공 사례의 주인공이 되세요
+            {t.ctaTitle}
           </h2>
           <p className="text-xl text-white/70 mb-10">
-            30년 경험과 기술력으로 귀사의 프로젝트를 성공으로 이끌겠습니다
+            {t.ctaDesc}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/quote"
               className="px-10 py-4 bg-secondary text-white rounded-full hover:bg-secondary-dark hover:shadow-2xl hover:shadow-secondary/30 transition-all duration-300 font-semibold inline-flex items-center gap-2 hover:scale-105"
             >
-              프로젝트 문의하기
+              {t.ctaInquiry}
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -388,7 +391,7 @@ export default function CasesPage() {
               href="/products"
               className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white border-2 border-white rounded-full hover:bg-white/20 transition-all duration-300 font-semibold"
             >
-              제품 둘러보기
+              {t.ctaProducts}
             </Link>
           </div>
         </div>
