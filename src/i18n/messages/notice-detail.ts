@@ -1,0 +1,26 @@
+export const messages = {
+  ko: {
+    loadError: '공지사항을 불러오는데 실패했습니다',
+    important: '중요 공지',
+    views: (count: number) => `조회 ${count}`,
+    backToList: '목록으로',
+    badge: '공지사항',
+    createdAt: '작성일',
+    viewCount: '조회수',
+    updatedAt: '수정일',
+    helpful: '이 공지사항이 도움이 되셨나요?',
+    print: '인쇄',
+  },
+  en: {
+    loadError: 'Failed to load the notice.',
+    important: 'Important',
+    views: (count: number) => `${count} views`,
+    backToList: 'Back to list',
+    badge: 'Notice',
+    createdAt: 'Posted',
+    viewCount: 'Views',
+    updatedAt: 'Updated',
+    helpful: 'Was this notice helpful?',
+    print: 'Print',
+  },
+} as const;

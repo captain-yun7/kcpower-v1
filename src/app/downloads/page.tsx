@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { useLocale } from '@/i18n/LocaleProvider';
+import { messages } from '@/i18n/messages/downloads';
+import { company } from '@/lib/company';
 
 interface Download {
   id: string;
@@ -29,6 +32,8 @@ interface Category {
 }
 
 export default function DownloadsPage() {
+  const locale = useLocale();
+  const t = messages[locale];
   const [downloads, setDownloads] = useState<Download[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
@@ -124,11 +129,11 @@ export default function DownloadsPage() {
             <p className="text-secondary font-semibold uppercase tracking-wide">Downloads</p>
           </div>
           <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-            자료실
+            {t.heroTitle}
           </h1>
           <p className="text-xl text-white/70 max-w-3xl mx-auto">
-            제품 카탈로그, 기술 자료, 인증서 등<br />
-            다양한 자료를 다운로드 받으실 수 있습니다
+            {t.heroDescLine1}<br />
+            {t.heroDescLine2}
           </p>
         </div>
       </section>
@@ -143,7 +148,7 @@ export default function DownloadsPage() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="자료명으로 검색..."
+                placeholder={t.searchPlaceholder}
                 className="w-full px-6 py-4 pr-14 border-2 border-gray-200 rounded-full focus:outline-none focus:border-secondary transition-colors text-gray-900"
               />
               <button
@@ -169,7 +174,7 @@ export default function DownloadsPage() {
                       : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
                   }`}
                 >
-                  전체
+                  {t.all}
                 </button>
                 {categories.map((category) => (
                   <button
@@ -190,7 +195,7 @@ export default function DownloadsPage() {
 
           {/* Results Count */}
           <div className="mt-6 text-gray-600 text-center">
-            총 <span className="font-bold text-secondary">{downloads.length}</span>개의 자료
+            {t.resultsPrefix}<span className="font-bold text-secondary">{downloads.length}</span>{t.resultsSuffix(downloads.length)}
           </div>
         </div>
       </section>
@@ -220,8 +225,8 @@ export default function DownloadsPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">자료가 없습니다</h3>
-              <p className="text-gray-600">다른 카테고리를 선택해보세요</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">{t.emptyTitle}</h3>
+              <p className="text-gray-600">{t.emptyDesc}</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -269,10 +274,10 @@ export default function DownloadsPage() {
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                           </svg>
-                          {download.downloads.toLocaleString()}회 다운로드
+                          {t.downloadCount(download.downloads.toLocaleString())}
                         </span>
                         <span>
-                          {new Date(download.createdAt).toLocaleDateString('ko-KR')}
+                          {new Date(download.createdAt).toLocaleDateString(locale === 'en' ? 'en-US' : 'ko-KR')}
                         </span>
                       </div>
                     </div>
@@ -285,7 +290,7 @@ export default function DownloadsPage() {
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                       </svg>
-                      다운로드
+                      {t.download}
                     </button>
                   </div>
                 </div>
@@ -305,9 +310,9 @@ export default function DownloadsPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">안전한 다운로드</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{t.infoSafeTitle}</h3>
               <p className="text-gray-600 text-sm">
-                모든 자료는 공식 인증된 최신 버전입니다
+                {t.infoSafeDesc}
               </p>
             </div>
 
@@ -317,9 +322,9 @@ export default function DownloadsPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">정기 업데이트</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{t.infoUpdateTitle}</h3>
               <p className="text-gray-600 text-sm">
-                최신 제품 정보와 기술 자료를 지속적으로 업데이트합니다
+                {t.infoUpdateDesc}
               </p>
             </div>
 
@@ -329,9 +334,9 @@ export default function DownloadsPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">기술 지원</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{t.infoSupportTitle}</h3>
               <p className="text-gray-600 text-sm">
-                자료 관련 문의사항은 언제든 연락 주세요
+                {t.infoSupportDesc}
               </p>
             </div>
           </div>
@@ -342,17 +347,17 @@ export default function DownloadsPage() {
       <section className="py-24 px-4 bg-[#0a0e1a]">
         <div className="max-w-[1400px] mx-auto text-center">
           <h2 className="text-4xl font-bold text-white mb-6">
-            필요한 자료가 없으신가요?
+            {t.ctaTitle}
           </h2>
           <p className="text-xl text-white/70 mb-10">
-            원하시는 자료를 요청해주시면 빠르게 제공해드리겠습니다
+            {t.ctaDesc}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
-              href="mailto:peskorea@naver.com"
+              href={`mailto:${company.email}`}
               className="px-10 py-4 bg-secondary text-white rounded-full hover:bg-secondary-dark hover:shadow-2xl hover:shadow-secondary/30 transition-all duration-300 font-semibold inline-flex items-center gap-2 hover:scale-105"
             >
-              자료 요청하기
+              {t.ctaRequest}
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
