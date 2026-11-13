@@ -1,52 +1,14 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { getLocale } from '@/i18n/server';
+import { messages } from '@/i18n/messages/technology';
 
 // 3공장 소개 영상 URL (확보 시 입력)
 const FACTORY_VIDEO_URL = '';
 
-const problems = [
-  { title: '분진', desc: '노후화로 인한 분진, 화재 발생의 요인' },
-  { title: '습기', desc: '온도차이로 인한 습기, 변압기 소손 원인' },
-  { title: '침수', desc: '이상 기후로 인한 폭우, 변압기반의 침수 우려' },
-  { title: '부식', desc: '외함의 부식 발생, 변압기반 수명 단축' },
-];
+export default async function TechnologyPage() {
+  const t = messages[await getLocale()];
 
-const technologies = [
-  {
-    title: '방열 시스템',
-    points: [
-      '방열판과 FAN을 활용한 냉각 방식',
-      '변압기 자체 손실 감소 및 탄소 저감',
-      '사회적, 경제적 피해 절감 기여',
-    ],
-  },
-  {
-    title: '결로 방지 시스템',
-    points: [
-      '열 전도 및 복사 에너지 활용',
-      '외부 분진 및 습기 차단',
-      '습기 제어를 통한 결로 현상 예방',
-    ],
-  },
-  {
-    title: '완전 분리 및 밀폐',
-    points: [
-      '외부의 이물질 등 위험요소 차단',
-      '유지 보수를 최소화하여 수명 연장',
-      '변압기의 고효율에 기여',
-    ],
-  },
-  {
-    title: '도장의 개선',
-    points: [
-      '전처리 과정과 이중 도장',
-      '표면 청결도 확보 및 밀착력 강화',
-      '내식성, 내후성, 내구성 확보',
-    ],
-  },
-];
-
-export default function TechnologyPage() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
@@ -57,9 +19,9 @@ export default function TechnologyPage() {
           <div className="inline-block px-4 py-2 bg-secondary/10 rounded-full mb-6">
             <p className="text-secondary font-semibold uppercase tracking-wide">Technology</p>
           </div>
-          <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">KCP 기술</h1>
+          <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">{t.heroTitle}</h1>
           <p className="text-xl text-white/70 max-w-3xl mx-auto">
-            변압기 외함의 문제를 근본부터 해결하는 케이씨파워만의 기술력
+            {t.heroDesc}
           </p>
         </div>
       </section>
@@ -68,7 +30,7 @@ export default function TechnologyPage() {
       <section className="py-20 px-4 bg-[#0a0e1a]">
         <div className="max-w-[1000px] mx-auto">
           <h2 className="text-3xl lg:text-4xl font-bold text-white text-center mb-10">
-            3공장 동영상
+            {t.factoryVideoTitle}
           </h2>
           <div className="aspect-video rounded-xl overflow-hidden bg-black shadow-2xl">
             {FACTORY_VIDEO_URL ? (
@@ -80,7 +42,7 @@ export default function TechnologyPage() {
                     <path d="M8 5v14l11-7z" />
                   </svg>
                 </div>
-                <p className="text-white/60 text-sm">영상 준비 중입니다</p>
+                <p className="text-white/60 text-sm">{t.videoPending}</p>
               </div>
             )}
           </div>
@@ -97,12 +59,12 @@ export default function TechnologyPage() {
               </svg>
             </div>
             <h2 className="text-3xl lg:text-4xl font-bold text-white">
-              기존 변압기반의 문제점
+              {t.problemsTitle}
             </h2>
           </div>
 
           <div className="space-y-5">
-            {problems.map((item) => (
+            {t.problems.map((item) => (
               <div key={item.title} className="flex items-center gap-6 bg-white rounded-lg p-6 shadow-lg">
                 <span className="text-2xl font-bold text-blue-800 w-20 flex-shrink-0 text-center">
                   {item.title}
@@ -130,12 +92,12 @@ export default function TechnologyPage() {
               </svg>
             </div>
             <h2 className="text-3xl lg:text-4xl font-bold text-white">
-              KCP의 해결 기술
+              {t.solutionsTitle}
             </h2>
           </div>
 
           <div className="space-y-8">
-            {technologies.map((tech) => (
+            {t.technologies.map((tech) => (
               <div key={tech.title} className="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-xl">
                 <h3 className="text-2xl font-bold text-blue-900 mb-5">{tech.title}</h3>
                 <ul className="space-y-2.5">
