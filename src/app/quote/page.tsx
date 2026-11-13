@@ -4,9 +4,21 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { upload } from '@vercel/blob/client';
+import { useLocale } from '@/i18n/LocaleProvider';
+import { messages } from '@/i18n/messages/quote';
+import { company } from '@/lib/company';
+import {
+  hasAllowedExtension,
+  INQUIRY_ATTACHMENT_EXTENSIONS,
+  INQUIRY_ATTACHMENT_FOLDER,
+  INQUIRY_ATTACHMENT_MAX_BYTES,
+} from '@/lib/inquiry-attachment';
 
 export default function QuotePage() {
   const router = useRouter();
+  const locale = useLocale();
+  const t = messages[locale];
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     type: 'PURCHASE',
@@ -14,7 +26,7 @@ export default function QuotePage() {
     email: '',
     phone: '',
     company: '',
-    country: '대한민국',
+    country: t.defaultCountry as string,
     subject: '',
     message: '',
   });
@@ -24,32 +36,70 @@ export default function QuotePage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const [attachment, setAttachment] = useState<File | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null;
+
+    if (file && !hasAllowedExtension(file.name)) {
+      alert(t.alertFileType);
+      e.target.value = '';
+      return;
+    }
+    if (file && file.size > INQUIRY_ATTACHMENT_MAX_BYTES) {
+      alert(t.alertFileSize);
+      e.target.value = '';
+      return;
+    }
+
+    setAttachment(file);
+  };
+
+  const uploadAttachment = async (file: File) => {
+    const blob = await upload(`${INQUIRY_ATTACHMENT_FOLDER}/${file.name}`, file, {
+      access: 'public',
+      handleUploadUrl: '/api/inquiries/upload',
+    });
+    return { attachmentUrl: blob.url, attachmentName: file.name };
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.email || !formData.message) {
-      alert('필수 항목을 모두 입력해주세요.');
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      alert(t.alertRequired);
       return;
     }
 
     try {
       setLoading(true);
+
+      let attachmentFields = {};
+      if (attachment) {
+        try {
+          attachmentFields = await uploadAttachment(attachment);
+        } catch (error) {
+          console.error('첨부파일 업로드 오류:', error);
+          alert(t.alertUploadFailed);
+          return;
+        }
+      }
+
       const response = await fetch('/api/inquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, ...attachmentFields }),
       });
 
       if (response.ok) {
-        alert('견적 문의가 접수되었습니다. 빠른 시일 내에 답변 드리겠습니다.');
+        alert(t.alertSuccess);
         router.push('/');
       } else {
-        const data = await response.json();
-        alert(data.error || '문의 접수에 실패했습니다.');
+        alert(t.alertFailed);
       }
     } catch (error) {
       console.error('문의 접수 오류:', error);
-      alert('문의 접수 중 오류가 발생했습니다.');
+      alert(t.alertError);
     } finally {
       setLoading(false);
     }
@@ -67,11 +117,11 @@ export default function QuotePage() {
             <p className="text-secondary font-semibold uppercase tracking-wide">Quote Request</p>
           </div>
           <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-            견적 문의
+            {t.heroTitle}
           </h1>
           <p className="text-xl text-white/70 max-w-3xl mx-auto">
-            제품 구매, 맞춤 제작, 프로젝트 상담 등<br />
-            무엇이든 문의해주세요. 전문가가 빠르게 답변 드리겠습니다
+            {t.heroDesc[0]}<br />
+            {t.heroDesc[1]}
           </p>
         </div>
       </section>
@@ -82,7 +132,7 @@ export default function QuotePage() {
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Left: Contact Info */}
             <div className="lg:col-span-1">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">연락처 정보</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t.contactTitle}</h2>
 
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
@@ -92,9 +142,9 @@ export default function QuotePage() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">전화</h3>
-                    <p className="text-gray-600">032-816-8034</p>
-                    <p className="text-sm text-gray-500 mt-1">평일 09:00 - 18:00</p>
+                    <h3 className="font-semibold text-gray-900 mb-1">{t.phone}</h3>
+                    <p className="text-gray-600">{company.phone}</p>
+                    <p className="text-sm text-gray-500 mt-1">{company.hours[locale]}</p>
                   </div>
                 </div>
 
@@ -105,9 +155,9 @@ export default function QuotePage() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">이메일</h3>
-                    <p className="text-gray-600">peskorea@naver.com</p>
-                    <p className="text-sm text-gray-500 mt-1">24시간 접수 가능</p>
+                    <h3 className="font-semibold text-gray-900 mb-1">{t.email}</h3>
+                    <p className="text-gray-600 break-all">{company.email}</p>
+                    <p className="text-sm text-gray-500 mt-1">{t.emailNote}</p>
                   </div>
                 </div>
 
@@ -119,34 +169,24 @@ export default function QuotePage() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">본사</h3>
-                    <p className="text-gray-600">인천광역시 남동구<br />남동서로 19번길 46</p>
+                    <h3 className="font-semibold text-gray-900 mb-1">{t.headquarters}</h3>
+                    <p className="text-gray-600">{company.address[locale]}</p>
                   </div>
                 </div>
               </div>
 
               {/* Info Box */}
               <div className="mt-8 p-6 bg-secondary/5 rounded-xl border border-secondary/10">
-                <h3 className="font-bold text-gray-900 mb-3">빠른 답변 팁</h3>
+                <h3 className="font-bold text-gray-900 mb-3">{t.tipsTitle}</h3>
                 <ul className="space-y-2 text-sm text-gray-700">
-                  <li className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>필요한 제품 유형을 구체적으로 작성</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>수량, 납기일 등 상세 정보 포함</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>설치 환경, 특수 요구사항 명시</span>
-                  </li>
+                  {t.tips.map((tip) => (
+                    <li key={tip} className="flex items-start gap-2">
+                      <svg className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>{tip}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -157,7 +197,7 @@ export default function QuotePage() {
                 {/* Type */}
                 <div>
                   <label className="block text-sm font-semibold text-gray-900 mb-2">
-                    문의 유형 <span className="text-red-500">*</span>
+                    {t.type} <span className="text-red-500">*</span>
                   </label>
                   <select
                     name="type"
@@ -166,11 +206,11 @@ export default function QuotePage() {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent text-gray-900"
                     required
                   >
-                    <option value="PRODUCT">제품 문의</option>
-                    <option value="PURCHASE">구매 문의</option>
-                    <option value="PARTNERSHIP">파트너십</option>
-                    <option value="SUPPORT">기술 지원</option>
-                    <option value="OTHER">기타</option>
+                    {(Object.keys(t.types) as (keyof typeof t.types)[]).map((type) => (
+                      <option key={type} value={type}>
+                        {t.types[type]}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -178,28 +218,28 @@ export default function QuotePage() {
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-semibold text-gray-900 mb-2">
-                      이름 <span className="text-red-500">*</span>
+                      {t.name} <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="홍길동"
+                      placeholder={t.namePlaceholder}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent text-gray-900"
                       required
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-gray-900 mb-2">
-                      회사명
+                      {t.company}
                     </label>
                     <input
                       type="text"
                       name="company"
                       value={formData.company}
                       onChange={handleChange}
-                      placeholder="(주)케이씨파워"
+                      placeholder={t.companyPlaceholder}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent text-gray-900"
                     />
                   </div>
@@ -209,7 +249,7 @@ export default function QuotePage() {
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-semibold text-gray-900 mb-2">
-                      이메일 <span className="text-red-500">*</span>
+                      {t.email} <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="email"
@@ -223,7 +263,7 @@ export default function QuotePage() {
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-gray-900 mb-2">
-                      연락처
+                      {t.contact}
                     </label>
                     <input
                       type="tel"
@@ -236,31 +276,46 @@ export default function QuotePage() {
                   </div>
                 </div>
 
-                {/* Country */}
-                <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">
-                    국가
-                  </label>
-                  <input
-                    type="text"
-                    name="country"
-                    value={formData.country}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent text-gray-900"
-                  />
+                {/* Country & Attachment */}
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-900 mb-2">
+                      {t.country}
+                    </label>
+                    <input
+                      type="text"
+                      name="country"
+                      value={formData.country}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent text-gray-900"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="attachment" className="block text-sm font-semibold text-gray-900 mb-2">
+                      {t.attachment}
+                    </label>
+                    <input
+                      id="attachment"
+                      type="file"
+                      accept={INQUIRY_ATTACHMENT_EXTENSIONS.map((extension) => `.${extension}`).join(',')}
+                      onChange={handleFileChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 file:mr-3 file:px-3 file:py-1.5 file:rounded-md file:border-0 file:bg-secondary/10 file:text-secondary file:font-medium file:cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary"
+                    />
+                    <p className="text-xs text-gray-500 mt-1.5">{t.attachmentHint}</p>
+                  </div>
                 </div>
 
                 {/* Subject */}
                 <div>
                   <label className="block text-sm font-semibold text-gray-900 mb-2">
-                    제목 <span className="text-red-500">*</span>
+                    {t.subject} <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    placeholder="변압기 외함 견적 문의"
+                    placeholder={t.subjectPlaceholder}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent text-gray-900"
                     required
                   />
@@ -269,14 +324,14 @@ export default function QuotePage() {
                 {/* Message */}
                 <div>
                   <label className="block text-sm font-semibold text-gray-900 mb-2">
-                    문의 내용 <span className="text-red-500">*</span>
+                    {t.message} <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     rows={8}
-                    placeholder="필요한 제품, 수량, 납기일, 특수 요구사항 등을 자세히 작성해주세요."
+                    placeholder={t.messagePlaceholder}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent resize-none text-gray-900"
                     required
                   />
@@ -285,10 +340,10 @@ export default function QuotePage() {
                 {/* Privacy Notice */}
                 <div className="p-4 bg-gray-50 rounded-lg text-sm text-gray-600">
                   <p className="mb-2">
-                    <strong>개인정보 처리방침</strong>
+                    <strong>{t.privacyTitle}</strong>
                   </p>
                   <p>
-                    입력하신 정보는 견적 문의 답변 목적으로만 사용되며, 고객의 동의 없이 제3자에게 제공되지 않습니다.
+                    {t.privacyBody}
                   </p>
                 </div>
 
@@ -301,11 +356,11 @@ export default function QuotePage() {
                   {loading ? (
                     <>
                       <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white" />
-                      <span>전송 중...</span>
+                      <span>{t.sending}</span>
                     </>
                   ) : (
                     <>
-                      <span>견적 문의 보내기</span>
+                      <span>{t.submit}</span>
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>
@@ -321,26 +376,9 @@ export default function QuotePage() {
       {/* FAQ Section */}
       <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-[1000px] mx-auto">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">자주 묻는 질문</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">{t.faqTitle}</h2>
           <div className="space-y-4">
-            {[
-              {
-                q: '견적 답변은 얼마나 걸리나요?',
-                a: '영업일 기준 1~2일 내에 답변 드립니다. 긴급한 경우 전화로 연락 주시면 더 빠르게 처리해드립니다.',
-              },
-              {
-                q: '최소 주문 수량이 있나요?',
-                a: '소량 주문부터 대량 주문까지 모두 가능합니다. 수량에 따라 단가가 달라질 수 있으니 정확한 수량을 알려주세요.',
-              },
-              {
-                q: '맞춤 제작이 가능한가요?',
-                a: '네, 고객의 요구사항에 맞춘 맞춤 제작이 가능합니다. 도면이나 사양서를 함께 보내주시면 더 정확한 견적을 드릴 수 있습니다.',
-              },
-              {
-                q: '납기는 얼마나 걸리나요?',
-                a: '제품 종류와 수량에 따라 다르지만, 일반적으로 주문 확정 후 2~4주 소요됩니다. 긴급 납품이 필요한 경우 협의 가능합니다.',
-              },
-            ].map((faq, idx) => (
+            {t.faqs.map((faq, idx) => (
               <div key={idx} className="bg-white p-6 rounded-xl border border-gray-200">
                 <h3 className="font-bold text-gray-900 mb-2 flex items-start gap-2">
                   <span className="text-secondary">Q.</span>
