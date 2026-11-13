@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useLocale } from '@/i18n/LocaleProvider';
+import { messages } from '@/i18n/messages/home';
 
 interface Slide {
   id: string;
@@ -12,40 +14,12 @@ interface Slide {
   ctaLink: string;
 }
 
-// 기본 슬라이드 (DB 배너가 없을 경우 폴백)
-const defaultSlides: Slide[] = [
-  {
-    id: '1',
-    title: '30년 신뢰,\n최고의 전기설비 솔루션',
-    subtitle: '1993년부터 쌓아온 기술력과 신뢰로 대한민국 전력 인프라를 책임집니다',
-    imageUrl: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1920&q=80',
-    ctaText: '케이씨파워 제품 둘러보기',
-    ctaLink: '/products',
-  },
-  {
-    id: '2',
-    title: '한전이 선택한\n믿을 수 있는 파트너',
-    subtitle: '한국전력공사 우수협력업체로 선정된 검증된 품질',
-    imageUrl: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1920&q=80',
-    ctaText: '시공사례 보기',
-    ctaLink: '/cases',
-  },
-  {
-    id: '3',
-    title: '3개 공장,\n신속한 생산 체계',
-    subtitle: '대량 주문부터 긴급 납품까지 빠르게 대응합니다',
-    imageUrl: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1920&q=80',
-    ctaText: '회사소개 보기',
-    ctaLink: '/about',
-  },
-  {
-    id: '4',
-    title: '특수 환경 대응,\n맞춤형 솔루션',
-    subtitle: '터널용, 침수형, 소음저감형 등 현장에 최적화된 제품',
-    imageUrl: 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=1920&q=80',
-    ctaText: '견적 문의하기',
-    ctaLink: '/quote',
-  },
+// 기본 슬라이드 (DB 배너가 없을 경우 폴백) — 문구는 i18n 메시지에서 가져온다
+const defaultSlideAssets = [
+  { imageUrl: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1920&q=80', ctaLink: '/products' },
+  { imageUrl: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1920&q=80', ctaLink: '/cases' },
+  { imageUrl: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1920&q=80', ctaLink: '/about' },
+  { imageUrl: 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=1920&q=80', ctaLink: '/quote' },
 ];
 
 interface HeroSectionProps {
@@ -62,6 +36,7 @@ interface HeroSectionProps {
 export default function HeroSection({ banners }: HeroSectionProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const t = messages[useLocale()];
 
   // 배너 데이터를 슬라이드 형식으로 변환
   const slides: Slide[] = banners && banners.length > 0
@@ -70,10 +45,10 @@ export default function HeroSection({ banners }: HeroSectionProps) {
         title: banner.title.replace(/\\n/g, '\n'), // \n을 실제 줄바꿈으로 변환
         subtitle: banner.description || '',
         imageUrl: banner.imageUrl,
-        ctaText: banner.linkText || '자세히 보기',
+        ctaText: banner.linkText || t.bannerCta,
         ctaLink: banner.linkUrl || '/',
       }))
-    : defaultSlides;
+    : t.slides.map((slide, index) => ({ id: String(index + 1), ...slide, ...defaultSlideAssets[index] }));
 
   useEffect(() => {
     if (!isAutoPlay) return;
@@ -169,7 +144,7 @@ export default function HeroSection({ banners }: HeroSectionProps) {
                 ? 'w-12 h-3 bg-secondary'
                 : 'w-3 h-3 bg-white/40 hover:bg-white/60'
             }`}
-            aria-label={`슬라이드 ${index + 1}로 이동`}
+            aria-label={t.goToSlide(index + 1)}
           />
         ))}
       </div>
@@ -178,7 +153,7 @@ export default function HeroSection({ banners }: HeroSectionProps) {
       <button
         onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
         className="absolute left-8 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-white/20 transition-all group"
-        aria-label="이전 슬라이드"
+        aria-label={t.prevSlide}
       >
         <svg
           className="w-6 h-6 text-white transform group-hover:-translate-x-1 transition-transform"
@@ -193,7 +168,7 @@ export default function HeroSection({ banners }: HeroSectionProps) {
       <button
         onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
         className="absolute right-8 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-white/20 transition-all group"
-        aria-label="다음 슬라이드"
+        aria-label={t.nextSlide}
       >
         <svg
           className="w-6 h-6 text-white transform group-hover:translate-x-1 transition-transform"

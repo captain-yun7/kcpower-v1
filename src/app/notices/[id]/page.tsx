@@ -5,6 +5,8 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { useLocale } from '@/i18n/LocaleProvider';
+import { messages } from '@/i18n/messages/notice-detail';
 
 interface Notice {
   id: string;
@@ -19,6 +21,8 @@ interface Notice {
 export default function NoticeDetailPage() {
   const params = useParams();
   const router = useRouter();
+  const locale = useLocale();
+  const t = messages[locale];
   const [notice, setNotice] = useState<Notice | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -37,12 +41,12 @@ export default function NoticeDetailPage() {
       if (response.ok) {
         setNotice(data.notice);
       } else {
-        alert(data.error || '공지사항을 불러오는데 실패했습니다');
+        alert(data.error || t.loadError);
         router.push('/notices');
       }
     } catch (error) {
       console.error('공지사항 로딩 실패:', error);
-      alert('공지사항을 불러오는데 실패했습니다');
+      alert(t.loadError);
       router.push('/notices');
     } finally {
       setLoading(false);
@@ -51,7 +55,7 @@ export default function NoticeDetailPage() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('ko-KR', {
+    return date.toLocaleDateString(locale === 'en' ? 'en-US' : 'ko-KR', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -97,7 +101,7 @@ export default function NoticeDetailPage() {
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
                 </svg>
-                중요 공지
+                {t.important}
               </p>
             </div>
           )}
@@ -116,7 +120,7 @@ export default function NoticeDetailPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
               </svg>
-              조회 {notice.views}
+              {t.views(notice.views)}
             </span>
           </div>
         </div>
@@ -133,7 +137,7 @@ export default function NoticeDetailPage() {
             <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            <span className="font-medium">목록으로</span>
+            <span className="font-medium">{t.backToList}</span>
           </Link>
 
           {/* Content Card */}
@@ -146,11 +150,11 @@ export default function NoticeDetailPage() {
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
                     </svg>
-                    중요 공지
+                    {t.important}
                   </span>
                 )}
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-secondary/10 text-secondary text-sm font-semibold rounded-full">
-                  공지사항
+                  {t.badge}
                 </span>
               </div>
 
@@ -166,7 +170,7 @@ export default function NoticeDetailPage() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500">작성일</p>
+                    <p className="text-xs text-gray-500">{t.createdAt}</p>
                     <p className="text-sm font-semibold text-gray-900">{formatDate(notice.createdAt)}</p>
                   </div>
                 </div>
@@ -181,7 +185,7 @@ export default function NoticeDetailPage() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500">조회수</p>
+                    <p className="text-xs text-gray-500">{t.viewCount}</p>
                     <p className="text-sm font-semibold text-gray-900">{notice.views.toLocaleString()}</p>
                   </div>
                 </div>
@@ -196,7 +200,7 @@ export default function NoticeDetailPage() {
                         </svg>
                       </div>
                       <div>
-                        <p className="text-xs text-gray-500">수정일</p>
+                        <p className="text-xs text-gray-500">{t.updatedAt}</p>
                         <p className="text-sm font-semibold text-gray-900">{formatDate(notice.updatedAt)}</p>
                       </div>
                     </div>
@@ -221,7 +225,7 @@ export default function NoticeDetailPage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-between items-center">
                 {/* Info Section */}
                 <div className="text-sm text-gray-500">
-                  <p>이 공지사항이 도움이 되셨나요?</p>
+                  <p>{t.helpful}</p>
                 </div>
 
                 {/* Action Buttons */}
@@ -233,7 +237,7 @@ export default function NoticeDetailPage() {
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
                     </svg>
-                    인쇄
+                    {t.print}
                   </button>
                   <Link
                     href="/notices"
@@ -242,7 +246,7 @@ export default function NoticeDetailPage() {
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                     </svg>
-                    목록으로
+                    {t.backToList}
                   </Link>
                 </div>
               </div>

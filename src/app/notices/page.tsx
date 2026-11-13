@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { useLocale } from '@/i18n/LocaleProvider';
+import { messages } from '@/i18n/messages/notices';
 
 interface Notice {
   id: string;
@@ -23,6 +25,8 @@ interface Pagination {
 }
 
 export default function NoticesPage() {
+  const locale = useLocale();
+  const t = messages[locale];
   const [notices, setNotices] = useState<Notice[]>([]);
   const [pagination, setPagination] = useState<Pagination>({
     total: 0,
@@ -55,7 +59,7 @@ export default function NoticesPage() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('ko-KR', {
+    return date.toLocaleDateString(locale === 'en' ? 'en-US' : 'ko-KR', {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
@@ -79,10 +83,10 @@ export default function NoticesPage() {
             <p className="text-secondary font-semibold uppercase tracking-wide">Notices</p>
           </div>
           <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-            공지사항
+            {t.heroTitle}
           </h1>
           <p className="text-xl text-white/70 max-w-3xl mx-auto">
-            케이씨파워의 소식과 중요한 알림사항을 안내합니다
+            {t.heroDesc}
           </p>
         </div>
       </section>
@@ -101,8 +105,8 @@ export default function NoticesPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">등록된 공지사항이 없습니다</h3>
-              <p className="text-gray-600">새로운 소식이 있으면 이곳에 표시됩니다</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">{t.emptyTitle}</h3>
+              <p className="text-gray-600">{t.emptyDesc}</p>
             </div>
           ) : (
             <>
@@ -136,7 +140,7 @@ export default function NoticesPage() {
                         <div className="flex items-center gap-3 mb-2">
                           {notice.isPinned && (
                             <span className="px-2 py-1 bg-red-500 text-white text-xs font-bold rounded">
-                              필독
+                              {t.pinned}
                             </span>
                           )}
                           <h3 className="text-lg font-bold text-gray-900 group-hover:text-secondary transition-colors line-clamp-1">

@@ -1,5 +1,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { getLocale } from '@/i18n/server';
+import { messages } from '@/i18n/messages/media';
 
 // 홍보영상 URL (확보 시 입력)
 const promoVideos = [
@@ -7,7 +9,9 @@ const promoVideos = [
   { label: 'JAPAN.VER', title: '홍보영상 (일문)', url: '' },
 ];
 
-export default function MediaPage() {
+export default async function MediaPage() {
+  const t = messages[await getLocale()];
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
@@ -18,9 +22,9 @@ export default function MediaPage() {
           <div className="inline-block px-4 py-2 bg-secondary/10 rounded-full mb-6">
             <p className="text-secondary font-semibold uppercase tracking-wide">Promotion Video</p>
           </div>
-          <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">홍보영상</h1>
+          <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">{t.heroTitle}</h1>
           <p className="text-xl text-white/70 max-w-3xl mx-auto">
-            케이씨파워의 기술과 제품을 영상으로 만나보세요
+            {t.heroDesc}
           </p>
         </div>
       </section>
@@ -40,7 +44,7 @@ export default function MediaPage() {
                         <path d="M8 5v14l11-7z" />
                       </svg>
                     </div>
-                    <p className="text-white/60 text-sm">영상 준비 중입니다</p>
+                    <p className="text-white/60 text-sm">{t.videoPending}</p>
                   </div>
                 )}
               </div>
