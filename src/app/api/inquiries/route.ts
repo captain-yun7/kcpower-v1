@@ -2,60 +2,54 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/auth';
 import { z } from 'zod';
+import { isInquiryAttachmentUrl } from '@/lib/inquiry-attachment';
 
-// POST /api/inquiries - 문의 작성
+const inquirySchema = z.object({
+  type: z.enum(['PRODUCT', 'PURCHASE', 'PARTNERSHIP', 'SUPPORT', 'OTHER']),
+  name: z.string().trim().min(1).max(100),
+  email: z.string().trim().email().max(200),
+  phone: z.string().trim().max(50).optional(),
+  company: z.string().trim().max(200).optional(),
+  country: z.string().trim().max(100).optional(),
+  subject: z.string().trim().min(1).max(200),
+  message: z.string().trim().min(1).max(10000),
+  attachmentUrl: z
+    .string()
+    .url()
+    .refine((value) => isInquiryAttachmentUrl(value))
+    .optional(),
+  attachmentName: z.string().trim().max(255).optional(),
+});
+
+// POST /api/inquiries - 견적 문의 접수 (비회원 가능)
 export async function POST(request: NextRequest) {
   try {
     const session = await auth();
+    const parsed = inquirySchema.safeParse(await request.json());
 
-    if (!session?.user?.id) {
-      return NextResponse.json({ error: '로그인이 필요합니다' }, { status: 401 });
+    if (!parsed.success) {
+      return NextResponse.json({ error: 'INVALID_INPUT' }, { status: 400 });
     }
 
-    const body = await request.json();
+    const { phone, company, country, attachmentUrl, attachmentName, ...required } = parsed.data;
 
-    // 유효성 검사
-    const schema = z.object({
-      title: z.string().min(1, '제목을 입력해주세요').max(200),
-      content: z.string().min(10, '내용을 10자 이상 입력해주세요'),
-      isPrivate: z.boolean().default(false),
-    });
-
-    const { title, content, isPrivate } = schema.parse(body);
-
-    // 문의 생성
     const inquiry = await prisma.inquiry.create({
       data: {
-        title,
-        content,
-        isPrivate,
-        userId: session.user.id,
+        ...required,
+        phone: phone || null,
+        company: company || null,
+        country: country || null,
+        attachmentUrl: attachmentUrl ?? null,
+        attachmentName: attachmentUrl ? attachmentName || null : null,
+        userId: session?.user?.id ?? null,
       },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        isPrivate: true,
-        status: true,
-        createdAt: true,
-        updatedAt: true,
-      },
+      select: { id: true, createdAt: true },
     });
 
     return NextResponse.json({ inquiry }, { status: 201 });
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        { error: error.errors[0].message },
-        { status: 400 }
-      );
-    }
-
     console.error('문의 작성 에러:', error);
-    return NextResponse.json(
-      { error: '문의 작성에 실패했습니다' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'SERVER_ERROR' }, { status: 500 });
   }
 }
 

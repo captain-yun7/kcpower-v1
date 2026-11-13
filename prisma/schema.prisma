@@ -304,6 +304,8 @@ model Inquiry {
   country     String?
   subject     String
   message     String        @db.Text
+  attachmentUrl  String?    // 첨부파일 (Vercel Blob URL)
+  attachmentName String?    // 첨부파일 원본 파일명
   status      InquiryStatus @default(PENDING)
   adminNote   String?       @db.Text // 관리자 메모
   respondedAt DateTime?     // 답변 시각

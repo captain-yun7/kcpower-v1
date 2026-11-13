@@ -13,6 +13,8 @@ interface Inquiry {
   phone?: string;
   company?: string;
   message: string;
+  attachmentUrl?: string | null;
+  attachmentName?: string | null;
   status: 'PENDING' | 'ANSWERED' | 'CLOSED';
   adminNote?: string;
   createdAt: string;
@@ -160,6 +162,20 @@ export default function AdminInquiryDetailPage() {
           <h3 className="text-sm font-semibold text-gray-600 mb-2">문의 내용</h3>
           <div className="bg-gray-50 rounded-xl p-4 whitespace-pre-wrap">{inquiry.message}</div>
         </div>
+
+        {inquiry.attachmentUrl && (
+          <div>
+            <h3 className="text-sm font-semibold text-gray-600 mb-2">첨부파일</h3>
+            <a
+              href={inquiry.attachmentUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-secondary hover:underline break-all"
+            >
+              {inquiry.attachmentName || '첨부파일 열기'}
+            </a>
+          </div>
+        )}
 
         <div>
           <h3 className="text-sm font-semibold text-gray-600 mb-2">관리자 메모</h3>
