@@ -5,6 +5,8 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { useLocale } from '@/i18n/LocaleProvider';
+import { messages } from '@/i18n/messages/product-detail';
 
 interface Product {
   id: string;
@@ -33,6 +35,7 @@ interface Product {
 }
 
 export default function ProductDetailPage() {
+  const t = messages[useLocale()];
   const params = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
@@ -82,9 +85,9 @@ export default function ProductDetailPage() {
         <Header />
         <div className="flex-1 flex items-center justify-center px-4">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-white mb-4">제품을 찾을 수 없습니다</h1>
+            <h1 className="text-4xl font-bold text-white mb-4">{t.notFoundTitle}</h1>
             <Link href="/products" className="text-secondary hover:underline">
-              제품 목록으로 돌아가기
+              {t.backToList}
             </Link>
           </div>
         </div>
@@ -106,11 +109,11 @@ export default function ProductDetailPage() {
       <section className="py-6 px-4 bg-gray-50 border-b border-gray-200">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-center gap-2 text-sm text-gray-600">
-            <Link href="/" className="hover:text-secondary">홈</Link>
+            <Link href="/" className="hover:text-secondary">{t.breadcrumbHome}</Link>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-            <Link href="/products" className="hover:text-secondary">제품</Link>
+            <Link href="/products" className="hover:text-secondary">{t.breadcrumbProducts}</Link>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
@@ -184,7 +187,7 @@ export default function ProductDetailPage() {
                 {product.name}
               </h1>
               <div className="text-xl text-secondary font-semibold mb-6">
-                모델: {product.model}
+                {t.model(product.model)}
               </div>
 
               <p className="text-lg text-gray-700 mb-8 leading-relaxed">
@@ -195,37 +198,37 @@ export default function ProductDetailPage() {
               <div className="grid grid-cols-2 gap-4 mb-8 p-6 bg-gray-50 rounded-xl">
                 {product.capacity && (
                   <div>
-                    <div className="text-sm text-gray-600 mb-1">용량</div>
+                    <div className="text-sm text-gray-600 mb-1">{t.capacity}</div>
                     <div className="text-lg font-bold text-gray-900">{product.capacity}</div>
                   </div>
                 )}
                 {product.voltage && (
                   <div>
-                    <div className="text-sm text-gray-600 mb-1">전압</div>
+                    <div className="text-sm text-gray-600 mb-1">{t.voltage}</div>
                     <div className="text-lg font-bold text-gray-900">{product.voltage}</div>
                   </div>
                 )}
                 {product.dimensions && (
                   <div>
-                    <div className="text-sm text-gray-600 mb-1">크기</div>
+                    <div className="text-sm text-gray-600 mb-1">{t.dimensions}</div>
                     <div className="text-lg font-bold text-gray-900">{product.dimensions}</div>
                   </div>
                 )}
                 {product.weight && (
                   <div>
-                    <div className="text-sm text-gray-600 mb-1">중량</div>
+                    <div className="text-sm text-gray-600 mb-1">{t.weight}</div>
                     <div className="text-lg font-bold text-gray-900">{product.weight}</div>
                   </div>
                 )}
                 {product.material && (
                   <div>
-                    <div className="text-sm text-gray-600 mb-1">재질</div>
+                    <div className="text-sm text-gray-600 mb-1">{t.material}</div>
                     <div className="text-lg font-bold text-gray-900">{product.material}</div>
                   </div>
                 )}
                 {product.protection && (
                   <div>
-                    <div className="text-sm text-gray-600 mb-1">보호등급</div>
+                    <div className="text-sm text-gray-600 mb-1">{t.protection}</div>
                     <div className="text-lg font-bold text-gray-900">{product.protection}</div>
                   </div>
                 )}
@@ -240,7 +243,7 @@ export default function ProductDetailPage() {
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                   </svg>
-                  견적 문의
+                  {t.quote}
                 </Link>
                 {product.brochureUrl && (
                   <a
@@ -252,7 +255,7 @@ export default function ProductDetailPage() {
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    카탈로그 다운로드
+                    {t.catalog}
                   </a>
                 )}
               </div>
@@ -265,7 +268,7 @@ export default function ProductDetailPage() {
       {product.features && product.features.length > 0 && (
         <section className="py-20 px-4 bg-gray-50">
           <div className="max-w-[1400px] mx-auto">
-            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">주요 특징</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">{t.featuresTitle}</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {product.features.map((feature: any, idx: number) => (
                 <div key={idx} className="bg-white p-8 rounded-xl hover:shadow-lg transition-shadow">
@@ -291,7 +294,7 @@ export default function ProductDetailPage() {
       {product.applications && product.applications.length > 0 && (
         <section className="py-20 px-4 bg-white">
           <div className="max-w-[1400px] mx-auto">
-            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">적용 분야</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">{t.applicationsTitle}</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {product.applications.map((app: any, idx: number) => (
                 <div key={idx} className="text-center p-6 bg-gray-50 rounded-xl hover:bg-secondary/5 transition-colors">
@@ -314,7 +317,7 @@ export default function ProductDetailPage() {
       {product.specs && (
         <section className="py-20 px-4 bg-gray-50">
           <div className="max-w-[1400px] mx-auto">
-            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">상세 사양</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">{t.specsTitle}</h2>
             <div className="bg-white rounded-xl overflow-hidden border border-gray-200">
               <table className="w-full">
                 <tbody>
@@ -339,7 +342,7 @@ export default function ProductDetailPage() {
       {product.cases && product.cases.length > 0 && (
         <section className="py-20 px-4 bg-white">
           <div className="max-w-[1400px] mx-auto">
-            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">시공 사례</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">{t.casesTitle}</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {product.cases.map((caseItem: any) => (
                 <Link
@@ -367,7 +370,7 @@ export default function ProductDetailPage() {
                     </h3>
                     <div className="flex items-center gap-4 text-sm text-gray-600">
                       {caseItem.location && <span>{caseItem.location}</span>}
-                      {caseItem.year && <span>{caseItem.year}년</span>}
+                      {caseItem.year && <span>{t.caseYear(caseItem.year)}</span>}
                     </div>
                   </div>
                 </Link>
@@ -381,7 +384,7 @@ export default function ProductDetailPage() {
       {relatedProducts.length > 0 && (
         <section className="py-20 px-4 bg-gray-50">
           <div className="max-w-[1400px] mx-auto">
-            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">관련 제품</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">{t.relatedTitle}</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {relatedProducts.map((relProduct) => (
                 <Link
@@ -423,17 +426,17 @@ export default function ProductDetailPage() {
       <section className="py-24 px-4 bg-[#0a0e1a]">
         <div className="max-w-[1400px] mx-auto text-center">
           <h2 className="text-4xl font-bold text-white mb-6">
-            이 제품에 대해 궁금하신가요?
+            {t.ctaTitle}
           </h2>
           <p className="text-xl text-white/70 mb-10">
-            전문 상담을 통해 최적의 솔루션을 제안해드립니다
+            {t.ctaDesc}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/quote"
               className="px-10 py-4 bg-secondary text-white rounded-full hover:bg-secondary-dark hover:shadow-2xl hover:shadow-secondary/30 transition-all duration-300 font-semibold inline-flex items-center gap-2 hover:scale-105"
             >
-              견적 문의하기
+              {t.ctaQuote}
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -442,7 +445,7 @@ export default function ProductDetailPage() {
               href="/services"
               className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white border-2 border-white rounded-full hover:bg-white/20 transition-all duration-300 font-semibold"
             >
-              기술 지원 문의
+              {t.ctaSupport}
             </Link>
           </div>
         </div>
