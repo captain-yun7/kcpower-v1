@@ -47,6 +47,7 @@ export const factories: Factory[] = [
     },
     lot: '129B 6LOT',
     mapQuery: '인천광역시 남동구 능허대로649번길 83',
+    photo: '/factories/factory-2.jpg',
   },
   {
     id: 3,
@@ -57,5 +58,6 @@ export const factories: Factory[] = [
     },
     lot: '68B 5LOT',
     mapQuery: '인천광역시 남동구 청능대로 267',
+    photo: '/factories/factory-3.jpg',
   },
 ];
